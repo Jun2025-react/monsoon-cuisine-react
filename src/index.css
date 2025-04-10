@@ -1,0 +1,100 @@
+body {
+  font-family: "Merriweather", serif !important;
+  font-optical-sizing: auto;
+  font-style: normal;
+  font-variation-settings: "wdth" 100;
+}
+.navbar-nav > .nav-link {
+  font-family: "Ubuntu", sans-serif;
+  font-weight: 500;
+  font-size: 20px;
+  margin-left: 1rem;
+  margin-right: 1rem;
+  }
+
+  /* Horizontal padding for large screens */
+.default-pad-x {
+  padding-left: 70px !important;
+  padding-right: 70px !important;
+}
+
+/* Section spacing */
+.section-padding {
+  padding-top: 8rem !important;
+  padding-bottom: 8rem !important;
+}
+
+.black-bg-margin {
+  margin-left: 70px;
+  margin-right: 70px;
+}
+
+
+/* About Page*/
+.section-about-monsoon {
+  height: 700px;
+}
+
+.list-item-card {
+  width: 400px;
+}
+
+
+@media (min-width: 1400px){
+  .information-container {
+    padding-left: 5rem !important;
+    padding-right: 5rem !important;
+  }
+}
+@media (min-width: 1600px){
+  .information-container {
+    padding-left: 10rem !important;
+    padding-right: 10rem !important;
+  }
+}
+@media (min-width: 1800px){
+  .information-container {
+    padding-left: 20rem !important;
+    padding-right: 20rem !important;
+  }
+}
+
+/* ===================== */
+/* 📱 Mobile Adjustments */
+/* ===================== */
+@media (max-width: 992px) {
+  .default-pad-x {
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+  }
+
+  .section-padding {
+    padding-top: 4rem !important;
+    padding-bottom: 4rem !important;
+  }
+
+  .information-container {
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+  }
+
+  .information-item-text {
+    padding: 2rem;
+    text-align: center;
+  }
+
+  .menu-item-image,
+  .information-image {
+    width: 100% !important;
+    height: auto !important;
+  }
+
+  .navbar-nav {
+    text-align: center;
+  }
+
+  .btn {
+    width: 100%;
+    margin-bottom: 1rem;
+  }
+}

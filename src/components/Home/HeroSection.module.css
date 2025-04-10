@@ -1,0 +1,38 @@
+.hidden {
+    opacity: 0;
+    transform: translateY(50px);
+    animation: fadeIn 0.8s ease-out forwards;
+}
+
+.show {
+    opacity: 0;
+    transform: translateY(50px);
+    animation: floatIn 0.8s ease-out forwards;
+}
+
+
+/* Step 1: Float in from bottom with opacity */
+@keyframes floatIn {
+    from {
+        opacity: 0;
+        transform: translateY(50px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Step 3: Fade in effect */
+@keyframes fadeIn {
+    from {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    to {
+        opacity: 0;
+        transform: translateY(50px);
+    }
+}

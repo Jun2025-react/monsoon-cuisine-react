@@ -1,0 +1,29 @@
+/* Restaurant image */
+.image {
+    /* width: 400px !important;
+    height: 400px !important; */
+    height: 100% !important;
+    object-fit: cover;
+    border: 1px #fff solid;
+    display: block;
+    margin: 0 auto;
+}
+
+/* 2x2 layout padding */
+.container {
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+}
+
+/* Inner text spacing */
+.textBox {
+    padding: 100px;
+}
+@media (max-width: 768px) {
+    .image {
+        width: 100% !important;
+    }
+    .textBox {
+        padding: 50px;
+    }
+}

@@ -6,14 +6,27 @@ import MobileNavBar from './MobileNavBar';
 class NavigationBar extends React.Component{
     constructor(props) {
         super(props);
-        this.state = {
-            width: window.innerWidth,
-        };
+        window.innerWidth < 992 ? this.state = { navType : 'mobile' } : this.state = { navType : 'desktop' };
+
+        this.handleResize = this.handleResize.bind(this);
     }
 
+    componentDidMount() {
+        window.addEventListener('resize', this.handleResize);
+    }
+    
+    handleResize() {
+        if (window.innerWidth < 992) {
+            this.setState({ navType: 'mobile' });
+        } else {
+            this.setState({ navType: 'desktop' });
+        }        
+    }
+
+
     render() {
-        const { width } = this.state;
-        return width < 992 ? <MobileNavBar /> : <DesktopNavBar />;
+        const { navType } = this.state;
+        return navType === "mobile" ? <MobileNavBar /> : <DesktopNavBar />;
     }
 };
 

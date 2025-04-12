@@ -3,7 +3,7 @@ import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 
-import styles from './DesktopNavBar.module.css';
+import styles from './CommonNavBar.module.css';
 
     
 const DesktopNavBar = () => {
@@ -28,11 +28,11 @@ const DesktopNavBar = () => {
                         <Nav.Link href="#contact">Contact Us</Nav.Link>
                     </Nav>
                     <div className={`d-flex align-items-center ${styles.rightActions}`}>
-                        <a href="#order" className= "btn btn-dark me-2" style={{width:"125px"}}>Order Online</a>
-                        <a href="#profile" className= "btn me-2">
+                        <a href="#order" className= "btn btn-dark" style={{width:"125px"}}>Order Online</a>
+                        <a href="#profile" className= "btn">
                             <i class="fas fa-user"></i>
                         </a>
-                        <div class="position-relative">
+                        <div class="position-relative btn">
                             <i className="fas fa-shopping-cart"></i>
                             <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
                                 3

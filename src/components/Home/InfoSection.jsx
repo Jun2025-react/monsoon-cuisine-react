@@ -1,7 +1,7 @@
 import React from 'react';
 import { RESTAURANT_INFO, INFO_SECTION, INFO_SECTION_IMAGE } from '../../constants/constants';
 import style from './InfoSection.module.css';
-
+import Map from '../Map';
 
 const InfoSection = () => {
 
@@ -40,14 +40,7 @@ const InfoSection = () => {
                         </div>
                     </div>
                     <div class="col-md-6 ">
-                        <iframe
-                            width="100%"
-                            height="400"
-                            style={{border:0}}
-                            loading="lazy"
-                            allowfullscreen
-                            src="https://www.google.com/maps?q=Monsoon+Indian+Cuisine+Browns+Bay+NZ&output=embed">
-                        </iframe>
+                        <Map/>
                     </div>
                 </div>
             </div>

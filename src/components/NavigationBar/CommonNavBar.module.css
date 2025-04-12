@@ -11,3 +11,19 @@
         gap: 0.75rem;
     }
 }
+
+
+.navHover:hover {
+    background-color: #f0f0f0;
+}
+
+.noMaxWidth {
+    max-width: none !important; 
+    
+}
+.mobileNavLeft {
+    margin-left: 3rem;
+}
+.mobileNavRight {
+    margin-right: 3rem;
+}

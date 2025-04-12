@@ -1,7 +1,6 @@
 import React from 'react';
-import styles from './HeroSection.module.css';
 import { HERO_IMAGES_LIST } from '../../constants/constants';
-
+import FloatingImage from '../FloatingImage';
 
 class HeroSection extends React.Component {
     constructor(props) {
@@ -25,7 +24,6 @@ class HeroSection extends React.Component {
         this.setState({ isFading: true });
 
         setTimeout(() => {
-            console.log("is it working?")
             const nextIndex = (this.state.currentImageIndex + 1) % HERO_IMAGES_LIST.length;
             this.setState({
                 currentImageIndex: nextIndex,
@@ -57,10 +55,10 @@ class HeroSection extends React.Component {
                         </div>
 
                         <div className="col-md-6 text-center">
-                            <img
-                                src={this.state.currentImage.src}
-                                alt={this.state.currentImage.alt}
-                                className={`${this.state.isFading ? styles.hidden : styles.show}`}
+                            <FloatingImage
+                                src = {this.state.currentImage.src}
+                                alt = {this.state.currentImage.alt}
+                                isFading = {this.state.isFading}
                             />
                         </div>
 

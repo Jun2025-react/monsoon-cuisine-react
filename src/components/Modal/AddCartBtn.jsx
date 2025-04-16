@@ -1,16 +1,20 @@
 import React, { useState } from 'react';
 import { useCart } from '../../context/CartContext';
 import { Modal, Button, Container } from 'react-bootstrap';
-import ChoiceBox from './ChoiceBox';
+import OptionCheckBox from './OptionCheckBox';
+import OptionTextArea from './OptionTextArea';
+import OptionContainer from './OptionContainer';
+import OptionSpecialRequest from './OptionSpecialRequest';
 
 
 const AddCartBtn = (props) => {
     const [show, setShow] = useState(false);
     const { cartItems, removeFromCart } = useCart();
     const { item } = props;
-
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
+
+    const sortedOptions = [...item.options].sort((a, b) => a.order - b.order);
 
     return (
         <>
@@ -35,22 +39,17 @@ const AddCartBtn = (props) => {
                         </div>
                         {/* Item Description */}
                         <div className="col-md-6 ">
-                            <div className="card border-0 border-bottom p-4" alt="Item description">
+                            <div className="card border-0 border-bottom p-2 pb-4" alt="Item description">
                                 <h4 className="card-title fw-bold">{item.name}</h4>
                                 <h6 className="card-subtitle mb-2 text-muted">$ {item.price}</h6>
                                 <p className="card-text">{item.description}</p>
                             </div>
-                            <ChoiceBox 
-                                title = "Choice 1"
-                                items = {["Choice 1", "Choice 2", "Choice 3"]}
-                            />
-                            <ChoiceBox 
-                                title = "Choice 2"
-                                items = {["Choice 4", "Choice 5", "Choice 6"]}
-                            />
-
+                            {
+                                sortedOptions.map((option) =>                                 // if (option.type === "radio") {
+                                    <OptionContainer option={option} price={item.price} />
+                                )
+                            }
                         </div>
-
                     </div>
                 </Modal.Body>
             </Modal>

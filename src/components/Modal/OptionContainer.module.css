@@ -1,0 +1,16 @@
+.tagBox {
+    border-radius: 20px;
+    padding: 5px 10px;
+    display: flex;
+    flex-wrap: wrap;
+    font-size: 0.7rem;
+}
+.required {
+    background: #eaf6ed;
+    color: #049912;
+}
+.inform {
+    font-size: 0.7rem;
+    color: #999;
+    padding : 5px;
+}

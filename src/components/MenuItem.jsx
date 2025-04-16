@@ -3,7 +3,6 @@ import AddCartBtn from './Modal/AddCartBtn';
 
 const MenuItem = ({ item, index, button, cardClass }) => {
     cardClass = !!cardClass ? cardClass : "";
-
     return (
         <div className="col-md-4 px-2 pb-3" key={index}>
             <div className={`card text-center ${cardClass}`} >

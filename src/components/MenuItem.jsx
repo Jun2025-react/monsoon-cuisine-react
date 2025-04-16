@@ -1,7 +1,8 @@
 import React from 'react';
+import AddCartBtn from './Modal/AddCartBtn';
 
 const MenuItem = ({ item, index, button, cardClass }) => {
-    cardClass = !!cardClass ? cardClass : "";	
+    cardClass = !!cardClass ? cardClass : "";
 
     return (
         <div className="col-md-4 px-2 pb-3" key={index}>
@@ -13,7 +14,9 @@ const MenuItem = ({ item, index, button, cardClass }) => {
                 </div>
                 <div className="card-footer bg-transparent border-0">
                     <p className="text-danger fw-bold mb-3">$ {item.price}</p>
-                    {button && <button className="btn btn-outline-danger mb-2">Add to Cart</button>}
+                    {button &&
+                        <AddCartBtn item={item} />
+                    }
                 </div>
             </div>
         </div>

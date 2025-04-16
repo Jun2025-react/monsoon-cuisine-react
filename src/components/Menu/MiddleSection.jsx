@@ -11,16 +11,16 @@ const MiddleSection = () => {
             image: "assets/images/chicken-removebg-preview.png"
         },
         {
-            name: "Item Name 2", 
-            description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempo", 
-            price: 18, 
+            name: "Item Name 2",
+            description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempo",
+            price: 18,
             image: "assets/images/biryanis-removebg-preview.png"
         },
-        { 
-            name: "Item Name 3", 
-            description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempo", 
-            price: 18, 
-            image: "assets/images/meat-samosa-removebg-preview.png" 
+        {
+            name: "Item Name 3",
+            description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempo",
+            price: 18,
+            image: "assets/images/meat-samosa-removebg-preview.png"
         },
     ];
 

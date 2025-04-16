@@ -5,17 +5,21 @@ import About from './pages/About';
 import Menu from './pages/Menu';
 import NavigationBar from './components/NavigationBar/NavigationBar';
 import Footer from './components/Footer/Footer';
+import { CartProvider } from './context/CartContext';
+
 
 function App() {
   return (
     <Router>
       <div className="App">
-        <NavigationBar />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/menu" element={<Menu />} />
-        </Routes>
+        <CartProvider>
+          <NavigationBar />
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/menu" element={<Menu />} />
+          </Routes>
+        </CartProvider>
         <Footer />
       </div>
     </Router>

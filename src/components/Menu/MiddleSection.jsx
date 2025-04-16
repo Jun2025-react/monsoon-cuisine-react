@@ -41,6 +41,7 @@ const MiddleSection = () => {
                             item={item}
                             index={index}
                             key={index}
+                            button={false}
                             cardClass="bg-transparent text-white border-0 h-100 text-center"
                         />
                     ))

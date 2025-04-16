@@ -18,21 +18,21 @@ class MenuSections extends React.Component {
                 name: "Balti Chicken",
                 description: "A spicy chicken dish cooked in a wok with spices and herbs.",
                 price: "$12.99",
-                src: "/assets/images/balti-chicken-removebg-preview.png"
+                image: "/assets/images/balti-chicken-removebg-preview.png"
             },
             {
                 id: 2,
                 name: "Biryanis",
                 description: "Aromatic rice dish with spices and your choice of meat or vegetables.",
                 price: "$10.99",
-                src: "/assets/images/biryanis-removebg-preview.png"
+                image: "/assets/images/biryanis-removebg-preview.png"
             },
             {
                 id: 3,
                 name: "Crispy Calamari",
                 description: "Fried calamari served with a tangy dipping sauce.",
                 price: "$15.99",
-                src: "/assets/images/crispy-calamari-removebg-preview.png"
+                image: "/assets/images/crispy-calamari-removebg-preview.png"
             },
         ];
         this.setState({ menuItems: MENU_ITEMS });

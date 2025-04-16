@@ -1,5 +1,5 @@
 import React from "react";
-import MenuItem from "./MenuItem/MenuItem";
+import MenuItem from "./MenuItem"
 
 const MenuSection = ({ title, content, hasBtn, items, sectionClass }) => {
 
@@ -14,7 +14,7 @@ const MenuSection = ({ title, content, hasBtn, items, sectionClass }) => {
                     <h2 className="text-danger fw-bold mb-3">{title}</h2>
                     <p className="mb-4">{content}</p>
                     {/* View more btn */}
-                    { !!hasBtn && <div className="mb-5">
+                    {!!hasBtn && <div className="mb-5">
                         <button className="btn btn-outline-light px-4 py-2" >View More</button>
                     </div>}
                 </div>
@@ -22,7 +22,12 @@ const MenuSection = ({ title, content, hasBtn, items, sectionClass }) => {
                 <div className="row g-4 pt-5">
                     {
                         items.map(item => (
-                            <MenuItem key={item.id} item={item} />
+                            <MenuItem
+                                key={item.id}
+                                item={item}
+                                button={false}
+                                cardClass="bg-transparent text-white border-0 h-100"
+                            />
                         ))
                     }
                 </div>

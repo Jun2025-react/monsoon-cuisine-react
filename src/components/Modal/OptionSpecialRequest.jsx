@@ -1,68 +1,78 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import OptionTextArea from './OptionTextArea';
 import styles from './OptionContainer.module.css';
 import Form from 'react-bootstrap/Form';
+import { Button } from 'react-bootstrap';
+import { useOption } from '../../context/OptionContext';
+import { useCart } from '../../context/CartContext';
 
-class OptionSpecialRequest extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            special: "",
-            totalPrice: this.props.price || 0,
-            price: this.props.price || 0,
-            count: 1,
-        };
-    }
+const OptionSpecialRequest = (props) => {
+    const [special, setSpecial] = useState("");
+    const [price, setPrice] = useState(props.price || 0);
+    const [count, setCount] = useState(1);
+    const [totalPrice, setTotalPrice] = useState(props.price || 0);
+    const { optionValues } = useOption();
+    const { cartItems , addToCart } = useCart();
 
-    componentDidMount() {
-        console.log("this props : ", this.props);
-        const { price } = this.props;
-        this.setState({ price: price });
-        this.calcTotalPrice();
-    }
+    const menuItem = props.item;
 
-    handleValueChanged = (event) => {
-        this.setState({ special: event.target.value });
+    useEffect(() => {
+        setPrice(props.price || 0);
+        calcTotalPrice(1);
+    }, [props.price]);
+
+    const handleValueChanged = (event) => {
+        setSpecial(event.target.value);
     };
-    handleSelectChange = (event) => {
+
+    const handleSelectChange = (event) => {
         const selectedValue = Number(event.target.value);
-        this.setState({ count: selectedValue });
-        this.calcTotalPrice(selectedValue);
+        setCount(selectedValue);
+        calcTotalPrice(selectedValue);
+    };
 
-    }
-    calcTotalPrice = (selectedValue) => {
-        selectedValue = selectedValue || this.state.count;
-        const totalPrice = this.state.price * selectedValue;
-        this.setState({ totalPrice: totalPrice });
-        console.log("state ++:: ", this.state);
-    }
+    const calcTotalPrice = (selectedValue = count) => {
+        setTotalPrice(price * selectedValue);
+    };
+    const addToCartValue = () => {
+        const options = { ...optionValues, special };
+        const cart = {
+            id: new Date().getTime(), // unique id
+            name: menuItem.name,
+            count: count,
+            options: options,
+            totalPrice: totalPrice
+        };
+        addToCart(cart);
+        console.log("Added cart item:", cart);
+        console.log("Added cart cartItems:", cartItems);
+    };
 
-    render() {
-        const number = 20;
-        const numberArrays = Array.from({ length: number }, (_, i) => i + 1);
-        return (
-            <>
-                <OptionTextArea
-                    onChange={this.handleValueChanged}
-                />
-                <div class={`${styles.inform}`}>
-                    Option may charge extra for special request.
-                </div>
-                <Form.Select
-                    size={6}
-                    style={{width: "80px"}}
-                    onChange= {(e)=> this.handleSelectChange(e) }
-                >
-                    {
-                        numberArrays.map((i) =>
-                            <option value={i}>{i}</option>
-                        )
-                    }
-                </Form.Select>
-                {this.state.totalPrice}
-            </>
-        )
-    }
+    const numberArrays = Array.from({ length: 20 }, (_, i) => i + 1);
 
-}
+    return (
+        <>
+            <OptionTextArea onChange={handleValueChanged} />
+            <div className={styles.inform}>
+                Option may charge extra for special request.
+            </div>
+            <Form.Select
+                size={6}
+                style={{ width: "80px" }}
+                onChange={handleSelectChange}
+            >
+                {numberArrays.map((i) => (
+                    <option key={i} value={i}>{i}</option>
+                ))}
+            </Form.Select>
+            <Button
+                className="btn-dark my-2 w-100 p-2"
+                onClick={addToCartValue} // You can pass special/count/totalPrice if needed
+            >
+                Add {count} to order - ${totalPrice}
+            </Button>
+        </>
+    );
+};
+
 export default OptionSpecialRequest;

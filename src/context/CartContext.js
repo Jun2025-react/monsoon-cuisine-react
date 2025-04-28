@@ -10,12 +10,12 @@ export const CartProvider = ({ children }) => {
 
     const addToCart = (item) => {
         setCartItems((prevCart) => [...prevCart, item]);
-        setTotalPrice((prevTotal) => prevTotal + item.price);
+        setTotalPrice((prevTotal) => prevTotal + item.totalPrice);
     };
 
     const removeFromCart = (itemId) => {
         setCartItems((prevCart) => prevCart.filter(item => item.id !== itemId));
-        setTotalPrice((prevTotal) => prevTotal - cartItems.find(item => item.id === itemId).price);
+        setTotalPrice((prevTotal) => prevTotal - cartItems.find(item => item.id === itemId).totalPrice);
     };
 
     return (

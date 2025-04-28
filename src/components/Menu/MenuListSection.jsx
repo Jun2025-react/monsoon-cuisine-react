@@ -1,6 +1,7 @@
 import React from 'react';
 import MenuItem from '../MenuItem';
 import HorizontalNavBar from './HorizontalNavBar';
+import { OptionProvider } from '../../context/OptionContext';
 
 class MenuListSection extends React.Component {
 
@@ -141,10 +142,10 @@ class MenuListSection extends React.Component {
         ];
         // Fetch menu items from an API or any other source
         // For now, we will use the static data defined below
-        const demo_list = [...MENU_LISTS, ...MENU_LISTS, ...MENU_LISTS, ...MENU_LISTS, ...MENU_LISTS, ...MENU_LISTS];
+        // const demo_list = [...MENU_LISTS, ...MENU_LISTS, ...MENU_LISTS, ...MENU_LISTS, ...MENU_LISTS, ...MENU_LISTS];
 
         this.setState({
-            menuItems: demo_list,
+            menuItems: MENU_LISTS,
         });
 
 
@@ -172,13 +173,15 @@ class MenuListSection extends React.Component {
                             this.state.menuItems
                                 .filter(item => item.category === this.state.currentCategory || this.state.currentCategory === 0)
                                 .map((item, index) => (
-                                    <MenuItem
-                                        index={index}
-                                        item={item}
-                                        button={true}
-                                        key={index}
-                                        cardClass=""
-                                    />
+                                    <OptionProvider key={index}>
+                                        <MenuItem
+                                            index={index}
+                                            item={item}
+                                            button={true}
+                                            
+                                            cardClass=""
+                                        />
+                                    </OptionProvider>
                                 ))
                         }
                     </div>

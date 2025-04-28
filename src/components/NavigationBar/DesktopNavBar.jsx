@@ -30,9 +30,9 @@ const DesktopNavBar = () => {
                     <div className={`d-flex align-items-center ${styles.rightActions}`}>
                         <a href="#order" className= "btn btn-dark" style={{width:"125px"}}>Order Online</a>
                         <a href="#profile" className= "btn">
-                            <i class="fas fa-user"></i>
+                            <i className="fas fa-user"></i>
                         </a>
-                        <div class="position-relative btn">
+                        <div className="position-relative btn">
                             <i className="fas fa-shopping-cart"></i>
                             <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
                                 3

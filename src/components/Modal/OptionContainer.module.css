@@ -5,9 +5,13 @@
     flex-wrap: wrap;
     font-size: 0.7rem;
 }
-.required {
+.checked {
     background: #eaf6ed;
     color: #049912;
+}
+.unChecked {
+    background: #eaf6ed;
+    color: #666666;
 }
 .inform {
     font-size: 0.7rem;

@@ -1,6 +1,7 @@
 import React from 'react';
 import MenuItem from '../MenuItem';
 import HorizontalNavBar from './HorizontalNavBar';
+import { OptionProvider } from '../../context/OptionContext';
 
 class MenuListSection extends React.Component {
 
@@ -20,38 +21,131 @@ class MenuListSection extends React.Component {
                 description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempo",
                 price: 18,
                 image: "assets/images/chicken-removebg-preview.png",
-                category: 1,
+                category :1,
+                options: [
+                    {
+                        title: "Choice 1",
+                        type: "radio",
+                        items: [
+                            { id: 1, name: "Choice 1" },
+                            { id: 2, name: "Choice 2" },
+                            { id: 3, name: "Choice 3" },
+                        ],
+                        message: "",
+                        required: true,
+                        order: 1,
+                    },
+                    {
+                        title: "Choice 2",
+                        type: "radio",
+                        items: [
+                            { id: 4, name: "Choice 4" },
+                            { id: 5, name: "Choice 5" },
+                            { id: 6, name: "Choice 6" },
+                        ],
+                        message: "",
+                        required: false,
+                        order: 2,
+                    },
+                    {
+                        title: "Special Request",
+                        type: "textarea",
+                        items: [],
+                        required: false,
+                        message: "",
+                        order: 3,
+                    },
+                ],
             },
             {
                 name: "Item Name 2",
                 description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempo",
+                category :2,
                 price: 18,
                 image: "assets/images/biryanis-removebg-preview.png",
-                category: 2,
-
+                options: [
+                    {
+                        title: "Choice 1",
+                        type: "radio",
+                        items: [
+                            { id: 1, name: "Choice 1" },
+                            { id: 2, name: "Choice 2" },
+                            { id: 3, name: "Choice 3" },
+                        ],
+                        message: "",
+                        required: true,
+                        order: 1,
+                    },
+                    {
+                        title: "Choice 2",
+                        type: "radio",
+                        items: [
+                            { id: 4, name: "Choice 4" },
+                            { id: 5, name: "Choice 5" },
+                            { id: 6, name: "Choice 6" },
+                        ],
+                        message: "",
+                        required: false,
+                        order: 2,
+                    },
+                    {
+                        title: "Special Request",
+                        type: "textarea",
+                        items: [],
+                        required: false,
+                        message: "",
+                        order: 3,
+                    },
+                ],
             },
             {
                 name: "Item Name 3",
                 description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempo",
                 price: 18,
+                category :3,
                 image: "assets/images/meat-samosa-removebg-preview.png",
-                category: 3,
+                options: [
+                    {
+                        title: "Choice 1",
+                        type: "radio",
+                        items: [
+                            { id: 1, name: "Choice 1" },
+                            { id: 2, name: "Choice 2" },
+                            { id: 3, name: "Choice 3" },
+                        ],
+                        message: "",
+                        required: true,
+                        order: 1,
+                    },
+                    {
+                        title: "Choice 2",
+                        type: "radio",
+                        items: [
+                            { id: 4, name: "Choice 4" },
+                            { id: 5, name: "Choice 5" },
+                            { id: 6, name: "Choice 6" },
+                        ],
+                        message: "",
+                        required: false,
+                        order: 2,
+                    },
+                    {
+                        title: "Special Request",
+                        type: "textarea",
+                        items: [],
+                        required: false,
+                        message: "",
+                        order: 3,
+                    },
+                ],
             },
-            {
-                name: "Item Name 4",
-                description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempo",
-                price: 18,
-                image: "assets/images/crispy-calamari-removebg-preview.png",
-                category: 4,
-            }
         ];
-
         // Fetch menu items from an API or any other source
         // For now, we will use the static data defined below
-        const demo_list = [...MENU_LISTS, ...MENU_LISTS, ...MENU_LISTS, ...MENU_LISTS, ...MENU_LISTS, ...MENU_LISTS];
+        // const demo_list = [...MENU_LISTS, ...MENU_LISTS, ...MENU_LISTS, ...MENU_LISTS, ...MENU_LISTS, ...MENU_LISTS];
 
         this.setState({
-            menuItems: demo_list,
+            menuItems: MENU_LISTS,
         });
 
 
@@ -79,13 +173,15 @@ class MenuListSection extends React.Component {
                             this.state.menuItems
                                 .filter(item => item.category === this.state.currentCategory || this.state.currentCategory === 0)
                                 .map((item, index) => (
-                                    <MenuItem
-                                        index={index}
-                                        item={item}
-                                        button={true}
-                                        key={index}
-                                        cardClass=""
-                                    />
+                                    <OptionProvider key={index}>
+                                        <MenuItem
+                                            index={index}
+                                            item={item}
+                                            button={true}
+                                            
+                                            cardClass=""
+                                        />
+                                    </OptionProvider>
                                 ))
                         }
                     </div>

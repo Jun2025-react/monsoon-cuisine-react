@@ -39,7 +39,7 @@ const InfoSection = () => {
                             </p>
                         </div>
                     </div>
-                    <div class="col-md-6 ">
+                    <div className="col-md-6 ">
                         <Map/>
                     </div>
                 </div>

@@ -12,13 +12,14 @@ const OptionSpecialRequest = (props) => {
     const [count, setCount] = useState(1);
     const [totalPrice, setTotalPrice] = useState(props.price || 0);
     const { optionValues } = useOption();
-    const { cartItems , addToCart } = useCart();
+    // const { cartItems , addToCart } = useCart();
+    const { addToCart } = useCart();
 
     const menuItem = props.item;
 
     useEffect(() => {
         setPrice(props.price || 0);
-        calcTotalPrice(1);
+        calcTotalPrice(props.price);
     }, [props.price]);
 
     const handleValueChanged = (event) => {
@@ -44,8 +45,8 @@ const OptionSpecialRequest = (props) => {
             totalPrice: totalPrice
         };
         addToCart(cart);
-        console.log("Added cart item:", cart);
-        console.log("Added cart cartItems:", cartItems);
+        // console.log("Added cart item:", cart);
+        // console.log("Added cart cartItems:", cartItems);
     };
 
     const numberArrays = Array.from({ length: 20 }, (_, i) => i + 1);

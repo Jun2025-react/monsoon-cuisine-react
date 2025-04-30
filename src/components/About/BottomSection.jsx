@@ -15,25 +15,25 @@ const BottomSection = () => {
 
 
     return (
-        <section class="section-padding information-container">
-            <div class="container-fluid px-0">
-                <div class="row g-0">
+        <section className="section-padding information-container">
+            <div className="container-fluid px-0">
+                <div className="row g-0">
 
-                    <div class="col-md-6 p-5 d-flex align-items-center">
+                    <div className="col-md-6 p-5 d-flex align-items-center">
                         <div>
-                            <h6 class="text-uppercase fw-bold text-danger mb-3">Visit Us</h6>
-                            <h2 class="display-6 mb-5">Restaurant Information</h2>
-                            <h4 class="text-danger">Address</h4>
+                            <h6 className="text-uppercase fw-bold text-danger mb-3">Visit Us</h6>
+                            <h2 className="display-6 mb-5">Restaurant Information</h2>
+                            <h4 className="text-danger">Address</h4>
                             <p>{ADDRESS_1}<br/>{ADDRESS_2}</p>
 
-                            <h4 class="text-danger mt-4">Opening Hours</h4>
+                            <h4 className="text-danger mt-4">Opening Hours</h4>
                             <p>Lunch – {OPENING_HOUR_LUNCH}
                                 <br/>
                                 Dinner – {OPENING_HOUR_DINNER}</p>
                         </div>
                     </div>
 
-                    <div class="col-md-6">
+                    <div className="col-md-6">
                         <Map/>
                     </div>
 

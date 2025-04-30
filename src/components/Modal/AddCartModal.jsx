@@ -19,11 +19,11 @@ const AddCartModal = (props) => {
 
     return (
         <Modal
+            size="lg"
             show={show}
             onHide={onHide}
-            size="lg"
-            key={item.name}
-        >
+            key={item.id}
+            >
             <Modal.Header closeButton />
             <Modal.Body>
                 <div className="row">

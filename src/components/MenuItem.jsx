@@ -1,12 +1,13 @@
 import React from 'react';
 import AddCartBtn from './Modal/AddCartBtn';
 
-const MenuItem = ({ item, index, button, cardClass }) => {
+const MenuItem = ({ item, button, cardClass }) => {
+
     cardClass = !!cardClass ? cardClass : "";
     return (
-        <div className="col-md-4 px-2 pb-3" key={index}>
+        <div className="col-md-4 px-2 pb-3" >
             <div className={`card text-center ${cardClass}`} >
-                <img src={item.image} className="card-img-top" alt="Item Image" />
+                <img src={item.image_path} className="card-img-top" alt="Menu" style={{height:"230px", width:"400px"}} />
                 <div className="card-body ">
                     <h5 className="card-title fw-bold">{item.name}</h5>
                     <p className="card-text">{item.description}</p>

@@ -2,6 +2,7 @@ import React from 'react';
 import MenuItem from '../MenuItem';
 import HorizontalNavBar from './HorizontalNavBar';
 import { OptionProvider } from '../../context/OptionContext';
+import MOCK_DATA, { OLD_MENU_LIST } from '../../constants/data';
 
 class MenuListSection extends React.Component {
 
@@ -15,146 +16,27 @@ class MenuListSection extends React.Component {
     }
 
     componentDidMount() {
-        const MENU_LISTS = [
-            {
-                name: "Item Name 1",
-                description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempo",
-                price: 18,
-                image: "assets/images/chicken-removebg-preview.png",
-                category :1,
-                options: [
-                    {
-                        title: "Choice 1",
-                        type: "radio",
-                        items: [
-                            { id: 1, name: "Choice 1" },
-                            { id: 2, name: "Choice 2" },
-                            { id: 3, name: "Choice 3" },
-                        ],
-                        message: "",
-                        required: true,
-                        order: 1,
-                    },
-                    {
-                        title: "Choice 2",
-                        type: "radio",
-                        items: [
-                            { id: 4, name: "Choice 4" },
-                            { id: 5, name: "Choice 5" },
-                            { id: 6, name: "Choice 6" },
-                        ],
-                        message: "",
-                        required: false,
-                        order: 2,
-                    },
-                    {
-                        title: "Special Request",
-                        type: "textarea",
-                        items: [],
-                        required: false,
-                        message: "",
-                        order: 3,
-                    },
-                ],
-            },
-            {
-                name: "Item Name 2",
-                description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempo",
-                category :2,
-                price: 18,
-                image: "assets/images/biryanis-removebg-preview.png",
-                options: [
-                    {
-                        title: "Choice 1",
-                        type: "radio",
-                        items: [
-                            { id: 1, name: "Choice 1" },
-                            { id: 2, name: "Choice 2" },
-                            { id: 3, name: "Choice 3" },
-                        ],
-                        message: "",
-                        required: true,
-                        order: 1,
-                    },
-                    {
-                        title: "Choice 2",
-                        type: "radio",
-                        items: [
-                            { id: 4, name: "Choice 4" },
-                            { id: 5, name: "Choice 5" },
-                            { id: 6, name: "Choice 6" },
-                        ],
-                        message: "",
-                        required: false,
-                        order: 2,
-                    },
-                    {
-                        title: "Special Request",
-                        type: "textarea",
-                        items: [],
-                        required: false,
-                        message: "",
-                        order: 3,
-                    },
-                ],
-            },
-            {
-                name: "Item Name 3",
-                description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempo",
-                price: 18,
-                category :3,
-                image: "assets/images/meat-samosa-removebg-preview.png",
-                options: [
-                    {
-                        title: "Choice 1",
-                        type: "radio",
-                        items: [
-                            { id: 1, name: "Choice 1" },
-                            { id: 2, name: "Choice 2" },
-                            { id: 3, name: "Choice 3" },
-                        ],
-                        message: "",
-                        required: true,
-                        order: 1,
-                    },
-                    {
-                        title: "Choice 2",
-                        type: "radio",
-                        items: [
-                            { id: 4, name: "Choice 4" },
-                            { id: 5, name: "Choice 5" },
-                            { id: 6, name: "Choice 6" },
-                        ],
-                        message: "",
-                        required: false,
-                        order: 2,
-                    },
-                    {
-                        title: "Special Request",
-                        type: "textarea",
-                        items: [],
-                        required: false,
-                        message: "",
-                        order: 3,
-                    },
-                ],
-            },
-        ];
-        // Fetch menu items from an API or any other source
-        // For now, we will use the static data defined below
-        // const demo_list = [...MENU_LISTS, ...MENU_LISTS, ...MENU_LISTS, ...MENU_LISTS, ...MENU_LISTS, ...MENU_LISTS];
+        const FETCH_DATA = MOCK_DATA;
+        let show_item_list = [];
 
-        this.setState({
-            menuItems: MENU_LISTS,
+        // Create Category lists
+        let CATEGORIES = FETCH_DATA.map(item => item.category);
+        CATEGORIES.unshift({ id: 0, name: "ALL" });
+
+        // For All in categories
+        FETCH_DATA.forEach(category => {
+            show_item_list = [...show_item_list, ...category.items];
         });
 
-
+        this.setState({
+            categories: CATEGORIES,
+            menuItems: show_item_list,
+        });
     }
 
     onClickHorizontalNavBar = (id) => {
         this.setState({ currentCategory: id });
     }
-
 
     render() {
 
@@ -162,23 +44,26 @@ class MenuListSection extends React.Component {
             <section className="menu-list-section py-5 bg-light">
                 <div className="container">
 
-                    {/* <!-- Horizontal Scrollable Tab Menu --> */}
-                    <HorizontalNavBar
-                        currentCategory={this.state.currentCategory}
-                        onClickCategory={this.onClickHorizontalNavBar}
-                    />
+                    {this.state.categories.length === 0 ? (
+                        <div>Loading...</div>
+                    ) : (
+                        <HorizontalNavBar
+                            items={this.state.categories}
+                            currentCategory={this.state.currentCategory}
+                            onClickCategory={this.onClickHorizontalNavBar}
+                        />
+                    )}
 
                     <div className="d-flex flex-wrap justify-content-center">
                         {
                             this.state.menuItems
-                                .filter(item => item.category === this.state.currentCategory || this.state.currentCategory === 0)
+                                .filter(item => item.menu_category_id === this.state.currentCategory || this.state.currentCategory === 0)
                                 .map((item, index) => (
                                     <OptionProvider key={index}>
                                         <MenuItem
-                                            index={index}
                                             item={item}
+                                            key={item.id}
                                             button={true}
-                                            
                                             cardClass=""
                                         />
                                     </OptionProvider>

@@ -5,10 +5,11 @@ import MenuItem from '../MenuItem';
 const MiddleSection = () => {
     const menuItems = [
         {
+            id: 1,
             name: "Item Name 1",
             description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempo",
             price: 18,
-            image: "assets/images/chicken-removebg-preview.png",
+            image_path: "assets/images/chicken-removebg-preview.png",
             options: [
                 {
                     title: "Choice 1",
@@ -36,10 +37,11 @@ const MiddleSection = () => {
             ],
         },
         {
+            id: 2,
             name: "Item Name 2",
             description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempo",
             price: 18,
-            image: "assets/images/biryanis-removebg-preview.png",
+            image_path: "assets/images/biryanis-removebg-preview.png",
             options: [
                 {
                     title: "Choice 1",
@@ -67,10 +69,11 @@ const MiddleSection = () => {
             ],
         },
         {
+            id: 3,
             name: "Item Name 3",
             description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempo",
             price: 18,
-            image: "assets/images/meat-samosa-removebg-preview.png",
+            image_path: "assets/images/meat-samosa-removebg-preview.png",
             options: [
                 {
                     title: "Choice 1",
@@ -113,8 +116,7 @@ const MiddleSection = () => {
                     {menuItems.map((item, index) => (
                         <MenuItem
                             item={item}
-                            index={index}
-                            key={index}
+                            key={item.id}
                             button={false}
                             cardClass="bg-transparent text-white border-0 h-100 text-center"
                         />

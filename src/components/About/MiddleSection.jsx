@@ -11,19 +11,19 @@ const MiddleSection = () => {
     const DESCRIPTION_3 = "We offer a variety of lunch specials, fully licensed dining, and BYO wine options.";
     
     return (
-        <section class="black-bg-margin bg-dark">
-            <div class="container-fluid px-0">
-                <div class="row g-0 h-100">
+        <section className="black-bg-margin bg-dark">
+            <div className="container-fluid px-0">
+                <div className="row g-0 h-100">
 
-                    <div class="col-md-6 ">
+                    <div className="col-md-6 ">
                         <img src={INFO_SECTION_IMAGE} alt="Monsoon Exterior"
-                            class="img-fluid h-100" />
+                            className="img-fluid h-100" />
                     </div>
 
-                    <div class="col-md-6 d-flex align-items-center bg-dark text-white p-5">
+                    <div className="col-md-6 d-flex align-items-center bg-dark text-white p-5">
                         <div>
-                            <h6 class="text-danger fw-bold">{TITLE}</h6>
-                            <h2 class="fw-bold display-6 mb-4">{SUBTITLE_1}<br/>{SUBTITLE_2}</h2>
+                            <h6 className="text-danger fw-bold">{TITLE}</h6>
+                            <h2 className="fw-bold display-6 mb-4">{SUBTITLE_1}<br/>{SUBTITLE_2}</h2>
                             <p>{DESCRIPTION_1}</p>
                             <p>{DESCRIPTION_2}</p>
                             <p>{DESCRIPTION_3}</p>

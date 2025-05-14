@@ -1,0 +1,21 @@
+.custom_radio_card {
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 12px 16px;
+  cursor: pointer;
+  transition: border 0.2s ease;
+}
+
+.custom_radio_card:hover {
+  border-color: #007bff;
+  background-color: #f8f9fa;
+}
+
+.custom_radio_card input[type="radio"]:checked + span {
+  font-weight: 600;
+  color: #007bff;
+}
+
+.quantity_input {
+  width: 60px;
+}

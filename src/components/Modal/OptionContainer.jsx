@@ -4,6 +4,8 @@ import styles from './OptionContainer.module.css'; // Assuming you have a CSS mo
 import OptionCheckBox from './OptionCheckBox';
 import OptionSpecialRequest from './OptionSpecialRequest';
 import { useOption } from '../../context/OptionContext';
+import TypographyH4 from '../Typography/Headings/TypographyH4';
+
 
 const OptionContainer = (props) => {
 
@@ -23,7 +25,7 @@ const OptionContainer = (props) => {
         <Card className="border-0 border-bottom" alt="Choice Box">
             <Card.Body >
                 <Card.Title className="fw-bold mb-4 d-flex justify-content-between align-items-center">
-                    <div className="">{title}</div>
+                    <TypographyH4>{title}</TypographyH4>
                     {required === false ? "" :
                         optionValues.hasOwnProperty(title) ?
                             <div className={`${styles.tagBox} ${styles.checked}`}>required</div> :

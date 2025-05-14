@@ -2,7 +2,7 @@ import React from 'react';
 import MenuItem from '../MenuItem';
 import HorizontalNavBar from './HorizontalNavBar';
 import { OptionProvider } from '../../context/OptionContext';
-import MOCK_DATA, { OLD_MENU_LIST } from '../../constants/data';
+import MOCK_DATA_2 from '../../constants/data';
 
 class MenuListSection extends React.Component {
 
@@ -16,16 +16,24 @@ class MenuListSection extends React.Component {
     }
 
     componentDidMount() {
-        const FETCH_DATA = MOCK_DATA;
+        const FETCH_DATA = MOCK_DATA_2.data;
         let show_item_list = [];
 
         // Create Category lists
-        let CATEGORIES = FETCH_DATA.map(item => item.category);
+        let CATEGORIES = FETCH_DATA.map(item => item.menu_category);
         CATEGORIES.unshift({ id: 0, name: "ALL" });
 
         // For All in categories
         FETCH_DATA.forEach(category => {
-            show_item_list = [...show_item_list, ...category.items];
+            const menu_category = category.menu_category;
+            const category_id = menu_category.id;
+
+            let menu_items = category.items.map(item => {
+                item.menu_category_id = category_id;
+                return item;
+            });
+
+            show_item_list = [...show_item_list, ...menu_items];
         });
 
         this.setState({

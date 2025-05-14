@@ -1,30 +1,69 @@
 import React, { useState } from 'react';
-import Form from 'react-bootstrap/Form';
+import { Form, Row, Col } from 'react-bootstrap';
 import { useOption } from '../../context/OptionContext';
 
 const OptionCheckBox = (props) => {
-    const { title, items } = props;
+    const { title, items, type } = props;
+    const [quantity, setQuantity] = useState(0);
+
     const { updateOptionValue } = useOption();
 
     const handleChoiceChange = (id) => {
         updateOptionValue(title, id)
     };
+
+    const [selected, setSelected] = useState(false);
+
+    const handleCheck = (id) => {
+        setSelected((prev) => ({
+            ...prev,
+            [id]: { ...prev[id], checked: !prev[id]?.checked || false }
+        }));
+    }
+    const handleQuantity = (id, val) => {
+        console.log("id : ", id);
+        console.log("quantity : ", val);
+        setQuantity(val);
+        // setSelected((prev) => ({
+        //     ...prev,
+        //     [id]: { ...prev[id], quantity: !prev[id] }
+        // }))
+    }
+
+
     return (
         <>
             {
                 items.map((item, index) =>
-                    <div key={`inline-radio-${index}`} className="mb-3">
-                        <Form.Check
-                            inline
-                            key={index}
-                            label={item.name}
-                            name={props.title}
-                            type="radio"
-                            id={item.id}
-                            value={item.id}
-                            onChange={()=> {handleChoiceChange(item.id) }}
-                        />
-                    </div>
+                    <Row key={`inline-radio-${index}`} className="mb-3">
+                        <Col xs="auto" className="w-75">
+                            <Form.Check
+                                inline
+                                key={index}
+                                label={item.name}
+                                name={props.title}
+                                type={props.type}
+                                id={item.id}
+                                value={ item.id}
+                                // onChange={() => { handleChoiceChange(item.id) }}
+                                onChange={() => { handleCheck(item.id) }}
+                            />
+                        </Col>
+                        {selected &&
+                            <Col xs="auto" className="w-25">
+                                <Form.Control
+                                    inline
+                                    key={index}
+                                    name={props.title}
+                                    type="number"
+                                    min={quantity}
+                                    onChange={(e) => {
+                                        handleQuantity(item.id, e.target.value)
+                                    }}
+                                />
+                            </Col>
+                        }
+                    </Row>
                 )
             }
         </>

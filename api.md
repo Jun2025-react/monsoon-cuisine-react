@@ -1,154 +1,13 @@
-const MOCK_DATA_2 = {
-    "data": [
-        {
-            "menu_category": {
-                "id": 4,
-                "name": "Main",
-                "image_path": "main-menu-category.png",
-                "shop_id": 3
-            },
-            "items": [
-                {
-                    "id": 66,
-                    "name": "Test MeNU",
-                    "price": "122.00",
-                    "menu_category_id" : 4,
-                    "description" : "Test descriptions",
-                    "shop": "Cole, Carroll and Reilly Restaurant",
-                    "unit_of_measurement": "pack",
-                    "image_path": "assets/images/chicken-removebg-preview.png",
-                    "item_addons": [],
-                    "item_options": []
-                }
-            ]
-        },
-        {
-            "menu_category": {
-                "id": 5,
-                "name": "Burger",
-                "image_path": "burger-menu-category.png",
-                "shop_id": 3
-            },
-            "items": [
-                {
-                    "id": 6,
-                    "name": "Miso Soup",
-                    "price": "5.00",
-                    "menu_category_id" : 5,
-                    "description" : "Test descriptions",
-                    "shop": "Cole, Carroll and Reilly Restaurant",
-                    "unit_of_measurement": "l",
-                    "image_path": "assets/images/chicken-removebg-preview.png",
-                    "item_addons": [],
-                    "item_options": []
-                },
-                {
-                    "id": 7,
-                    "name": "Sushi",
-                    "price": "0.00",
-                    "menu_category_id" : 5,
-                    "description" : "Test descriptions",
-                    "shop": "Cole, Carroll and Reilly Restaurant",
-                    "unit_of_measurement": "l",
-                    "image_path": "assets/images/biryanis-removebg-preview.png",
-                    "item_addons": [],
-                    "item_options": []
-                },
-                {
-                    "id": 8,
-                    "name": "Rice",
-                    "price": "3.00",
-                    "menu_category_id" : 5,
-                    "description" : "Test descriptions",
-                    "shop": "Cole, Carroll and Reilly Restaurant",
-                    "unit_of_measurement": "l",
-                    "image_path": "assets/images/meat-samosa-removebg-preview.png",
-                    "item_addons": [],
-                    "item_options": []
-                },
-                {
-                    "id": 9,
-                    "name": "Pasta",
-                    "price": "5.00",
-                    "menu_category_id" : 5,
-                    "description" : "Test descriptions",
-                    "shop": "Cole, Carroll and Reilly Restaurant",
-                    "unit_of_measurement": "l",
-                    "image_path": "assets/images/chicken-removebg-preview.png",
-                    "item_addons": [],
-                    "item_options": []
-                },
-{
-"id": 10,
-"name": "Pudding",
-"price": "4.00",
-"menu_category_id" : 5,
-"description" : "Test descriptions",
-"shop": "Cole, Carroll and Reilly Restaurant",
-"image_path": "assets/images/chicken-removebg-preview.png",
-"unit_of_measurement": "l",
-"item_addons": [
-    {
-        "id": 10,
-        "label": "cardamom",
-        "name": "cardamom",
-        "price": "5.00",
-        "option_status": "Available",
-        "image_path": null,
-        "item_id": 10,
-        "created_at": "2025-05-01T22:33:42.000000Z",
-        "updated_at": null
-    },
-    {
-        "id": 11,
-        "label": "nutmeg",
-        "name": "nutmeg",
-        "price": "2.00",
-        "option_status": "Available",
-        "image_path": null,
-        "item_id": 10,
-        "created_at": "2025-05-01T22:34:42.000000Z",
-        "updated_at": null
-    }
-],
-"item_options": [
-    {
-        "id": 3,
-        "name": "more sweet",
-        "price": "2.00",
-        "option_status": "Available",
-        "item_id": 10,
-        "image_path": null,
-        "created_at": "2025-05-01T22:35:30.000000Z",
-        "updated_at": null
-    },
-    {
-        "id": 4,
-        "name": "less sweet",
-        "price": "2.00",
-        "option_status": "Available",
-        "item_id": 10,
-        "image_path": null,
-        "created_at": "2025-05-01T22:36:15.000000Z",    
-        "updated_at": null
-    }
-]
-                }
-            ]
-        },
-        {
-            "menu_category": {
-                "id": 6,
-                "name": "Sandwich",
-                "image_path": "sandwich-menu-category.png",
-                "shop_id": 3
-            },
-            "items": []
-        }
-    ]
-};
+# 📘 API Documentation (Manual)
+basic url = http://127.0.0.1:8000/
+## 🔗 GET /v1/menu
+- **Description**: Get a list of menus.
+- **Method**: GET
+- **Auth**: Required
 
-const MOCK_DATA = [
+### ✅ Sample Response
+```json
+[
     {
         "category": {
             "id": 1,
@@ -169,7 +28,7 @@ const MOCK_DATA = [
                 "unit_of_measurement_id": 1,
                 "price": "1.00",
                 "item_status": "Available",
-                "image_path": "assets/images/chicken-removebg-preview.png",
+                "image_path": null,
                 "menu_category_id": 1,
                 "is_veg": 1,
                 "is_new_item": 1,
@@ -189,7 +48,7 @@ const MOCK_DATA = [
                 "unit_of_measurement_id": 1,
                 "price": "5.00",
                 "item_status": "Available",
-                "image_path": "assets/images/biryanis-removebg-preview.png",
+                "image_path": null,
                 "menu_category_id": 1,
                 "is_veg": 0,
                 "is_new_item": 0,
@@ -209,7 +68,7 @@ const MOCK_DATA = [
                 "unit_of_measurement_id": 1,
                 "price": "25.00",
                 "item_status": "Available",
-                "image_path": "assets/images/meat-samosa-removebg-preview.png",
+                "image_path": "kbuUCTF0n3y3NMw7BHYr55jq2MPxWephBOuOal6U.png",
                 "menu_category_id": 1,
                 "is_veg": 1,
                 "is_new_item": 0,
@@ -229,7 +88,7 @@ const MOCK_DATA = [
                 "unit_of_measurement_id": 1,
                 "price": "11.00",
                 "item_status": "Available",
-                "image_path": "assets/images/meat-samosa-removebg-preview.png",
+                "image_path": "kNNJDhUCqEfuEnGDJZC9mpWz0bojMYxQVFwp3Xob.jpg",
                 "menu_category_id": 1,
                 "is_veg": 0,
                 "is_new_item": 1,
@@ -422,131 +281,144 @@ const MOCK_DATA = [
         ]
     }
 ]
+```
 
-export const OLD_MENU_LIST =  [
-    {
-        name: "Item Name 1",
-        description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempo",
-        price: 18,
-        image_path: "assets/images/chicken-removebg-preview.png",
-        category :1,
-        options: [
-            {
-                title: "Choice 1",
-                type: "radio",
-                items: [
-                    { id: 1, name: "Choice 1" },
-                    { id: 2, name: "Choice 2" },
-                    { id: 3, name: "Choice 3" },
-                ],
-                message: "",
-                required: true,
-                order: 1,
+## 🔗 GET /v1/menu/categories
+- **Description**: Get a list of menus.
+- **Method**: GET
+- **Auth**: Required
+
+### ✅ Sample Response
+```json
+{
+    "data": [
+        {
+            "menu_category": {
+                "id": 4,
+                "name": "Main",
+                "image_path": "main-menu-category.png",
+                "shop_id": 3
             },
-            {
-                title: "Choice 2",
-                type: "radio",
-                items: [
-                    { id: 4, name: "Choice 4" },
-                    { id: 5, name: "Choice 5" },
-                    { id: 6, name: "Choice 6" },
-                ],
-                message: "",
-                required: false,
-                order: 2,
+            "items": [
+                {
+                    "id": 66,
+                    "name": "Test MeNU",
+                    "price": "122.00",
+                    "shop": "Cole, Carroll and Reilly Restaurant",
+                    "unit_of_measurement": "pack",
+                    "item_addons": [],
+                    "item_options": []
+                }
+            ]
+        },
+        {
+            "menu_category": {
+                "id": 5,
+                "name": "Burger",
+                "image_path": "burger-menu-category.png",
+                "shop_id": 3
             },
-            {
-                title: "Special Request",
-                type: "textarea",
-                items: [],
-                required: false,
-                message: "",
-                order: 3,
+            "items": [
+                {
+                    "id": 6,
+                    "name": "Miso Soup",
+                    "price": "5.00",
+                    "shop": "Cole, Carroll and Reilly Restaurant",
+                    "unit_of_measurement": "l",
+                    "item_addons": [],
+                    "item_options": []
+                },
+                {
+                    "id": 7,
+                    "name": "Sushi",
+                    "price": "0.00",
+                    "shop": "Cole, Carroll and Reilly Restaurant",
+                    "unit_of_measurement": "l",
+                    "item_addons": [],
+                    "item_options": []
+                },
+                {
+                    "id": 8,
+                    "name": "Rice",
+                    "price": "3.00",
+                    "shop": "Cole, Carroll and Reilly Restaurant",
+                    "unit_of_measurement": "l",
+                    "item_addons": [],
+                    "item_options": []
+                },
+                {
+                    "id": 9,
+                    "name": "Pasta",
+                    "price": "5.00",
+                    "shop": "Cole, Carroll and Reilly Restaurant",
+                    "unit_of_measurement": "l",
+                    "item_addons": [],
+                    "item_options": []
+                },
+                {
+                    "id": 10,
+                    "name": "Pudding",
+                    "price": "4.00",
+                    "shop": "Cole, Carroll and Reilly Restaurant",
+                    "unit_of_measurement": "l",
+                    "item_addons": [
+                        {
+                            "id": 10,
+                            "label": "cardamom",
+                            "name": "cardamom",
+                            "price": "5.00",
+                            "option_status": "Available",
+                            "image_path": null,
+                            "item_id": 10,
+                            "created_at": "2025-05-01T22:33:42.000000Z",
+                            "updated_at": null
+                        },
+                        {
+                            "id": 11,
+                            "label": "nutmeg",
+                            "name": "nutmeg",
+                            "price": "2.00",
+                            "option_status": "Available",
+                            "image_path": null,
+                            "item_id": 10,
+                            "created_at": "2025-05-01T22:34:42.000000Z",
+                            "updated_at": null
+                        }
+                    ],
+                    "item_options": [
+                        {
+                            "id": 3,
+                            "name": "more sweet",
+                            "price": "2.00",
+                            "option_status": "Available",
+                            "item_id": 10,
+                            "image_path": null,
+                            "created_at": "2025-05-01T22:35:30.000000Z",
+                            "updated_at": null
+                        },
+                        {
+                            "id": 4,
+                            "name": "less sweet",
+                            "price": "2.00",
+                            "option_status": "Available",
+                            "item_id": 10,
+                            "image_path": null,
+                            "created_at": "2025-05-01T22:36:15.000000Z",
+                            "updated_at": null
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "menu_category": {
+                "id": 6,
+                "name": "Sandwich",
+                "image_path": "sandwich-menu-category.png",
+                "shop_id": 3
             },
-        ],
-    },
-    {
-        name: "Item Name 2",
-        description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempo",
-        category :2,
-        price: 18,
-        image_path: "assets/images/biryanis-removebg-preview.png",
-        options: [
-            {
-                title: "Choice 1",
-                type: "radio",
-                items: [
-                    { id: 1, name: "Choice 1" },
-                    { id: 2, name: "Choice 2" },
-                    { id: 3, name: "Choice 3" },
-                ],
-                message: "",
-                required: true,
-                order: 1,
-            },
-            {
-                title: "Choice 2",
-                type: "radio",
-                items: [
-                    { id: 4, name: "Choice 4" },
-                    { id: 5, name: "Choice 5" },
-                    { id: 6, name: "Choice 6" },
-                ],
-                message: "",
-                required: false,
-                order: 2,
-            },
-            {
-                title: "Special Request",
-                type: "textarea",
-                items: [],
-                required: false,
-                message: "",
-                order: 3,
-            },
-        ],
-    },
-    {
-        name: "Item Name 3",
-        description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempo",
-        price: 18,
-        category :3,
-        image_path: "assets/images/meat-samosa-removebg-preview.png",
-        options: [
-            {
-                title: "Choice 1",
-                type: "radio",
-                items: [
-                    { id: 1, name: "Choice 1" },
-                    { id: 2, name: "Choice 2" },
-                    { id: 3, name: "Choice 3" },
-                ],
-                message: "",
-                required: true,
-                order: 1,
-            },
-            {
-                title: "Choice 2",
-                type: "radio",
-                items: [
-                    { id: 4, name: "Choice 4" },
-                    { id: 5, name: "Choice 5" },
-                    { id: 6, name: "Choice 6" },
-                ],
-                message: "",
-                required: false,
-                order: 2,
-            },
-            {
-                title: "Special Request",
-                type: "textarea",
-                items: [],
-                required: false,
-                message: "",
-                order: 3,
-            },
-        ],
-    },
-];
-export default MOCK_DATA_2;
-export {MOCK_DATA} ;
+            "items": []
+        }
+    ]
+}
+```

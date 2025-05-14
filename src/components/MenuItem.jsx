@@ -2,7 +2,7 @@ import React from 'react';
 import AddCartBtn from './Modal/AddCartBtn';
 
 const MenuItem = ({ item, button, cardClass }) => {
-
+    console.log("item : ", item);
     cardClass = !!cardClass ? cardClass : "";
     return (
         <div className="col-md-4 px-2 pb-3" >

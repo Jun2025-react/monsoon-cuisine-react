@@ -1,0 +1,6 @@
+.customModal :global(.modal-content) {
+    min-width: 700px;
+}
+.description {
+    font-size:13px;
+}

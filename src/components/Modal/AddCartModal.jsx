@@ -5,6 +5,7 @@ import { useOption } from '../../context/OptionContext';
 import styles from './AddCartModal.module.css'; // Assuming you have a CSS module for styles
 import TypographyH4 from '../Typography/Headings/TypographyH4';
 import TypographyH6 from '../Typography/Headings/TypographyH6';
+import OptionCheckBox from '../Form/OptionCheckBox';
 
 const AddCartModal = (props) => {
 
@@ -41,13 +42,13 @@ const AddCartModal = (props) => {
                     </div>
                     {/* Item Description */}
                     <div className="col-md-6 ">
-                        <div className="card border-0 border-bottom p-2 pb-4" alt="Item description">
+                        <div className="card border-0 border-bottom p-2" alt="Item description">
                             <TypographyH4>{item.name}</TypographyH4>
                             <TypographyH6 className="mb-1 text-muted">$ {item.price}</TypographyH6>
                             <p className={styles.description}>{item.description}</p>
                         </div>
                         {
-                            options.length && <ItemOptions type="radio" title={"Options"} item={options} />
+                            options.length && <OptionCheckBox type="radio" title={"Options"} items={options} />
                         }
                         {
                             addons.length && <ItemOptions type="checkbox" title="Add_ons" item={addons}/>

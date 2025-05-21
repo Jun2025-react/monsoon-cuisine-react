@@ -34,12 +34,17 @@
 }
 
 .radioRow:hover {
-  border-color: #007bff;
+  border-color: #e7989f;
+  background-color: #f8f9fa;
+}
+
+.radioRow:has(.hiddenInput:checked) {
+  border-color: #e7989f;
   background-color: #f8f9fa;
 }
 
 /* Hide the default radio button */
-.hiddenRadio {
+.hiddenInput {
   display: none;
 }
 
@@ -50,16 +55,16 @@
 }
 
 /* Custom circle styled like radio */
-.customCircle {
+.customChecked {
   width: 18px;
   height: 18px;
   border: 2px solid #999;
-  border-radius: 50%;
+  /* border-radius: 50%; */
   position: relative;
 }
 
 /* Show selected dot when checked */
-.hiddenRadio:checked + .labelText + .customCircle::after {
+.hiddenInput:checked ~ .customChecked::after {
   content: '';
   position: absolute;
   top: 2px;
@@ -67,5 +72,5 @@
   width: 10px;
   height: 10px;
   background: #606264;
-  border-radius: 50%;
+  /* border-radius: 50%; */
 }

@@ -1,7 +1,6 @@
 import React from 'react';
 import MenuItem from '../MenuItem';
 import HorizontalNavBar from './HorizontalNavBar';
-import { OptionProvider } from '../../context/OptionContext';
 import MOCK_DATA_2 from '../../constants/data';
 
 class MenuListSection extends React.Component {
@@ -67,14 +66,12 @@ class MenuListSection extends React.Component {
                             this.state.menuItems
                                 .filter(item => item.menu_category_id === this.state.currentCategory || this.state.currentCategory === 0)
                                 .map((item, index) => (
-                                    <OptionProvider key={index}>
-                                        <MenuItem
-                                            item={item}
-                                            key={item.id}
-                                            button={true}
-                                            cardClass=""
-                                        />
-                                    </OptionProvider>
+                                    <MenuItem
+                                        item={item}
+                                        key={item.id}
+                                        button={true}
+                                        cardClass=""
+                                    />
                                 ))
                         }
                     </div>

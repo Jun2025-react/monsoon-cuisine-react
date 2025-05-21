@@ -1,13 +1,13 @@
 import { useState } from 'react';
-import { useOption } from '../../context/OptionContext';
+// import { useOption } from '../../context/OptionContext';
 import styles from './RadioBoxRows.module.css'; // Assuming you have a CSS module for styles
 
 const RadioBoxRow = (props) => {
     const { title, items } = props;
-    const { updateOptionValue } = useOption();
+    // const { updateOptionValue } = useOption();
 
     const handleChoiceChange = (id) => {
-        updateOptionValue(title, id)
+        // updateOptionValue(title, id)
     };
 
     // const [selected, setSelected] = useState(false);

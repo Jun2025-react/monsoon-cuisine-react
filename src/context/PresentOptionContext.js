@@ -1,50 +1,55 @@
 import React, { createContext, useContext, useState } from 'react';
 
-const OptionContext = createContext();
+const PresentOptionContext = createContext();
 
-export const useOption = () => useContext(OptionContext);
+export const usePresentOption = () => useContext(PresentOptionContext);
 
-export const PresentOptionContext = ({ children }) => {
-    const [selectedOptions, setSelectedOptions] = useState({});
+export const PresentOptionProvider = ({ children }) => {
+    const [selectedOptions, setSelectedOptions] = useState({
+        addons: [],
+        options: null,
+    });
 
-    const updateSelectedOpotions = (type, item) => {
-        if (type != "addons" && type != "options") {
+    const updateSelectedOptions = (type, item) => {
+        if (!["addons", "options"].includes(type)) {
             console.error("Invalid type provided. Expected 'addons' or 'options'.");
             return;
         }
-        
-        if (type === "addons") {
-            setSelectedOptions((prev) => ({
-                ...prev,
-                [type]: item,
-            }));   
-        } 
-        if (type === "options") {
-            setSelectedOptions((prev) => ({
-                ...prev,
-                [type]: item,
-            }));
-        }
+        console.log("update sel options: ", item);
+        setSelectedOptions((prev) => {
+            if (type === "addons") {
+                // Toggle addon selection
+                const exists = prev.addons.some(addon => addon.id === item.id);
+                if (!exists) {
+                    return {
+                        ...prev,
+                        addons: [...prev.addons, item]
+                    };
+                } else {
 
-        setSelectedOptions((prev) => ({
-            ...prev,
-            [type]: {
-                [item.id]: { ...prev[type][item.id], checked: !prev[type][item.id]?.checked || false }
+                    return { ...prev, addons: prev.addons }
+                };
+            } else if (type === "options") {
+                // Only one option can be selected
+                return {
+                    ...prev,
+                    options: item,
+                };
             }
-        }));
-        setOptionValues((prev) => ({ ...prev, [key]: value }));
+            return prev;
+        });
     };
 
-    const removeOptionValue = (key) => {
-        setOptionValues((prev)=> {
-            const newValues = {...prev};
-            delete newValues[key];
-            return newValues;
-        })
-    }
+    const removeAddonItem = (item) => {
+        setSelectedOptions((prev) => ({
+            ...prev.addons,
+            addons: prev.addons.filter(addon => addon.id !== item.id),
+        }));
+    };
+
     return (
-        <OptionContext.Provider value={{ optionValues, updateSelectedOpotions, removeOptionValue}}>
-        {children}
-        </OptionContext.Provider>
+        <PresentOptionContext.Provider value={{ selectedOptions, updateSelectedOptions, removeAddonItem }}>
+            {children}
+        </PresentOptionContext.Provider>
     );
 };

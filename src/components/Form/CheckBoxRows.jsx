@@ -1,13 +1,21 @@
 import React, { useState } from 'react';
-import { useOption } from '../../context/OptionContext';
+import { usePresentOption } from '../../context/PresentOptionContext';
 import styles from './CheckBoxRows.module.css'; // Assuming you have a CSS module for styles
 
 const CheckBoxRows = (props) => {
     const { title, items } = props;
-    const { updateOptionValue } = useOption();
+    const { updateSelectedOptions, selectedOptions, removeAddonItem } = usePresentOption();
+    const handleChoiceChange = (e, item) => {
+        if(e.target.checked) {
+            console.log("checked:================", item);
+            updateSelectedOptions("addons", item);
+        } else {
+            console.log("unchecked: =============", item);
 
-    const handleChoiceChange = (id) => {
-        updateOptionValue(title, id)
+            removeAddonItem(item);
+        }
+        console.log("done selected: ", selectedOptions);  
+        console.log("hello")
     };
 
     const [selected, setSelected] = useState(false);
@@ -32,8 +40,8 @@ const CheckBoxRows = (props) => {
                             type="checkbox"
                             id={`checkbox-${item.id}`}
                             name={props.title}
-                            value={item.id}
-                            onChange={() => handleChoiceChange(item.id)}
+                            // value={item.id}
+                            onChange={(e) => handleChoiceChange(e, item)}
                             className={styles.hiddenInput}
                         />
                         <div className={styles.labelTextBlock}>

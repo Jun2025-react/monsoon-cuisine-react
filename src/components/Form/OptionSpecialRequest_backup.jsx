@@ -4,17 +4,19 @@ import styles from './OptionSpecialRequest.module.css';
 import Form from 'react-bootstrap/Form';
 import { Button } from 'react-bootstrap';
 import { usePresentOption } from '../../context/PresentOptionContext';
+// import { useCart } from '../../context/CartContext';
 import TypographyH5 from '../Typography/Headings/TypographyH5';
 import Card from 'react-bootstrap/Card';
-import { useCart } from '../../context/CartContext';
+
 
 const OptionSpecialRequest = (props) => {
     const [special, setSpecial] = useState("");
     const [price, setPrice] = useState(props.price || 0);
     const [count, setCount] = useState(1);
     const [totalPrice, setTotalPrice] = useState(props.price || 0);
-    // const { selectedOptions } = usePresentOption();
-    // const { addToCart } = useCart();
+    // const { optionValues } = useOption();
+    // const { cartItems , addToCart } = useCart();
+    const { addToCart } = useCart();
 
     const menuItem = props.item;
 
@@ -36,19 +38,19 @@ const OptionSpecialRequest = (props) => {
     const calcTotalPrice = (selectedValue = count) => {
         setTotalPrice(price * selectedValue);
     };
-    // const addToCartValue = () => {
-    //     const options = { ...selectedOptions, special };
-    //     const cart = {
-    //         id: new Date().getTime(), // unique id
-    //         name: menuItem.name,
-    //         count: count,
-    //         options: options,
-    //         totalPrice: totalPrice
-    //     };
-    //     addToCart(cart);
-    //     // console.log("Added cart item:", cart);
-    //     // console.log("Added cart cartItems:", cartItems);
-    // };
+    const addToCartValue = () => {
+        // const options = { ...optionValues, special };
+        // const cart = {
+        //     id: new Date().getTime(), // unique id
+        //     name: menuItem.name,
+        //     count: count,
+        //     options: options,
+        //     totalPrice: totalPrice
+        // };
+        // addToCart(cart);
+        // console.log("Added cart item:", cart);
+        // console.log("Added cart cartItems:", cartItems);
+    };
 
     const numberArrays = Array.from({ length: 20 }, (_, i) => i + 1);
 
@@ -71,7 +73,7 @@ const OptionSpecialRequest = (props) => {
                 </Form.Select>
                 <Button
                     className="btn-dark my-2 w-100 p-2"
-                    // onClick={addToCartValue} // You can pass special/count/totalPrice if needed
+                    onClick={addToCartValue} // You can pass special/count/totalPrice if needed
                 >
                     Add {count} to order - ${totalPrice}
                 </Button>

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Button } from 'react-bootstrap';
 import AddCartModal from './AddCartModal';
-import { useOption } from '../../context/OptionContext';
+import { PresentOptionProvider } from '../../context/PresentOptionContext';
 
 const AddCartBtn = (props) => {
     const [show, setShow] = useState(false);
@@ -15,7 +15,9 @@ const AddCartBtn = (props) => {
             <Button variant="danger" onClick={handleShow} className="mb-2">
                 Add to Cart
             </Button>
-            <AddCartModal show={show} handleClose={handleClose} item={item}/>
+            <PresentOptionProvider>
+                <AddCartModal show={show} handleClose={handleClose} item={item}/>
+            </PresentOptionProvider>
         </>
     );
 };

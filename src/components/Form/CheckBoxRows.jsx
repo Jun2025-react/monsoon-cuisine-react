@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { useOption } from '../../context/OptionContext';
-import styles from './CheckBoxRow.module.css'; // Assuming you have a CSS module for styles
+import styles from './CheckBoxRows.module.css'; // Assuming you have a CSS module for styles
 
-const CheckBoxRow = (props) => {
-    const { title, items, type } = props;
+const CheckBoxRows = (props) => {
+    const { title, items } = props;
     const { updateOptionValue } = useOption();
 
     const handleChoiceChange = (id) => {
@@ -25,19 +25,22 @@ const CheckBoxRow = (props) => {
                 items.map((item, index) =>
                     <label
                         key={index}
-                        htmlFor={`radio-${item.id}`}
+                        htmlFor={`checkbox-${item.id}`}
                         className={styles.radioRow}
                     >
                         <input
-                            type="radio"
-                            id={`radio-${item.id}`}
+                            type="checkbox"
+                            id={`checkbox-${item.id}`}
                             name={props.title}
                             value={item.id}
                             onChange={() => handleChoiceChange(item.id)}
-                            className={styles.hiddenRadio}
+                            className={styles.hiddenInput}
                         />
-                        <span className={styles.labelText}>{item.name}</span>
-                        <span className={styles.customCircle}></span>
+                        <div className={styles.labelTextBlock}>
+                            <div className={styles.labelText}>{item.name}</div>
+                            {Number(item.price) > 0 && <div className={styles.labelPrice}>{`+${item.price}`}</div>}
+                        </div>
+                        <span className={styles.customChecked}></span>
                     </label>
                 )
 
@@ -46,4 +49,4 @@ const CheckBoxRow = (props) => {
     )
 
 }
-export default CheckBoxRow;
+export default CheckBoxRows;

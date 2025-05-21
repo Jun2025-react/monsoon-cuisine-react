@@ -37,9 +37,13 @@
   border-color: #007bff;
   background-color: #f8f9fa;
 }
+.radioRow:has(.hiddenInput:checked) {
+  border-color: #007bff;
+  background-color: #f8f9fa;
+}
 
 /* Hide the default radio button */
-.hiddenRadio {
+.hiddenInput {
   display: none;
 }
 
@@ -50,7 +54,7 @@
 }
 
 /* Custom circle styled like radio */
-.customCircle {
+.customChecked {
   width: 18px;
   height: 18px;
   border: 2px solid #999;
@@ -59,7 +63,7 @@
 }
 
 /* Show selected dot when checked */
-.hiddenRadio:checked + .labelText + .customCircle::after {
+.hiddenInput:checked ~ .customChecked::after {
   content: '';
   position: absolute;
   top: 2px;

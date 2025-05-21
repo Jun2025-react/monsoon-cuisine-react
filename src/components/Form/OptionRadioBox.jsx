@@ -1,21 +1,25 @@
 import Card from 'react-bootstrap/Card';
-import OptionCheckBox from './OptionCheckBox';
 import TypographyH5 from '../Typography/Headings/TypographyH5';
+import RadioBoxRows from './RadioBoxRows';
 
-const ItemOptions = (props) => {
-    
+const OptionCheckBox = (props) => {
     const title = props.title;
-    const type = props.type;
-    const items = props.item;
+    const items = props.items;
 
     return (
         <Card className="border-0 border-bottom" alt="Choice Box">
             <Card.Body >
                 <TypographyH5 >{title}</TypographyH5>
-                <OptionCheckBox title={title} type={type} items={items} />
+                {
+                    <RadioBoxRows
+                        title={title}
+                        items={items}
+                    />
+                }
+
             </Card.Body>
         </Card>
     )
-
 }
-export default ItemOptions;
+
+export default OptionCheckBox;

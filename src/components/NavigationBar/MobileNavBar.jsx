@@ -5,8 +5,8 @@ import Navbar from 'react-bootstrap/Navbar';
 import styles from './CommonNavBar.module.css';
 
 
-const MobileNavBar = () => {
-
+const MobileNavBar = (props) => {
+    const cartCount = props.cartCount || 0;
     
     return (
         <Navbar expand="lg" className="">
@@ -19,10 +19,10 @@ const MobileNavBar = () => {
                     </a>
                     <div className="position-relative btn">
                         <i className="fas fa-shopping-cart"></i>
-                        <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                            3
+                        {cartCount > 0 && <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                            {cartCount}
                             <span className="visually-hidden">Added Items</span>
-                        </span>
+                        </span>}
                     </div>
                 </div>
                 <Navbar.Collapse id="basic-navbar-nav">

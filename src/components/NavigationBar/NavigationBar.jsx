@@ -1,33 +1,35 @@
 import React, { useEffect, useState } from 'react';
 import DesktopNavBar from './DesktopNavBar';
 import MobileNavBar from './MobileNavBar';
-// useWindowWidth.js
+import { useCart } from '../../context/CartContext';
 
-class NavigationBar extends React.Component{
-    constructor(props) {
-        super(props);
-        window.innerWidth < 992 ? this.state = { navType : 'mobile' } : this.state = { navType : 'desktop' };
+const NavigationBar = (props) => {
+    const { cartData } = useCart();
+    const [navType, setNavType] = useState(window.innerWidth < 992 ? 'mobile' : 'desktop');
+    const [cartCount, setCartCount] = useState(cartData.count || 0);
 
-        this.handleResize = this.handleResize.bind(this);
-    }
+    useEffect(() => {
+        const handleResize = () => {
+            if (window.innerWidth < 992) {
+                setNavType('mobile');
+            } else {
+                setNavType('desktop');
+            }
+        };
 
-    componentDidMount() {
-        window.addEventListener('resize', this.handleResize);
-    }
-    
-    handleResize() {
-        if (window.innerWidth < 992) {
-            this.setState({ navType: 'mobile' });
-        } else {
-            this.setState({ navType: 'desktop' });
-        }        
-    }
+        window.addEventListener('resize', handleResize);
+
+        // Cleanup the event listener on component unmount
+        return () => {
+            window.removeEventListener('resize', handleResize);
+        };
+    }, []);
 
 
-    render() {
-        const { navType } = this.state;
-        return navType === "mobile" ? <MobileNavBar /> : <DesktopNavBar />;
-    }
+    return (
+        navType === "mobile" ? <MobileNavBar cartCount={cartCount}/> : <DesktopNavBar cartCount={cartCount}/>
+
+    )
 };
 
 export default NavigationBar;

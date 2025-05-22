@@ -1,4 +1,3 @@
-import React, { useState } from 'react';
 import { usePresentOption } from '../../context/PresentOptionContext';
 import styles from './CheckBoxRows.module.css'; // Assuming you have a CSS module for styles
 
@@ -7,25 +6,11 @@ const CheckBoxRows = (props) => {
     const { updateSelectedOptions, selectedOptions, removeAddonItem } = usePresentOption();
     const handleChoiceChange = (e, item) => {
         if(e.target.checked) {
-            console.log("checked:================", item);
             updateSelectedOptions("addons", item);
         } else {
-            console.log("unchecked: =============", item);
-
             removeAddonItem(item);
         }
-        console.log("done selected: ", selectedOptions);  
-        console.log("hello")
     };
-
-    const [selected, setSelected] = useState(false);
-
-    const handleCheck = (id) => {
-        setSelected((prev) => ({
-            ...prev,
-            [id]: { ...prev[id], checked: !prev[id]?.checked || false }
-        }));
-    }
 
     return (
         <>

@@ -1,24 +1,16 @@
-import { useState } from 'react';
-// import { useOption } from '../../context/OptionContext';
 import styles from './RadioBoxRows.module.css'; // Assuming you have a CSS module for styles
+import { usePresentOption } from '../../context/PresentOptionContext';
 
 const RadioBoxRow = (props) => {
-    const { title, items } = props;
-    // const { updateOptionValue } = useOption();
+    const { items } = props;
+    const { updateSelectedOptions, selectedOptions } = usePresentOption();
 
-    const handleChoiceChange = (id) => {
-        // updateOptionValue(title, id)
+    const handleChoiceChange = (item) => {
+        updateSelectedOptions("options", item);
     };
 
-    // const [selected, setSelected] = useState(false);
 
-    // const handleCheck = (id) => {
-    //     setSelected((prev) => ({
-    //         ...prev,
-    //         [id]: { ...prev[id], checked: !prev[id]?.checked || false }
-    //     }));
-    // }
-
+    
     return (
         <>
             {
@@ -32,8 +24,8 @@ const RadioBoxRow = (props) => {
                             type="radio"
                             id={`radio-${item.id}`}
                             name={props.title}
-                            value={item.id}
-                            onChange={() => handleChoiceChange(item.id)}
+                            // value={item.id}
+                            onChange={() => handleChoiceChange(item)}
                             className={styles.hiddenInput}
                         />
                         <div className={styles.labelTextBlock}>

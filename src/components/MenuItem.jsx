@@ -3,7 +3,6 @@ import TypographyH5 from './Typography/Headings/TypographyH5';
 import Paragraph1 from './Typography/Paragraphs/Paragraph1';
 
 const MenuItem = ({ item, button, cardClass }) => {
-    console.log("item : ", item);
     cardClass = !!cardClass ? cardClass : "";
     return (
         <div className="col-md-4 px-2 pb-3" >

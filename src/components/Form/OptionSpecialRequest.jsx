@@ -6,7 +6,8 @@ import { Button } from 'react-bootstrap';
 import { usePresentOption } from '../../context/PresentOptionContext';
 import TypographyH5 from '../Typography/Headings/TypographyH5';
 import Card from 'react-bootstrap/Card';
-import { BASE_URL } from '../../constants/constants';
+import { useCart } from '../../context/CartContext';
+
 
 const OptionSpecialRequest = (props) => {
     let intPrice = Number(props.item.price) || 0;
@@ -17,11 +18,8 @@ const OptionSpecialRequest = (props) => {
     const [totalPrice, setTotalPrice] = useState(intPrice || 0);
     const { selectedOptions, getAdditionalPrice } = usePresentOption();
 
-    // useEffect(() => {
-    //     setPrice(intPrice);
-    //     calcTotalPrice(count);
+    const { mockAddToCart } = useCart();
 
-    // }, [props.price, selectedOptions, totalPrice, count, intPrice]);
     useEffect(() => {
         setPrice(intPrice);
         const additionalPrice = getAdditionalPrice();
@@ -47,8 +45,6 @@ const OptionSpecialRequest = (props) => {
     const numberArrays = Array.from({ length: 20 }, (_, i) => i + 1);
 
     const addToCart = () => {
-        props.onHide();
-        const url = `${BASE_URL}/addCart`;
         const data = {
             customer: 0,
             quantity: count,
@@ -57,20 +53,21 @@ const OptionSpecialRequest = (props) => {
             item_option: selectedOptions.options ? selectedOptions.options.id : null,
             special_request: special,
         }
-        const requestOptions = {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(data)
-        };
-        console.log("Request Data", requestOptions);
-        // fetch(url, requestOptions)
-        //     .then(response => response.json())
-        //     .then(data => {
-        //         console.log('Success:', data);
-        //     })
-        //     .catch((error) => {
-        //         console.error('Error:', error);
-        //     });
+        
+        console.log("Add Cart API - Data: ", data);
+        props.onHide();
+        // Mock API call to add item to cart
+        // addToCartAPI(data);
+        const mockData = {
+            ...props.item,
+            item_addons: selectedOptions.addons,
+            item_options: selectedOptions.options,
+            special_request: special,
+            quantity: count,
+            totalPrice: totalPrice,
+        }
+        mockAddToCart(mockData);
+
     }
 
     return (

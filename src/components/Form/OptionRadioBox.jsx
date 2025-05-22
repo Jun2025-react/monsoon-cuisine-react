@@ -2,7 +2,7 @@ import Card from 'react-bootstrap/Card';
 import TypographyH5 from '../Typography/Headings/TypographyH5';
 import RadioBoxRows from './RadioBoxRows';
 
-const OptionCheckBox = (props) => {
+const OptionRadioBox = (props) => {
     const title = props.title;
     const items = props.items;
 
@@ -22,4 +22,4 @@ const OptionCheckBox = (props) => {
     )
 }
 
-export default OptionCheckBox;
+export default OptionRadioBox;

@@ -6,22 +6,28 @@ import { Button } from 'react-bootstrap';
 import { usePresentOption } from '../../context/PresentOptionContext';
 import TypographyH5 from '../Typography/Headings/TypographyH5';
 import Card from 'react-bootstrap/Card';
-import { useCart } from '../../context/CartContext';
+import { BASE_URL } from '../../constants/constants';
 
 const OptionSpecialRequest = (props) => {
+    let intPrice = Number(props.item.price) || 0;
+
     const [special, setSpecial] = useState("");
-    const [price, setPrice] = useState(props.price || 0);
     const [count, setCount] = useState(1);
-    const [totalPrice, setTotalPrice] = useState(props.price || 0);
-    // const { selectedOptions } = usePresentOption();
-    // const { addToCart } = useCart();
+    const [price, setPrice] = useState(intPrice || 0);
+    const [totalPrice, setTotalPrice] = useState(intPrice || 0);
+    const { selectedOptions, getAdditionalPrice } = usePresentOption();
 
-    const menuItem = props.item;
+    // useEffect(() => {
+    //     setPrice(intPrice);
+    //     calcTotalPrice(count);
 
+    // }, [props.price, selectedOptions, totalPrice, count, intPrice]);
     useEffect(() => {
-        setPrice(props.price || 0);
-        calcTotalPrice(props.price);
-    }, [props.price]);
+        setPrice(intPrice);
+        const additionalPrice = getAdditionalPrice();
+        setTotalPrice((intPrice + additionalPrice) * count);
+    }, [props.price, selectedOptions, count, getAdditionalPrice, intPrice]);
+
 
     const handleValueChanged = (event) => {
         setSpecial(event.target.value);
@@ -34,23 +40,38 @@ const OptionSpecialRequest = (props) => {
     };
 
     const calcTotalPrice = (selectedValue = count) => {
-        setTotalPrice(price * selectedValue);
+        const additionalPrice = getAdditionalPrice();
+        setTotalPrice((price + additionalPrice) * selectedValue);
     };
-    // const addToCartValue = () => {
-    //     const options = { ...selectedOptions, special };
-    //     const cart = {
-    //         id: new Date().getTime(), // unique id
-    //         name: menuItem.name,
-    //         count: count,
-    //         options: options,
-    //         totalPrice: totalPrice
-    //     };
-    //     addToCart(cart);
-    //     // console.log("Added cart item:", cart);
-    //     // console.log("Added cart cartItems:", cartItems);
-    // };
 
     const numberArrays = Array.from({ length: 20 }, (_, i) => i + 1);
+
+    const addToCart = () => {
+        props.onHide();
+        const url = `${BASE_URL}/addCart`;
+        const data = {
+            customer: 0,
+            quantity: count,
+            item: props.item.id,
+            item_addon: selectedOptions.addons.map(addon => addon.id),
+            item_option: selectedOptions.options ? selectedOptions.options.id : null,
+            special_request: special,
+        }
+        const requestOptions = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data)
+        };
+        console.log("Request Data", requestOptions);
+        // fetch(url, requestOptions)
+        //     .then(response => response.json())
+        //     .then(data => {
+        //         console.log('Success:', data);
+        //     })
+        //     .catch((error) => {
+        //         console.error('Error:', error);
+        //     });
+    }
 
     return (
         <Card className="border-0 border-bottom" alt="Special Instructions">
@@ -71,7 +92,7 @@ const OptionSpecialRequest = (props) => {
                 </Form.Select>
                 <Button
                     className="btn-dark my-2 w-100 p-2"
-                    // onClick={addToCartValue} // You can pass special/count/totalPrice if needed
+                    onClick={() => { addToCart() }}
                 >
                     Add {count} to order - ${totalPrice}
                 </Button>

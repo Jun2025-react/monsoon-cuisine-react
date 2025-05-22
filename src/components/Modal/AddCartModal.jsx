@@ -1,5 +1,5 @@
 import { Modal } from 'react-bootstrap';
-// import { useOption } from '../../context/OptionContext';
+import { usePresentOption } from '../../context/PresentOptionContext';
 import styles from './AddCartModal.module.css'; // Assuming you have a CSS module for styles
 import TypographyH4 from '../Typography/Headings/TypographyH4';
 import TypographyH6 from '../Typography/Headings/TypographyH6';
@@ -10,15 +10,12 @@ import OptionSpecialRequest from '../Form/OptionSpecialRequest';
 const AddCartModal = (props) => {
 
     const { show, item, handleClose } = props;
-    // const { optionValues, removeOptionValue } = useOption();
-
+    const { removeAll } = usePresentOption();
     const options = item.item_options;
     const addons = item.item_addons;
 
     const onHide = () => {
-        // Object.keys(optionValues).forEach((key) => {
-        //     removeOptionValue(key);
-        // })
+        removeAll();
         handleClose();
     }
 
@@ -49,7 +46,7 @@ const AddCartModal = (props) => {
                         {
                             addons.length > 0 && <OptionCheckBox title="Add_ons" items={addons} />
                         }
-                        <OptionSpecialRequest item={item} />
+                        <OptionSpecialRequest item={item} onHide={onHide} />
                     </div>
                 </div>
             </Modal.Body>

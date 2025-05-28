@@ -1,4 +1,4 @@
-import AddCartBtn from './Modal/AddCartBtn';
+import AddCartBtn from './AddCart/AddCartBtn';
 import TypographyH5 from './Typography/Headings/TypographyH5';
 import Paragraph1 from './Typography/Paragraphs/Paragraph1';
 

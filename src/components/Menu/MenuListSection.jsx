@@ -1,7 +1,7 @@
 import React from 'react';
 import MenuItem from '../MenuItem';
 import HorizontalNavBar from './HorizontalNavBar';
-import MOCK_DATA_2 from '../../constants/data';
+import MOCK_DATA_2 from '../../constants/mock_menu_data';
 
 class MenuListSection extends React.Component {
 

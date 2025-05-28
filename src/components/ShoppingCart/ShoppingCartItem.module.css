@@ -1,0 +1,23 @@
+.cartItemWrapper {
+    display: flex;
+    align-items: start;
+    justify-content: space-between;
+    padding: 8px 16px;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.cartItemImg {
+    width: 64px;
+    height: 64px;
+    border-radius: 12px; 
+    object-fit: cover; 
+}
+
+.smallButton {
+    width: 28px;
+    height: 28px;
+    border-radius: 50% !important;
+    /* background-color: black !important; */
+    padding: 0 !important;
+    justify-content: center !important;
+}

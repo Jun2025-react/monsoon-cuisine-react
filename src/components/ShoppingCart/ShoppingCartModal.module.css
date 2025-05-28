@@ -1,0 +1,12 @@
+.customModal {
+    margin: 0 0 auto auto !important;
+    right: -15px ;
+}
+.customModal :global(.modal-content) {
+    border-radius: 0 !important;
+    border: 0;
+    height: 100vh !important;
+}
+.customModal > div > div > button {
+    margin-left: 0px !important;
+}

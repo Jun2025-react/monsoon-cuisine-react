@@ -25,6 +25,9 @@ const NavigationBar = (props) => {
         };
     }, []);
 
+    useEffect(() => {
+        setCartCount(cartData.count || 0);
+    }, [cartData.count]);
 
     return (
         navType === "mobile" ? <MobileNavBar cartCount={cartCount}/> : <DesktopNavBar cartCount={cartCount}/>

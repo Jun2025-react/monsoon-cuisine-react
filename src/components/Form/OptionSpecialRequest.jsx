@@ -18,7 +18,7 @@ const OptionSpecialRequest = (props) => {
     const [totalPrice, setTotalPrice] = useState(intPrice || 0);
     const { selectedOptions, getAdditionalPrice } = usePresentOption();
 
-    const { mockAddToCart } = useCart();
+    const { addToCart } = useCart();
 
     useEffect(() => {
         setPrice(intPrice);
@@ -44,7 +44,7 @@ const OptionSpecialRequest = (props) => {
 
     const numberArrays = Array.from({ length: 20 }, (_, i) => i + 1);
 
-    const addToCart = () => {
+    const handleClickAddToCart = () => {
         const data = {
             customer: 0,
             quantity: count,
@@ -54,10 +54,7 @@ const OptionSpecialRequest = (props) => {
             special_request: special,
         }
         
-        console.log("Add Cart API - Data: ", data);
-        props.onHide();
         // Mock API call to add item to cart
-        // addToCartAPI(data);
         const mockData = {
             ...props.item,
             item_addons: selectedOptions.addons,
@@ -66,7 +63,9 @@ const OptionSpecialRequest = (props) => {
             quantity: count,
             totalPrice: totalPrice,
         }
-        mockAddToCart(mockData);
+
+        addToCart(data, mockData);
+        props.onHide();
 
     }
 
@@ -89,7 +88,7 @@ const OptionSpecialRequest = (props) => {
                 </Form.Select>
                 <Button
                     className="btn-dark my-2 w-100 p-2"
-                    onClick={() => { addToCart() }}
+                    onClick={() => { handleClickAddToCart() }}
                 >
                     Add {count} to order - ${totalPrice}
                 </Button>

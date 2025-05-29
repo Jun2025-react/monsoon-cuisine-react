@@ -12,7 +12,7 @@ const ShoppingCartModal = ({ show, handleClose }) => {
         // Actual API to fetch cart items
         // const url = "/v1/customer/cart";
         // const data = { user_id: 1 }; 
-        
+
         // const requestOptions = {
         //     method: 'GET',
         //     headers: {
@@ -29,20 +29,27 @@ const ShoppingCartModal = ({ show, handleClose }) => {
         //         console.error('Error fetching cart items:', error);
         //     });        
 
+        mock_fetchCartItems();
+    }
+    const mock_fetchCartItems = () => {
         console.log("Fetching cart items...", MOCK_CART_DATA);
-    
+
         if (MOCK_CART_DATA.data && MOCK_CART_DATA.data.items) {
-            setCartItems(MOCK_CART_DATA.data.items);
+            if (!localStorage.getItem('cartItemDetails')) {
+                localStorage.setItem('cartItemDetails', JSON.stringify(MOCK_CART_DATA.data));
+            }
+            const ls_mock_cart_data = JSON.parse(localStorage.getItem('cartItemDetails'));
+            setCartItems(ls_mock_cart_data.items);
         }
     }
-    
+
     useEffect(() => {
         // Fetch cart items when the modal is opened
         if (show) {
             handleFetchCartItems();
         }
     }, [show, cartItems]);
-    
+
     return (
         <Modal
             size="md"

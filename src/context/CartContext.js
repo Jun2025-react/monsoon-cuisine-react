@@ -1,11 +1,13 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
+import { getData, putData } from '../services/DataService';
 import { BASE_URL } from '../constants/constants';;
-
 const CartContext = createContext();
 
 export const useCart = () => useContext(CartContext);
 
 export const CartProvider = ({ children }) => {
+    const REACT_APP_USE_MOCK = process.env.REACT_APP_USE_MOCK === "true";
+
     const localStorageCartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
     const [cartData, setCartData] = useState({
         items: localStorageCartItems,
@@ -13,84 +15,72 @@ export const CartProvider = ({ children }) => {
         count: localStorageCartItems.reduce((count, item) => count + item.quantity, 0),
     });
 
+    const getCartItemsDetail = () => {
+        const cartItemsDetails = getData("/customer/cart");
+        return cartItemsDetails;
+    }
+
     useEffect(() => {
         // Fetch cart data from local storage or API
         // setMockCartData();
-
+        getCartCount();
     }, [cartData])
 
-    const setMockCartData = () => {
-        setCartData(() => ({
-            items: JSON.parse(localStorage.getItem('cartItems')) || [],
-            totalPrice: (JSON.parse(localStorage.getItem('cartItems')) || []).reduce((total, item) => total + item.totalPrice, 0),
-            count: (JSON.parse(localStorage.getItem('cartItems')) || []).length,
-        }));
-    }
-
     const getCartCount = () => {
-        const url = `${BASE_URL}/cart/count`;
-        const data = { user_id: 1 };
-        const requestOptions = {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(data),
-        };
 
+        if (REACT_APP_USE_MOCK) {
+            getMockCartCount();
+            return;
+        }
 
-        // Mock API call to fetch cart count
-        console.log("Add Cart API - Request Options: ", requestOptions);
+        const url = 'customer/cart/count';
+        const data = { customer: 1 };
 
+        const result = getData(url, data);
+        return result.data.total_quantity || 0;
 
-        // Real API call to fetch cart count
-        // fetch(url, requestOptions)
-        //     .then((response) => response.json())
-        //     .then((data) => {
-        //         setCartData({ ...prev, count : data.count);
-        //     })
-        //     .catch((error) => {
-        //         console.error('Error fetching cart count:', error);
-        //     });
     }
 
-    const addToCart = (apiData) => {
-        const url = `${BASE_URL}/addCart`;
+    const addToCart = (apiData, mockData = {}) => {
+        if (REACT_APP_USE_MOCK) {
+            mockAddToCart(mockData);
+            return;
+        }
 
-        const requestOptions = {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(apiData)
-        };
-        console.log("Request Data", requestOptions);
-        // fetch(url, requestOptions)
-        //     .then(response => response.json())
-        //     .then(data => {
-        //         console.log('Success:', data);
-        //     })
-        //     .catch((error) => {
-        //         console.error('Error:', error);
-        //     });
+        try {
+            const result = putData("/addtocart", apiData);
+            return "success";
+        } catch (error) {
+            console.error("Error adding to cart:", error);
+            return "error";
+        }
+
+
+
     }
+
     const mockAddToCart = (mockData) => {
         // console.log("Mock Add Cart API - Data: ", mockData);
         let prevCartItems = JSON.parse(localStorage.getItem('cartItems')) || []
         let newCartItems = [...prevCartItems, mockData];
         localStorage.setItem('cartItems', JSON.stringify(newCartItems));
-        // console.log("New Cart Items: ", newCartItems);
-    
-        // setMockCartData();
+
+        console.log("Updated cartData: ", cartData);
+    }
+
+    const getMockCartCount = () => {
+        const newCartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
         setCartData((prev) => ({
             items: newCartItems,
             totalPrice: newCartItems.reduce((totalPrice, item) => totalPrice + item.totalPrice, 0),
             count: newCartItems.reduce((count, item) => count + item.quantity, 0),
         }));
-        console.log("Updated cartData: ", cartData); 
-    }
 
+        console.log("Get cart count: ", cartData);
+    }
     return (
         // <CartContext.Provider value={{ cartItems, totalPrice, addToCart, removeFromCart }}>
-        <CartContext.Provider value={{ cartData, mockAddToCart, addToCart, getCartCount }}>
+        <CartContext.Provider value={{ cartData, mockAddToCart, addToCart, getCartCount, getCartItemsDetail }}>
             {children}
         </CartContext.Provider>
     );

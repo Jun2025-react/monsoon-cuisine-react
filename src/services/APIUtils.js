@@ -1,5 +1,7 @@
-const REACT_APP_API_URL = import.meta.env.REACT_APP_API_URL || "http://localhost:3000";
-const REACT_APP_API_VERSION = import.meta.env.REACT_APP_API_VERSION || "v1";
+const REACT_APP_API_URL = process.env.REACT_APP_API_URL || "http://localhost:3000";
+const REACT_APP_API_VERSION = process.env.REACT_APP_API_VERSION || "v1";
+
+console.log("API URL:", REACT_APP_API_URL);
 
 const headers = {
     'Content-Type': 'application/json',

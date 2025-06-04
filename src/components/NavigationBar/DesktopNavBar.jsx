@@ -32,7 +32,7 @@ const DesktopNavBar = (props) => {
                         <Nav.Link href="#contact">Contact Us</Nav.Link>
                     </Nav>
                     <div className={`d-flex align-items-center ${styles.rightActions}`}>
-                        <a href="#order" className="btn btn-dark" style={{ width: "125px" }}>Order Online</a>
+                        {/* <a href="#order" className="btn btn-dark" style={{ width: "125px" }}>Order Online</a> */}
                         <a href="#profile" className="btn">
                             <i className="fas fa-user"></i>
                         </a>

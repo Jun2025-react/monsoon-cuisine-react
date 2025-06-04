@@ -5,9 +5,13 @@ const ShoppingCartBtn = ({ cartCount }) => {
 
     const [show, setShow] = useState(false);
 
-    const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
-
+    const handleClose = () => {
+        setShow(false);
+    }
+    const handleShow = () => {
+        if (!cartCount) return;
+        setShow(true);
+    }
     return (
         <>
             <div className="position-relative btn" onClick={handleShow}>

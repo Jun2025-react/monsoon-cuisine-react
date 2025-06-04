@@ -13,7 +13,7 @@ const MobileNavBar = (props) => {
             <Container className={`${styles.noMaxWidth}`} >
                 <Navbar.Toggle aria-controls="basic-navbar-nav" className={`${styles.mobileNavLeft}`} />
                 <div className={`d-flex align-items-left ${styles.rightActions} ${styles.mobileNavRight}`}>
-                    <a href="#order" className= "btn btn-dark" style={{width:"125px"}}>Order Online</a>
+                    {/* <a href="#order" className= "btn btn-dark" style={{width:"125px"}}>Order Online</a> */}
                     <a href="#profile" className= "btn">
                         <i className="fas fa-user"></i>
                     </a>

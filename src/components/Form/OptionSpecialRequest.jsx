@@ -57,8 +57,8 @@ const OptionSpecialRequest = (props) => {
         // Mock API call to add item to cart
         const mockData = {
             ...props.item,
-            item_addons: selectedOptions.addons,
-            item_options: selectedOptions.options,
+            item_addons: selectedOptions.addons || [],
+            item_options: selectedOptions.options || [],
             special_request: special,
             quantity: count,
             totalPrice: totalPrice,

@@ -92,7 +92,7 @@ export const CartProvider = ({ children }) => {
         calcMockCartItemCount(item, sign);
 
         // Change localStorage cartItemDetails
-        return getMockCartItemDetails();
+        return getMockCartItemDetails(); //<<<========================
         // return calcMockCartItemDetailsCount(item, sign);
     }
 

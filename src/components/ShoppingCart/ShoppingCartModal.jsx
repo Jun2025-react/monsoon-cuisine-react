@@ -13,6 +13,7 @@ const ShoppingCartModal = ({ show, handleClose }) => {
 
     const handleFetchCartItems = () => {
         const result = getCartItemsDetail();
+        console.info("Fetching cart items result:", result);
         if (result.status) {
             const cartItemsDetail = result.data;
             setCartItems(cartItemsDetail.items || []);
@@ -21,7 +22,10 @@ const ShoppingCartModal = ({ show, handleClose }) => {
 
     useEffect(() => {
         // Fetch cart items when the modal is opened
+        console.info("Fetching cart items...");
         if (show) {
+            console.info("Modal is shown, fetching cart items...");
+            console.info("Cart items before fetch:", cartItems);
             handleFetchCartItems();
         }
     }, [show]);

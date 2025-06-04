@@ -92,6 +92,9 @@ export const CartProvider = ({ children }) => {
         calcMockCartItemCount(item, sign);
 
         // Change localStorage cartItemDetails
+        // const cartItemDetails = calcMockCartItemDetailsCount(item, sign);
+        // 
+
         return getMockCartItemDetails(); //<<<========================
         // return calcMockCartItemDetailsCount(item, sign);
     }
@@ -122,10 +125,10 @@ export const CartProvider = ({ children }) => {
                 totalPrice: Math.max(0, newPrice),
             }
         });
-        console.log("ffffffffffffffffffffffffffffffffffff: ", modifiedCartItems);
-        localStorage.setItem("cartItems", JSON.stringify(modifiedCartItems.filter(item => item !== null)));
 
+        localStorage.setItem("cartItems", JSON.stringify(modifiedCartItems.filter(item => item !== null)));
     }
+
     const calcMockCartItemDetailsCount = (item, sign) => {
         const cartItemDetails = JSON.parse(localStorage.getItem("cartItemDetails"));
         const modifiedCartItemsDetails = cartItemDetails.data.items.map(cartItem => {

@@ -11,8 +11,8 @@ const AddCartModal = (props) => {
 
     const { show, item, handleClose } = props;
     const { removeAll } = usePresentOption();
-    const options = item.item_options;
-    const addons = item.item_addons;
+    const options = item.item_options || [];
+    const addons = item.item_addons || [];
 
     const onHide = () => {
         removeAll();

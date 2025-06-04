@@ -11,6 +11,8 @@
     height: 64px;
     border-radius: 12px; 
     object-fit: cover; 
+    border: 1px solid #e0e0e0;
+    margin: auto;
 }
 
 .smallButton {
@@ -20,4 +22,7 @@
     /* background-color: black !important; */
     padding: 0 !important;
     justify-content: center !important;
+}
+.buttonArea {
+    width: 98px;
 }

@@ -18,7 +18,7 @@ const OptionSpecialRequest = (props) => {
     const [totalPrice, setTotalPrice] = useState(intPrice || 0);
     const { selectedOptions, getAdditionalPrice } = usePresentOption();
 
-    const { mockAddToCart } = useCart();
+    const { addToCart } = useCart();
 
     useEffect(() => {
         setPrice(intPrice);
@@ -44,8 +44,8 @@ const OptionSpecialRequest = (props) => {
 
     const numberArrays = Array.from({ length: 20 }, (_, i) => i + 1);
 
-    const addToCart = () => {
-        const data = {
+    const handleClickAddToCart = () => {
+        const apiData = {
             customer: 0,
             quantity: count,
             item: props.item.id,
@@ -54,10 +54,7 @@ const OptionSpecialRequest = (props) => {
             special_request: special,
         }
         
-        console.log("Add Cart API - Data: ", data);
-        props.onHide();
         // Mock API call to add item to cart
-        // addToCartAPI(data);
         const mockData = {
             ...props.item,
             item_addons: selectedOptions.addons,
@@ -66,18 +63,20 @@ const OptionSpecialRequest = (props) => {
             quantity: count,
             totalPrice: totalPrice,
         }
-        mockAddToCart(mockData);
+
+        addToCart(apiData, mockData);
+        props.onHide();
 
     }
 
     return (
         <Card className="border-0 border-bottom" alt="Special Instructions">
             <Card.Body >
-                <TypographyH5>Special Instructions</TypographyH5>
-                <OptionTextArea onChange={handleValueChanged} />
+                {/* <TypographyH5>Special Instructions</TypographyH5> */}
+                {/* <OptionTextArea onChange={handleValueChanged} />
                 <div className={styles.inform}>
                     Option may charge extra for special request.
-                </div>
+                </div> */}
                 <Form.Select
                     size={6}
                     style={{ width: "80px" }}
@@ -89,7 +88,7 @@ const OptionSpecialRequest = (props) => {
                 </Form.Select>
                 <Button
                     className="btn-dark my-2 w-100 p-2"
-                    onClick={() => { addToCart() }}
+                    onClick={() => { handleClickAddToCart() }}
                 >
                     Add {count} to order - ${totalPrice}
                 </Button>

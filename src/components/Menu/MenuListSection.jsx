@@ -2,6 +2,8 @@ import React from 'react';
 import MenuItem from '../MenuItem';
 import HorizontalNavBar from './HorizontalNavBar';
 import MOCK_DATA_2 from '../../constants/mock_menu_data';
+import { getData } from '../../services/DataService';
+
 
 class MenuListSection extends React.Component {
 
@@ -15,6 +17,8 @@ class MenuListSection extends React.Component {
     }
 
     componentDidMount() {
+        const result = getData("/menu/categories");
+        // console.log("Response from getData:", result);
         const FETCH_DATA = MOCK_DATA_2.data;
         let show_item_list = [];
 

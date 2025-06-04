@@ -2,47 +2,28 @@ import { Modal } from 'react-bootstrap';
 import styles from './ShoppingCartModal.module.css'; // Assuming you have a CSS module for styles
 import ShoppingCartItem from './ShoppingCartItem'; // Assuming you have a ShoppingCartItem component
 import React, { useState, useEffect } from 'react';
-import MOCK_CART_DATA from '../../constants/mock_cart_data';
+import { useCart } from '../../context/CartContext'; // Assuming you have a CartContext for managing cart state
+
 
 const ShoppingCartModal = ({ show, handleClose }) => {
-
-    const [cartItems, setCartItems] = useState([]); // This should be replaced with actual cart data from context or props
+    const { getCartItemsDetail } = useCart(); 
+    const [cartItems, setCartItems] = useState([]); 
 
     const handleFetchCartItems = () => {
-        // Actual API to fetch cart items
-        // const url = "/v1/customer/cart";
-        // const data = { user_id: 1 }; 
-        
-        // const requestOptions = {
-        //     method: 'GET',
-        //     headers: {
-        //         'Content-Type': 'application/json',
-        //     },
-        //     body: JSON.stringify(data),
-        // };
-        // fetch(url, requestOptions)
-        //     .then(response => response.json())
-        //     .then(data => {
-        //         setCartItems(data.items || []);
-        //     })
-        //     .catch(error => {
-        //         console.error('Error fetching cart items:', error);
-        //     });        
-
-        console.log("Fetching cart items...", MOCK_CART_DATA);
-    
-        if (MOCK_CART_DATA.data && MOCK_CART_DATA.data.items) {
-            setCartItems(MOCK_CART_DATA.data.items);
+        const result = getCartItemsDetail();
+        if(result.status) {
+            const cartItemsDetail = result.data;
+            setCartItems(cartItemsDetail.items || []);
         }
     }
-    
+
     useEffect(() => {
         // Fetch cart items when the modal is opened
         if (show) {
             handleFetchCartItems();
         }
-    }, [show, cartItems]);
-    
+    }, [show]);
+
     return (
         <Modal
             size="md"

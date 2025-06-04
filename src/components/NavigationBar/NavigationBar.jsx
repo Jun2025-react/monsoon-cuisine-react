@@ -4,9 +4,9 @@ import MobileNavBar from './MobileNavBar';
 import { useCart } from '../../context/CartContext';
 
 const NavigationBar = (props) => {
-    const { cartData } = useCart();
+    const { cartCount } = useCart();
     const [navType, setNavType] = useState(window.innerWidth < 992 ? 'mobile' : 'desktop');
-    const [cartCount, setCartCount] = useState(cartData.count || 0);
+    const [ viewCartCount, setViewCartCount ] = useState(cartCount || 0);
 
     useEffect(() => {
         const handleResize = () => {
@@ -26,11 +26,11 @@ const NavigationBar = (props) => {
     }, []);
 
     useEffect(() => {
-        setCartCount(cartData.count || 0);
-    }, [cartData.count]);
+        setViewCartCount(cartCount || 0);
+    }, [viewCartCount, cartCount]);
 
     return (
-        navType === "mobile" ? <MobileNavBar cartCount={cartCount}/> : <DesktopNavBar cartCount={cartCount}/>
+        navType === "mobile" ? <MobileNavBar cartCount={viewCartCount}/> : <DesktopNavBar cartCount={viewCartCount}/>
 
     )
 };

@@ -6,8 +6,8 @@ import { useCart } from '../../context/CartContext'; // Assuming you have a Cart
 
 
 const ShoppingCartModal = ({ show, handleClose }) => {
-    const { getCartItemsDetail } = useCart(); // Assuming you have a CartContext to manage cart state
-    const [cartItems, setCartItems] = useState([]); // This should be replaced with actual cart data from context or props
+    const { getCartItemsDetail } = useCart(); 
+    const [cartItems, setCartItems] = useState([]); 
 
     const handleFetchCartItems = () => {
         const result = getCartItemsDetail();
@@ -22,7 +22,7 @@ const ShoppingCartModal = ({ show, handleClose }) => {
         if (show) {
             handleFetchCartItems();
         }
-    }, [show, cartItems]);
+    }, [show]);
 
     return (
         <Modal

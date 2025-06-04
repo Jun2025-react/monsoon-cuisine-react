@@ -7,7 +7,7 @@ export const usePresentOption = () => useContext(PresentOptionContext);
 export const PresentOptionProvider = ({ children }) => {
     const [selectedOptions, setSelectedOptions] = useState({
         addons: [],     //multiple
-        options: null,  //single
+        options: [],  //single
         addonPrice: 0,
         optionPrice: 0,
     });
@@ -30,7 +30,7 @@ export const PresentOptionProvider = ({ children }) => {
                 // Only one option can be selected
                 return {
                     ...prev,
-                    options: item,
+                    options: [item],
                     optionPrice: Number(item.price) ,
                 };
             }

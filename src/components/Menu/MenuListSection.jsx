@@ -18,7 +18,7 @@ class MenuListSection extends React.Component {
 
     componentDidMount() {
         const result = getData("/menu/categories");
-        console.log("Response from getData:", result);
+        // console.log("Response from getData:", result);
         const FETCH_DATA = MOCK_DATA_2.data;
         let show_item_list = [];
 

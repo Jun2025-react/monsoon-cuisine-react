@@ -45,7 +45,7 @@ const OptionSpecialRequest = (props) => {
     const numberArrays = Array.from({ length: 20 }, (_, i) => i + 1);
 
     const handleClickAddToCart = () => {
-        const data = {
+        const apiData = {
             customer: 0,
             quantity: count,
             item: props.item.id,
@@ -64,7 +64,7 @@ const OptionSpecialRequest = (props) => {
             totalPrice: totalPrice,
         }
 
-        addToCart(data, mockData);
+        addToCart(apiData, mockData);
         props.onHide();
 
     }
@@ -72,11 +72,11 @@ const OptionSpecialRequest = (props) => {
     return (
         <Card className="border-0 border-bottom" alt="Special Instructions">
             <Card.Body >
-                <TypographyH5>Special Instructions</TypographyH5>
-                <OptionTextArea onChange={handleValueChanged} />
+                {/* <TypographyH5>Special Instructions</TypographyH5> */}
+                {/* <OptionTextArea onChange={handleValueChanged} />
                 <div className={styles.inform}>
                     Option may charge extra for special request.
-                </div>
+                </div> */}
                 <Form.Select
                     size={6}
                     style={{ width: "80px" }}

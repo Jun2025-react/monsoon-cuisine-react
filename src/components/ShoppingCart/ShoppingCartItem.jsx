@@ -33,7 +33,7 @@ const ShoppingCartItem = ({ item, handleFetchCartItems }) => {
             />
 
             {/* Item details */}
-            <div className="flex-grow-1 ms-3 me-3">
+            <div className="flex-grow-1 mx-3">
                 <div style={{ fontWeight: 'bold' }}>{itemDetails.name}</div>
                 {itemAddons.length > 0 &&
                     <Paragraph2 className="text-muted">Add-ons: {itemAddons.map((addon, index) => (

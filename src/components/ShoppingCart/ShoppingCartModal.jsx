@@ -36,6 +36,7 @@ const ShoppingCartModal = ({ show, handleClose }) => {
             show={show}
             onHide={handleClose}
             dialogClassName={`${styles.customModal}`}
+            className={`${styles.overrideModalRoot}`}
         >
             <Modal.Header closeButton />
             <div className={`${styles.modalContentWrapper}`} >
@@ -53,10 +54,10 @@ const ShoppingCartModal = ({ show, handleClose }) => {
                         }
                     </div>
                     <div className={`d-flex ${styles.subTotalPrice}`}>
-                        <div className="col-md-6 text-start">
+                        <div className="col-6 text-start">
                             Subtotal
                         </div>
-                        <div className="col-md-6 text-end">
+                        <div className="col-6 text-end">
                             ${cartItems.reduce((total, item) => total + (item.sub_total_price || 0), 0).toFixed(2)}
                         </div>
                     </div>

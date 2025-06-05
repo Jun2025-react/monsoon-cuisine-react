@@ -1,6 +1,6 @@
 .cartItemWrapper {
     display: flex;
-    align-items: start;
+    align-items: center;
     justify-content: space-between;
     padding: 8px 16px;
     border-bottom: 1px solid #e0e0e0;
@@ -22,7 +22,9 @@
     /* background-color: black !important; */
     padding: 0 !important;
     justify-content: center !important;
+    margin: 0 !important;
 }
 .buttonArea {
     width: 98px;
+    
 }

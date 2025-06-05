@@ -148,7 +148,6 @@ export const CartProvider = ({ children }) => {
             status: true,
         };
 
-        // localStorage.setItem('cartItemDetails', JSON.stringify(newData));
         return newData;
     };
 

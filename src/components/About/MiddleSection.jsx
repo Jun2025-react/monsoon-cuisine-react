@@ -1,8 +1,9 @@
 import React from 'react';
 import {INFO_SECTION_IMAGE} from '../../constants/constants'
+import styles from './MiddleSection.module.css';
 
 const MiddleSection = () => {
-
+    console.log("styles: ", styles);
     const TITLE = "About Monsoon";
     const SUBTITLE_1 = "Experience the Authentic";
     const SUBTITLE_2 = "Taste of India";
@@ -11,13 +12,13 @@ const MiddleSection = () => {
     const DESCRIPTION_3 = "We offer a variety of lunch specials, fully licensed dining, and BYO wine options.";
     
     return (
-        <section className="black-bg-margin bg-dark">
+        <section className={`${styles['black-bg-margin']} bg-dark`}>
             <div className="container-fluid px-0">
                 <div className="row g-0 h-100">
 
                     <div className="col-md-6 ">
                         <img src={INFO_SECTION_IMAGE} alt="Monsoon Exterior"
-                            className="img-fluid h-100" />
+                            className="img-fluid h-100 w-100" />
                     </div>
 
                     <div className="col-md-6 d-flex align-items-center bg-dark text-white p-5">

@@ -1,0 +1,11 @@
+.black-bg-margin {
+    margin-left: 70px;
+    margin-right: 70px;
+}
+
+@media screen and (max-width: 991.98px) {
+    .black-bg-margin {
+        margin-left: 0;
+        margin-right: 0;
+    }
+}

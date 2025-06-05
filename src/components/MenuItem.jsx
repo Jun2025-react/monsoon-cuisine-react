@@ -7,7 +7,7 @@ const MenuItem = ({ item, button, cardClass }) => {
     return (
         <div className="col-md-4 px-2 pb-3" >
             <div className={`card text-center ${cardClass}`} >
-                <img src={item.image_path} className="card-img-top" alt="Menu" style={{height:"230px", width:"400px"}} />
+                <img src={item.image_path} className="card-img-top" alt="Menu" style={{height:"230px", width:"400px", margin: "0 auto"}} />
                 <div className="card-body ">
                     <TypographyH5>{item.name}</TypographyH5>
                     <Paragraph1 className="card-text">{item.description}</Paragraph1>

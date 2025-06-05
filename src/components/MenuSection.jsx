@@ -14,7 +14,7 @@ const MenuSection = ({ title, content, hasBtn, items, sectionClass }) => {
                     <h2 className="text-danger fw-bold mb-3">{title}</h2>
                     <p className="mb-4">{content}</p>
                     {!!hasBtn && <div className="mb-5">
-                        <button className="btn btn-outline-light px-4 py-2" >View More</button>
+                        <button className="btn btn-outline-light px-4 py-2" onClick={()=>document.location='/menu'} >View More</button>
                     </div>}
                 </div>
                 <div className="row g-4 pt-5">

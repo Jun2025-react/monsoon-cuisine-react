@@ -2,3 +2,10 @@
     padding-top: 8rem !important;
     padding-bottom: 8rem !important;
 }
+@media screen and (max-width: 991.98px) {
+    .footerPadding {
+        padding-top: 4rem !important;
+        padding-bottom: 4rem !important;
+    }
+    
+}

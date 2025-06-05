@@ -15,26 +15,26 @@ export const CartProvider = ({ children }) => {
 
     useEffect(() => {
         getCartCount();
-    }, [cartCount])
+    }, [])
 
-    const getCartCount = () => {
+    const getCartCount = async () => {
 
         if (REACT_APP_USE_MOCK) {
             setMockCartCount();
         }
 
         const data = { customer: 1 };
-        const result = getData('/customer/cart/count', data);
+        const result = await getData('/customer/cart/count', data);
         console.log("result.data.total_quantity: ", result.data.total_quantity);
         setCartCount(result.data.total_quantity || 0);
     }
 
-    const addToCart = (apiData, mockData = {}) => {
+    const addToCart = async (apiData, mockData = {}) => {
         let data = apiData || {}
         if (REACT_APP_USE_MOCK) data = getMockAddToCart(mockData);
 
         try {
-            putData("/addtocart", data);
+            await putData("/addtocart", data);
             return "success";
         } catch (error) {
             console.error("Error adding to cart:", error);
@@ -84,206 +84,133 @@ export const CartProvider = ({ children }) => {
     }
 
     const changeMockItemCount = (item, change) => {
-        let sign = 0;
-        if (change === "+") sign = 1;
-        if (change === "-") sign = -1;
-        console.log("Change mock item count: ", item, sign);
-        // Change localStorage cartItems
-        calcMockCartItemCount(item, sign);
+        const sign = change === "+" ? 1 : -1;
 
-        // Change localStorage cartItemDetails
-        // const cartItemDetails = calcMockCartItemDetailsCount(item, sign);
-        // 
+        const updatedCartItemDetails = calcMockCartItemDetailsCount(item, sign);
+        const newCartData = {
+            data: {
+                customer_id: 1,
+                shop_id: 1,
+                items: updatedCartItemDetails,
+                total_price_without_discount: updatedCartItemDetails.reduce((acc, item) => acc + (item.sub_total_price || 0), 0),
+                total_price_with_discount: updatedCartItemDetails.reduce((acc, item) => acc + (item.sub_total_price || 0), 0),
+                total_quantity: updatedCartItemDetails.reduce((acc, item) => acc + (item.sub_total_quantity || 0), 0),
+            },
+            status: true,
+        };
 
-        return getMockCartItemDetails(); //<<<========================
-        // return calcMockCartItemDetailsCount(item, sign);
-    }
-
-
-    // Function to calculate cart items count and update localStorage
-    const calcMockCartItemCount = (item, sign) => {
-        const cartItems = JSON.parse(localStorage.getItem("cartItems")) || [];
-        const modifiedCartItems = cartItems.map(cartItem => {
-            if (cartItem.id !== item.item_details.id) {
-                return cartItem;
-            }
-
-            const newQuantity = cartItem.quantity + sign;
-            const itemOptionPrice = cartItem.item_options.reduce((total, option) => total + (Number(option.price) || 0), 0);
-            const itemAddonPrice = cartItem.item_addons.reduce((total, addon) => total + (Number(addon.price) || 0), 0);
-            const subTotalPrice = Number(cartItem.price) + itemOptionPrice + itemAddonPrice;
-            
-            const newPrice = cartItem.totalPrice + (sign * (subTotalPrice || 0));
-
-            if (newQuantity <= 0) {
-                return null; // Remove item if quantity is less than 0
-            }
-
-            return {
-                ...cartItem,
-                quantity: Math.max(0, newQuantity),
-                totalPrice: Math.max(0, newPrice),
-            }
-        });
-
-        localStorage.setItem("cartItems", JSON.stringify(modifiedCartItems.filter(item => item !== null)));
-    }
+        localStorage.setItem("cartItemDetails", JSON.stringify(newCartData));
+        return newCartData;
+    };
 
     const calcMockCartItemDetailsCount = (item, sign) => {
-        const cartItemDetails = JSON.parse(localStorage.getItem("cartItemDetails"));
-        const modifiedCartItemsDetails = cartItemDetails.data.items.map(cartItem => {
+        const cartData = JSON.parse(localStorage.getItem("cartItemDetails")) || { data: { items: [] } };
 
-            if (cartItem.id !== item.id) {
-                if (cartItem.sub_total_quantity === 0) {
-                    return null; // Remove item if quantity is 0
-                }
-                return cartItem;
-            }
+        const updatedItems = cartData.data.items.map(cartItem => {
+            if (cartItem.id !== item.id) return cartItem;
 
             const newQuantity = cartItem.sub_total_quantity + sign;
-            const itemOptionPrice = cartItem.options.reduce((total, option) => total + (Number(option.price) || 0), 0);
-            const itemAddonPrice = cartItem.addons.reduce((total, addon) => total + (Number(addon.price) || 0), 0);
-            const itemPrice = Number(cartItem.item_details.price) + itemOptionPrice + itemAddonPrice;
+            if (newQuantity < 1) return null;
 
-            const newPrice = cartItem.sub_total_price + (sign * itemPrice);
-
-            if (newQuantity < 0) {
-                return null;
-            }
+            const optionPrice = cartItem.options.reduce((total, o) => total + Number(o.options_details.price || 0), 0);
+            const addonPrice = cartItem.addons.reduce((total, a) => total + Number(a.addon_details.price || 0), 0);
+            const basePrice = Number(cartItem.item_details.price || 0);
+            const unitPrice = basePrice + optionPrice + addonPrice;
+            const newPrice = cartItem.sub_total_price + (sign * unitPrice);
 
             return {
                 ...cartItem,
-                sub_total_quantity: Math.max(0, newQuantity),
+                sub_total_quantity: newQuantity,
                 sub_total_price: Math.max(0, newPrice),
             };
-        });
+        }).filter(Boolean); // Remove nulls (i.e., removed items)
 
-        return modifiedCartItemsDetails.filter(item => item !== null);
-    }
+        return updatedItems;
+    };
+
     // Mock data handling
     const getMockAddToCart = (mockData) => {
-        let prevCartItems = JSON.parse(localStorage.getItem('cartItems')) || []
-        let newCartItems = [...prevCartItems, mockData];
-        localStorage.setItem('cartItems', JSON.stringify(newCartItems));
-        // console.log("newCartItems", newCartItems);
+        const prevDetails = JSON.parse(localStorage.getItem('cartItemDetails')) || { data: { items: [] } };
+        const existingItems = prevDetails.data.items || [];
 
-        setMockCartCount();
+        const newItem = convertCartItemToDetail(mockData);
+        const updatedItems = [...existingItems, newItem];
 
-        const convertedMockCartData = convertMockCart();
-        const mockCartData = {
-            data: convertedMockCartData,
+        const newData = {
+            data: {
+                customer_id: 1,
+                shop_id: 1,
+                items: updatedItems,
+                total_price_without_discount: updatedItems.reduce((t, i) => t + (i.sub_total_price || 0), 0),
+                total_price_with_discount: updatedItems.reduce((t, i) => t + (i.sub_total_price || 0), 0),
+                total_quantity: updatedItems.reduce((t, i) => t + (i.sub_total_quantity || 0), 0),
+            },
             status: true,
-        }
+        };
 
-        return mockCartData;
-    }
+        // localStorage.setItem('cartItemDetails', JSON.stringify(newData));
+        return newData;
+    };
 
-    const getMockCartItemDetails = () => {
-        const convertedMockCartData = convertMockCart();
-        const mockCartData = {
-            data: convertedMockCartData,
-            status: true,
-        }
-
-        return mockCartData;
-    }
-
-
-    const convertMockCart = () => {
-        const mockCartItems = convertMockCartItemToItemDetails();
+    const convertCartItemToDetail = (item) => {
+        const uniqueId = `${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
 
         return {
-            customer_id: 1,
-            shop_id: 1,
-            items: mockCartItems,
-            total_price_without_discount: mockCartItems.reduce((total, item) => total + (item.sub_total_price || 0), 0),
-            total_price_with_discount: mockCartItems.reduce((total, item) => total + (item.sub_total_price || 0), 0),
-            total_quantity: mockCartItems.reduce((total, item) => total + (item.sub_total_quantity || 0), 0),
+            id: `${item.id}_${uniqueId}`,
+            item_details: {
+                id: item.id,
+                shop_id: 1,
+                name: item.name,
+                description: item.description,
+                unit_of_measurement_id: item.unit_of_measurement_id,
+                price: item.price,
+                item_status: "available",
+                image_path: item.image_path,
+                menu_category_id: item.item_category_id,
+            },
+            sub_total_price: item.totalPrice,
+            sub_total_quantity: item.quantity,
+            addons: item.item_addons.map(addon => ({
+                id: `${addon.id}_${uniqueId}`,
+                cart_item_id: item.id,
+                sub_total_price: addon.sub_total_price,
+                sub_total_quantity: addon.sub_total_quantity,
+                addon_details: {
+                    ...addon,
+                    option_status: "Available",
+                    item_id: item.id,
+                }
+            })),
+            options: item.item_options.map(option => ({
+                id: `${option.id}_${uniqueId}`,
+                cart_item_id: item.id,
+                sub_total_price: option.sub_total_price,
+                sub_total_quantity: option.sub_total_quantity,
+                options_details: {
+                    ...option,
+                    option_status: "Available",
+                    item_id: item.id,
+                }
+            })),
         };
-    }
-
-    const convertMockCartItemToItemDetails = () => {
-
-        const mockItems = JSON.parse(localStorage.getItem('cartItems')) || [];
-        return mockItems.map(item => {
-
-            const uniqueId = new Date().getTime() + Math.random().toString(36).substring(2, 15);
-
-            if(!item || !item.id) {
-                console.error("Invalid item data:", item);
-                return null;
-            }
-            return {
-                id: `${item.id}_${uniqueId}`,
-                item_details: {
-                    id: item.id,
-                    shop_id: 1,
-                    name: item.name,
-                    description: item.description,
-                    unit_of_measurement_id: item.unit_of_measurement_id,
-                    price: item.price,
-                    item_status: "available",
-                    image_path: item.image_path,
-                    menu_category_id: item.item_category_id,
-                },
-                sub_total_price: item.totalPrice,
-                sub_total_quantity: item.quantity,
-                addons: item.item_addons.map(addon => ({
-                    id: `${addon.id}_${uniqueId}`,
-                    cart_item_id: item.id,
-                    sub_total_price: addon.sub_total_price,
-                    sub_total_quantity: addon.sub_total_quantity,
-                    addon_details: {
-                        id: addon.id,
-                        label: addon.label,
-                        name: addon.name,
-                        price: addon.price,
-                        option_status: "Available",
-                        image_path: addon.image_path,
-                        item_id: item.id,
-                        created_at: addon.created_at,
-                        updated_at: addon.updated_at,
-                    }
-                })) || [] ,
-                options: item.item_options.map(option => ({
-                    id: `${option.id}_${uniqueId}`,
-                    cart_item_id: item.id,
-                    sub_total_price: option.sub_total_price,
-                    sub_total_quantity: option.sub_total_quantity,
-                    options_details: {
-                        id: option.id,
-                        label: option.label,
-                        name: option.name,
-                        price: option.price,
-                        option_status: "Available",
-                        image_path: option.image_path,
-                        item_id: item.id,
-                        created_at: option.created_at,
-                        updated_at: option.updated_at,
-                    }
-                })) || [],
-            }
-        })
-        .filter(item => item !== null); // Filter out any null items
-    }
-
-
+    };
 
     const setMockCartCount = () => {
-        const newCartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
-        console.log("Set mock cart count: ", newCartItems);
-        const totalCount = newCartItems.reduce((quantity, item) => quantity + item.quantity, 0);
+        const cartData = JSON.parse(localStorage.getItem('cartItemDetails')) || { data: { items: [] } };
+        const totalQuantity = cartData.data.items.reduce((acc, item) => acc + (item.sub_total_quantity || 0), 0);
 
-        const mockData = {
+        const mockCount = {
             data: {
-                cart_count: newCartItems.length,
-                total_quantity: totalCount,
+                cart_count: cartData.data.items.length,
+                total_quantity: totalQuantity,
             }
-        }
-        localStorage.setItem('cartCount', JSON.stringify(mockData));
-        // console.log("Get cart count: ", totalCount);
-        return totalCount;
-    }
+        };
+
+        localStorage.setItem('cartCount', JSON.stringify(mockCount));
+        setCartCount(totalQuantity);
+        return totalQuantity;
+    };
+
     return (
         <CartContext.Provider
             value={{

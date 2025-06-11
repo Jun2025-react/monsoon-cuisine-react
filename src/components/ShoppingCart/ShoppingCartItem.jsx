@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import styles from './ShoppingCartItem.module.css'; // Assuming you have a CSS module for styles
 import Paragraph2 from '../Typography/Paragraphs/Paragraph2';
 import { useCart } from '../../context/CartContext';

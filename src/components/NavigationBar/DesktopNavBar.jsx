@@ -14,7 +14,7 @@ const DesktopNavBar = (props) => {
     return (
         <Navbar expand="lg" className="">
             <Container>
-                <Navbar.Brand href="#home">
+                <Navbar.Brand href="/">
                     <img
                         alt=""
                         src="monsoon-indian-cuisine-logo.png"
@@ -33,7 +33,7 @@ const DesktopNavBar = (props) => {
                     </Nav>
                     <div className={`d-flex align-items-center ${styles.rightActions}`}>
                         {/* <a href="#order" className="btn btn-dark" style={{ width: "125px" }}>Order Online</a> */}
-                        <a href="#profile" className="btn">
+                        <a href="/Login" className="btn">
                             <i className="fas fa-user"></i>
                         </a>
                         <ShoppingCartBtn cartCount={cartCount} />

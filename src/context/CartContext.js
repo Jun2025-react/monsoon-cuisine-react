@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useEffect, useState } from 'react';
+import { createContext, useContext, useEffect, useState } from 'react';
 import { getData, putData, postData } from '../services/DataService';
 const CartContext = createContext();
 
@@ -25,8 +25,8 @@ export const CartProvider = ({ children }) => {
 
         const data = { customer: 1 };
         const result = await getData('/customer/cart/count', data);
-        console.log("result.data.total_quantity: ", result.data.total_quantity);
-        setCartCount(result.data.total_quantity || 0);
+        // console.log("result.data.total_quantity: ", result.data.total_quantity);
+        // setCartCount(result.data.total_quantity || 0);
     }
 
     const addToCart = async (apiData, mockData = {}) => {

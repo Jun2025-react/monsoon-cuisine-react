@@ -25,11 +25,11 @@ const HERO_IMAGE_4 = "/assets/images/chicken-tikka-removebg-preview.png";
 const HERO_IMAGE_5 = "/assets/images/crispy-calamari-removebg-preview.png";
 
 const HERO_IMAGES_LIST = [
-    { src : HERO_IMAGE_1, alt: "balti-chicken",  },
-    { src : HERO_IMAGE_2, alt: "biryanis",  },
-    { src : HERO_IMAGE_3, alt: "chicken",  },
-    { src : HERO_IMAGE_4, alt: "chicken-tikka",  },
-    { src : HERO_IMAGE_5, alt: "crispy-calamari",  },
+    { src: HERO_IMAGE_1, alt: "balti-chicken", },
+    { src: HERO_IMAGE_2, alt: "biryanis", },
+    { src: HERO_IMAGE_3, alt: "chicken", },
+    { src: HERO_IMAGE_4, alt: "chicken-tikka", },
+    { src: HERO_IMAGE_5, alt: "crispy-calamari", },
 ]
 
 const INFO_SECTION_IMAGE = "/assets/images/monsoon-cuisine-picture.jpg";
@@ -58,13 +58,13 @@ const INFO_SECTION = {
 
 // footer information
 const FOOTER_INFO = {
-    address : {
+    address: {
         road: ADDRESS_ROAD,
         suburb: ADDRESS_SUBURB,
         city: ADDRESS_CITY,
         postcode: ADDRESS_POSTCODE
     },
-    openingHour : {
+    openingHour: {
         lunch: OPENING_HOUR_LUNCH,
         dinner: OPENING_HOUR_DINNER
     },
@@ -73,4 +73,64 @@ const FOOTER_INFO = {
 
 const BASE_URL = "http://localhost:8000/v1/";
 
-export {RESTAURANT_INFO, INFO_SECTION, FOOTER_INFO, HERO_IMAGES_LIST, INFO_SECTION_IMAGE, BASE_URL }
+const flag_au = "/assets/images/flags/australia.png";
+const flag_cn = "/assets/images/flags/canada.png";
+const flag_ch = "/assets/images/flags/china.png";
+const flag_fj = "/assets/images/flags/fiji.png";
+const flag_in = "/assets/images/flags/india.png";
+const flag_nz = "/assets/images/flags/new-zealand.png";
+const flag_uk = "/assets/images/flags/united-kingdom.png";
+const flag_us = "/assets/images/flags/united-state.png";
+
+const COUNTRY_FLAGS = [
+    {
+        src: flag_au,
+        text: "Australia",
+        code: 61,
+        value: 1,
+    },
+    {
+        src: flag_cn,
+        text: "Canada",
+        code: 1,
+        value:2,
+    },
+    {
+        src: flag_ch,
+        text: "China",
+        code: 86,
+        value:3,
+    },
+    {
+        src: flag_fj,
+        text: "Fiji",
+        code: 679,
+        value: 4
+    },
+    {
+        src: flag_in,
+        text: "India",
+        code: 91,
+        value: 5
+    },
+    {
+        src: flag_nz,
+        text: "New Zealand",
+        code: 64,
+        value:6,
+    },
+    {
+        src: flag_uk,
+        text: "United Kindom",
+        code: 44,
+        value:7,
+    },
+    {
+        src: flag_us,
+        text: "United State",
+        code: 1,
+        value:8,
+    }
+]
+
+export { RESTAURANT_INFO, INFO_SECTION, FOOTER_INFO, HERO_IMAGES_LIST, INFO_SECTION_IMAGE, BASE_URL, COUNTRY_FLAGS }

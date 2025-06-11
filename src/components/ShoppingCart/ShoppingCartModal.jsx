@@ -1,10 +1,8 @@
 import { Modal } from 'react-bootstrap';
 import styles from './ShoppingCartModal.module.css'; // Assuming you have a CSS module for styles
 import ShoppingCartItem from './ShoppingCartItem'; // Assuming you have a ShoppingCartItem component
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useCart } from '../../context/CartContext'; // Assuming you have a CartContext for managing cart state
-import Paragraph2 from '../Typography/Paragraphs/Paragraph2';
-import TypographyH5 from '../Typography/Headings/TypographyH5';
 
 
 const ShoppingCartModal = ({ show, handleClose }) => {

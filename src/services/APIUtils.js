@@ -1,23 +1,19 @@
 const REACT_APP_API_URL = process.env.REACT_APP_API_URL || "http://localhost:3000";
 const REACT_APP_API_VERSION = process.env.REACT_APP_API_VERSION || "v1";
 
-console.log("API URL:", REACT_APP_API_URL);
-
 const headers = {
     'Content-Type': 'application/json',
 };
 
-export const getDataFromAPI = async (endpoint, body = null) => {
-    const url = `${REACT_APP_API_URL}/${REACT_APP_API_VERSION}/${endpoint}`;
-
+export const getDataFromAPI = async (endpoint, params = {}) => {
+    const query = new URLSearchParams(params).toString();
+    const url = `${REACT_APP_API_URL}/${REACT_APP_API_VERSION}/${endpoint}?${query}`;
+    
     const requestOptions = {
         method : 'GET',
+        credentials: 'include',
         headers,
     };
-
-    if (body) {
-        requestOptions.body = JSON.stringify(body);
-    }
 
     try {
         const response = await fetch(url, requestOptions);
@@ -37,6 +33,7 @@ export const putDataFromAPI = async (endpoint, body) => {
     const requestOptions = {
         method: 'PUT',
         headers,
+        credentials: 'include',
         body: JSON.stringify(body),
     };
 
@@ -57,6 +54,7 @@ export const postDataFromAPI = async (endpoint, body) => {
 
     const requestOptions = {
         method: 'POST',
+        credentials: 'include',
         headers,
         body: JSON.stringify(body),
     };
@@ -73,26 +71,27 @@ export const postDataFromAPI = async (endpoint, body) => {
     }
 }
 
-const deleteDataFromAPI = async (endpoint, body = null) => {
-    const url = `${REACT_APP_API_URL}/${REACT_APP_API_VERSION}/${endpoint}`;
+// const deleteDataFromAPI = async (endpoint, body = null) => {
+//     const url = `${REACT_APP_API_URL}/${REACT_APP_API_VERSION}/${endpoint}`;
 
-    const requestOptions = {
-        method: 'DELETE',
-        headers,
-    };
+//     const requestOptions = {
+//         credentials: 'include',
+//         method: 'DELETE',
+//         headers,
+//     };
 
-    if (body) {
-        requestOptions.body = JSON.stringify(body);
-    }
+//     if (body) {
+//         requestOptions.body = JSON.stringify(body);
+//     }
 
-    try {
-        const response = await fetch(url, requestOptions);
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        return await response.json();
-    } catch (error) {
-        console.error('Error deleting data:', error);
-        throw error;
-    }
-}
+//     try {
+//         const response = await fetch(url, requestOptions);
+//         if (!response.ok) {
+//             throw new Error(`HTTP error! status: ${response.status}`);
+//         }
+//         return await response.json();
+//     } catch (error) {
+//         console.error('Error deleting data:', error);
+//         throw error;
+//     }
+// }

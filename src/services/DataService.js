@@ -12,13 +12,13 @@ export const getData = (endpoint, body = null) => {
     if (USE_MOCK_DATA) {
         const localStorageKey = ENDPOINT_MAP[endpoint] || "";
         const localStorageData = getFromLocalStorage(localStorageKey);
-        console.log("here :: ", localStorageData);
+        // console.log("here :: ", localStorageData);
         if (localStorageData) {
             return localStorageData;
         }
         // If no mock data is found from local storage, show mock data
-        console.log(`here is data ${localStorageKey}`)
-        console.log(`MOCK_DATA_MAP[${localStorageKey}]: `, MOCK_DATA_MAP[localStorageKey]);
+        // console.log(`here is data ${localStorageKey}`)
+        // console.log(`MOCK_DATA_MAP[${localStorageKey}]: `, MOCK_DATA_MAP[localStorageKey]);
         return MOCK_DATA_MAP[localStorageKey];
     }
     

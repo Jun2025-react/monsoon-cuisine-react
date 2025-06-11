@@ -6,7 +6,7 @@ import Menu from './pages/Menu';
 import NavigationBar from './components/NavigationBar/NavigationBar';
 import Footer from './components/Footer/Footer';
 import { CartProvider } from './context/CartContext';
-
+import Login from './pages/Login';
 
 function App() {
   return (
@@ -18,6 +18,7 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/about" element={<About />} />
             <Route path="/menu" element={<Menu />} />
+            <Route path="/login" element={<Login />} />
           </Routes>
         </CartProvider>
         <Footer />

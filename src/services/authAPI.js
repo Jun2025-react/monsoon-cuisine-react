@@ -11,6 +11,7 @@ export const register = async (data) => {
         ...data,
         device_type: device_type,
         company_id: company_id,
+        mobile: Number(`64${data.mobile}`),
     }
     if(REACT_APP_USE_MOCK) {
         const lsData = JSON.stringify({ email: data.email, password: data.password })
@@ -26,12 +27,9 @@ export const login = async (data) => {
         device_type: device_type,
         login_with: "email"
     }
-    console.log("REACT_APP_USE_MOCK : ", REACT_APP_USE_MOCK);
+
     if(REACT_APP_USE_MOCK) {
         const userInfo = getFromLocalStorage("userInfo");
-        console.log("(userInfo.email === data.email :: ", userInfo.email === data.email);
-        console.log("userInfo.password === data.password :: ", userInfo.password === data.password);
-        console.log("result :: ", userInfo.email === data.email && userInfo.password === data.password);
         return userInfo.email === data.email && userInfo.password === data.password
     }
 

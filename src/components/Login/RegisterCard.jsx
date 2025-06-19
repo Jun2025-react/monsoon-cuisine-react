@@ -4,7 +4,7 @@ import FormTextBox from '../Form/FormTextBox';
 import FormCheck from 'react-bootstrap/FormCheck';
 import { COUNTRY_FLAGS } from '../../constants/constants';
 import Select from 'react-select';
-import { register } from '../../services/authAPI';
+import { register } from '../../services/AuthService';
 
 const RegisterCard = (props) => {
     const handleMode = props.handleMode;
@@ -48,7 +48,7 @@ const RegisterCard = (props) => {
         }));
     }
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         setSubmitted(true);
 
         const form = event.currentTarget;
@@ -57,7 +57,16 @@ const RegisterCard = (props) => {
             event.stopPropagation();
             return;
         }
-        register(formData)
+
+        event.preventDefault(); // prevent form submission
+        const response = await register(formData); // ✅ await the promise
+
+        if (response.success) {
+            alert("Registration successful");
+            handleMode();
+        } else {
+            alert(response.message || "Registration failed");
+        }
     };
 
     const isTermValid = (e) => {

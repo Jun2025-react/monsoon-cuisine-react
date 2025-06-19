@@ -2,8 +2,9 @@ import { getFromLocalStorage, setToLocalStorage } from "./LocalStorageUtils";
 import { getDataFromAPI, postDataFromAPI, putDataFromAPI } from "./APIUtils";
 import ENDPOINT_MAP from "./EndpointMap";
 import MOCK_DATA_MAP from "../constants/MockDataMap";
+import CONFIG from "../config";
 
-const USE_MOCK_DATA = process.env.REACT_APP_USE_MOCK === "true";
+const USE_MOCK_DATA = CONFIG.USE_MOCK_DATA;
 
 export const getData = (endpoint, body = null) => {
 
@@ -12,13 +13,9 @@ export const getData = (endpoint, body = null) => {
     if (USE_MOCK_DATA) {
         const localStorageKey = ENDPOINT_MAP[endpoint] || "";
         const localStorageData = getFromLocalStorage(localStorageKey);
-        // console.log("here :: ", localStorageData);
         if (localStorageData) {
             return localStorageData;
         }
-        // If no mock data is found from local storage, show mock data
-        // console.log(`here is data ${localStorageKey}`)
-        // console.log(`MOCK_DATA_MAP[${localStorageKey}]: `, MOCK_DATA_MAP[localStorageKey]);
         return MOCK_DATA_MAP[localStorageKey];
     }
     

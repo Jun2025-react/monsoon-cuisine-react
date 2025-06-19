@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import FormTextBox from '../Form/FormTextBox';
-import { login } from '../../services/authAPI';
+import { login } from '../../services/AuthService';
+import { useNavigate } from 'react-router-dom';
 const LoginCard = (props) => {
 
     const [email, setEmail] = useState('');
@@ -11,6 +12,7 @@ const LoginCard = (props) => {
     const [validated, setValidated] = useState(false);
 
     const handleMode = props.handleMode;
+    const navigate = useNavigate();
 
     const handleSubmit = async (event) => {
         setSubmitted(true);
@@ -21,13 +23,12 @@ const LoginCard = (props) => {
             event.stopPropagation();
             return;
         }
-        const result = await login({email, password});
+        const result = await login({ email, password });
 
-        if (result) {
-            alert("login success");
-            window.location.href="/"
-        }else {
-            alert("invalid user");
+        if (result.success) {
+            navigate("/"); // ✅ Triggers PrivateRoute again
+        } else {
+            alert(result.message);
         }
     };
 

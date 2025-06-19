@@ -1,11 +1,13 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 import { getData, putData, postData } from '../services/DataService';
+import CONFIG from '../config';
+
 const CartContext = createContext();
 
 export const useCart = () => useContext(CartContext);
 
 export const CartProvider = ({ children }) => {
-    const REACT_APP_USE_MOCK = process.env.REACT_APP_USE_MOCK === "true";
+    const USE_MOCK_DATA = CONFIG.USE_MOCK_DATA;
 
     const [cartCount, setCartCount] = useState(0);
 
@@ -19,7 +21,7 @@ export const CartProvider = ({ children }) => {
 
     const getCartCount = async () => {
 
-        if (REACT_APP_USE_MOCK) {
+        if (USE_MOCK_DATA) {
             setMockCartCount();
         }
 
@@ -31,7 +33,7 @@ export const CartProvider = ({ children }) => {
 
     const addToCart = async (apiData, mockData = {}) => {
         let data = apiData || {}
-        if (REACT_APP_USE_MOCK) data = getMockAddToCart(mockData);
+        if (USE_MOCK_DATA) data = getMockAddToCart(mockData);
 
         try {
             await putData("/addtocart", data);
@@ -45,7 +47,7 @@ export const CartProvider = ({ children }) => {
     }
 
     const increaseItemCount = (item) => {
-        console.log("Increase item count====================: ", item);
+        // console.log("Increase item count====================: ", item);
         if (!item || !item.id) {
             console.error("Invalid item data:", item);
             return;
@@ -57,7 +59,7 @@ export const CartProvider = ({ children }) => {
             cartItem: item.id
         };
 
-        if (REACT_APP_USE_MOCK) data = changeMockItemCount(item, "+");
+        if (USE_MOCK_DATA) data = changeMockItemCount(item, "+");
 
         postData("/customer/cart/count/quentity", data);
 
@@ -76,7 +78,7 @@ export const CartProvider = ({ children }) => {
             cartItem: item.id
         };
 
-        if (REACT_APP_USE_MOCK) data = changeMockItemCount(item, "-");
+        if (USE_MOCK_DATA) data = changeMockItemCount(item, "-");
 
         postData("/customer/cart/count/quentity", data);
 

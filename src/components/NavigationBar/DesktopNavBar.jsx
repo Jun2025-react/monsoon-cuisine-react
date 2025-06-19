@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
@@ -6,11 +6,17 @@ import Navbar from 'react-bootstrap/Navbar';
 import styles from './CommonNavBar.module.css';
 
 import ShoppingCartBtn from '../ShoppingCart/ShoppingCartBtn';
+import { useAuth } from '../../context/AuthContext';
 
 const DesktopNavBar = (props) => {
 
     const cartCount = props.cartCount || 0;
-
+    const { user, isAuthenticated } = useAuth();
+    const page = isAuthenticated ? "/profile" : "/login";
+    useEffect(() => {
+        console.log("DesktopNavBar user:", user);
+        console.log("DesktopNavBar isAuthenticated:", isAuthenticated);
+    }, [user, isAuthenticated]);
     return (
         <Navbar expand="lg" className="">
             <Container>
@@ -33,7 +39,7 @@ const DesktopNavBar = (props) => {
                     </Nav>
                     <div className={`d-flex align-items-center ${styles.rightActions}`}>
                         {/* <a href="#order" className="btn btn-dark" style={{ width: "125px" }}>Order Online</a> */}
-                        <a href="/Login" className="btn">
+                        <a href={page} className="btn">
                             <i className="fas fa-user"></i>
                         </a>
                         <ShoppingCartBtn cartCount={cartCount} />

@@ -1,5 +1,7 @@
-const REACT_APP_API_URL = process.env.REACT_APP_API_URL || "http://localhost:3000";
-const REACT_APP_API_VERSION = process.env.REACT_APP_API_VERSION || "v1";
+import CONFIG from "../config";
+
+const API_URL = CONFIG.API_URL;
+const API_VERSION = CONFIG.API_VERSION;
 
 const headers = {
     'Content-Type': 'application/json',
@@ -7,7 +9,7 @@ const headers = {
 
 export const getDataFromAPI = async (endpoint, params = {}) => {
     const query = new URLSearchParams(params).toString();
-    const url = `${REACT_APP_API_URL}/${REACT_APP_API_VERSION}/${endpoint}?${query}`;
+    const url = `${API_URL}/${API_VERSION}/${endpoint}?${query}`;
     
     const requestOptions = {
         method : 'GET',
@@ -28,7 +30,7 @@ export const getDataFromAPI = async (endpoint, params = {}) => {
 }
 
 export const putDataFromAPI = async (endpoint, body) => {
-    const url = `${REACT_APP_API_URL}/${REACT_APP_API_VERSION}/${endpoint}`;
+    const url = `${API_URL}/${API_VERSION}/${endpoint}`;
 
     const requestOptions = {
         method: 'PUT',
@@ -50,7 +52,7 @@ export const putDataFromAPI = async (endpoint, body) => {
 }
 
 export const postDataFromAPI = async (endpoint, body) => {
-    const url = `${REACT_APP_API_URL}/${REACT_APP_API_VERSION}/${endpoint}`;
+    const url = `${API_URL}/${API_VERSION}/${endpoint}`;
 
     const requestOptions = {
         method: 'POST',
@@ -72,7 +74,7 @@ export const postDataFromAPI = async (endpoint, body) => {
 }
 
 // const deleteDataFromAPI = async (endpoint, body = null) => {
-//     const url = `${REACT_APP_API_URL}/${REACT_APP_API_VERSION}/${endpoint}`;
+//     const url = `${API_URL}/${API_VERSION}/${endpoint}`;
 
 //     const requestOptions = {
 //         credentials: 'include',

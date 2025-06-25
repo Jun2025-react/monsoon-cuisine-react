@@ -43,11 +43,9 @@ export const login = async (data) => {
     if (USE_MOCK_DATA) {
         const userPool = getFromLocalStorage("userPool") || [];
         const user = userPool.find(user => user.email === data.email && user.password === data.password);
-        debugger;
         if (user === undefined) {
             return { success: false, message: "User not found" };
         }
-        debugger;
 
         // Mock login logic
         const userInfo = user || {};
@@ -56,22 +54,26 @@ export const login = async (data) => {
             userInfo.email === loginData.email &&
             userInfo.password === loginData.password
         ) {
-
             console.log("Mock login successful:", userInfo);
-            debugger;
-
+            setToLocalStorage("authToken", "mock-auth-token");
             setToLocalStorage("userInfo", { ...userInfo });
             return { success: true, user: userInfo };
         } else {
             console.log("Mock login failed: Invalid credentials");
-            debugger;
-
+            setToLocalStorage("authToken", null);
             setToLocalStorage("userInfo", null);
             return { success: false, message: "Invalid credentials" };
         }
     }
 
     const response = await postDataFromAPI("/login", loginData);
+
+    if (!response.status === 200 || !response.data) {
+        return { success: false, message: response.message || "Login failed" };
+    }else {
+        setToLocalStorage("authToken", response.data.token);
+        return { success: true, user: response.data || {} };
+    }
     // Make sure backend returns `{ success, user }` structure
     return response;
 };

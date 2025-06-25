@@ -1,4 +1,5 @@
 import CONFIG from "../config";
+import { getFromLocalStorage, setToLocalStorage } from "./LocalStorageUtils";
 
 const API_URL = CONFIG.API_URL;
 const API_VERSION = CONFIG.API_VERSION;
@@ -10,9 +11,16 @@ const headers = {
 export const getDataFromAPI = async (endpoint, params = {}) => {
     const query = new URLSearchParams(params).toString();
     const url = `${API_URL}/${API_VERSION}/${endpoint}?${query}`;
-    
+    // Get token from localStorage
+    const token = getFromLocalStorage('authToken');
+
+    const headers = {
+        'Content-Type': 'application/json',
+        ...(token && { 'Authorization': `Bearer ${token}` }),
+    };
+
     const requestOptions = {
-        method : 'GET',
+        method: 'GET',
         credentials: 'include',
         headers,
     };

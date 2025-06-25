@@ -16,7 +16,7 @@ const FormTextBox = ({
     const mobile = { "placeholder": "Mobile Number", "type": "tel" };
     const password = { "placeholder": "Pasword", "type": "password" };
     const confirmPassword = { "placeholder": "Confirm Password", "type": "password" };
-    const defaultSet = { "placeholder": "No preset", "type": "text" };
+    const defaultSet = { "placeholder": "", "type": "text" };
 
     const preset = {
         "first_name": firstName,
@@ -28,7 +28,7 @@ const FormTextBox = ({
         "default": defaultSet
     };
 
-    const selectedObj = preset[name] ? preset[name] : preset["defaultSet"];
+    const selectedObj = preset[name] ? preset[name] : preset["default"];
     const validCheck = () => {
         if (!precheck) {
             return false;
@@ -40,8 +40,8 @@ const FormTextBox = ({
             <Form.Control
                 required={required}
                 className={`py-2 ${className}`}
-                type={selectedObj.type}
-                placeholder={selectedObj.placeholder}
+                type={selectedObj? selectedObj.type : ""}
+                placeholder={selectedObj? selectedObj.placeholder : ""}
                 name={name}
                 value={value}
                 onChange={onChange}

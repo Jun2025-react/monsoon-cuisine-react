@@ -61,7 +61,7 @@ const ShoppingCartModal = ({ show, handleClose }) => {
                     </div>
                 </Modal.Body>
                 <div className={`${styles.modalFooter} m-4`}>
-                    <button className="btn btn-dark w-100 py-3">Checkout</button>
+                    <button className="btn btn-dark w-100 py-3" onClick={()=> { window.location.href="/checkout"}}>Checkout</button>
                 </div>
             </div>
         </Modal >

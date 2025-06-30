@@ -3,6 +3,8 @@ import { Row, Col, Card } from 'react-bootstrap';
 import styles from './Checkout.module.css';
 import ToggleButton from '../components/Button/ToggleButton';
 import TypographyH5 from '../components/Typography/Headings/TypographyH5';
+import TypographyH6 from '../components/Typography/Headings/TypographyH6';
+import SelectButtons from '../components/Checkout/SelectButtons';
 
 const Checkout = () => {
   const toggleObj = {
@@ -14,6 +16,17 @@ const Checkout = () => {
   const onToggle = (value) => {
     console.log("Toggle value:", value);
   };
+
+  const deliveryOptions = [
+    { label: 'Standard', value: 'standard', enabled: true },
+    { label: 'Scheduled', value: 'scheduled', enabled: true },
+  ];
+  const [selectedOption, setSelectedOption] = useState('pickup');
+
+  const handleSelect = (value) => {
+    setSelectedOption(value);
+    console.log("Selected option:", value);
+  }
 
   return (
     <div style={{ padding: '40px', backgroundColor: '#f2f2f2', minHeight: '100vh' }}>
@@ -33,20 +46,12 @@ const Checkout = () => {
                   </div>
 
                   <div className="mt-4">
-                    <p><strong>Pickup time</strong></p>
-                    <div className="border p-3 rounded" style={{ background: "#fafafa" }}>
-                      <p className="mb-0 text-muted">Standard</p>
-                      <small className="text-muted">Currently closed</small>
-                    </div>
-
-                    <div className="mt-3 border p-3 rounded" style={{  }}>
-                      <p className="mb-0 ">Schedule</p>
-                    </div>
-
+                    <SelectButtons title="Pickup time" options={deliveryOptions} onSelect={handleSelect} />
                     <textarea
                       placeholder="Any special instructions"
                       className="form-control mt-3"
                       rows={3}
+                      style={{ resize: 'none' }}
                     />
                   </div>
 

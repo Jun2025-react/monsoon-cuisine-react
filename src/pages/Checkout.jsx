@@ -1,9 +1,7 @@
 import { useState } from 'react';
-import { Row, Col, Card } from 'react-bootstrap';
-import styles from './Checkout.module.css';
+import { Row, Card } from 'react-bootstrap';
 import ToggleButton from '../components/Button/ToggleButton';
 import TypographyH5 from '../components/Typography/Headings/TypographyH5';
-import TypographyH6 from '../components/Typography/Headings/TypographyH6';
 import SelectButtons from '../components/Checkout/SelectButtons';
 
 const Checkout = () => {
@@ -18,7 +16,7 @@ const Checkout = () => {
   };
 
   const deliveryOptions = [
-    { label: 'Standard', value: 'standard', enabled: true },
+    { label: 'Standard', value: 'standard', enabled: false },
     { label: 'Scheduled', value: 'scheduled', enabled: true },
   ];
   const [selectedOption, setSelectedOption] = useState('pickup');

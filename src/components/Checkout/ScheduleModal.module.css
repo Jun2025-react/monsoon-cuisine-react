@@ -1,0 +1,32 @@
+.arrowBtn {
+    background: #fff;
+    border-radius: 50px;
+    ;
+    border: none;
+    width: 40px;
+    height: 40px;
+    box-shadow: 0 0 10px #ccc;
+}
+
+.arrowBtn:hover {
+    box-shadow: 0 0 10px #aaa;
+    background: #f0f0f055;
+    transition: background-color 0.3s ease;
+}
+
+.horizontalScroll {
+    overflow-x: auto;
+    overflow-y: hidden;
+    white-space: nowrap;
+    scroll-behavior: smooth;
+    -ms-overflow-style: none;
+    /* IE/Edge */
+    scrollbar-width: none;
+    /* Firefox */
+}
+.horizontalScroll::-webkit-scrollbar {
+  display: none;             /* Chrome, Safari */
+}
+.hide {
+    z-index: -1;
+}

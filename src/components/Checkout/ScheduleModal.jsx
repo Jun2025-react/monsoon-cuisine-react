@@ -5,8 +5,8 @@ import { useState } from 'react';
 
 const ScheduleModal = ({ show, onHide }) => {
 
-    const [ hideButton, setHideButton ] = useState("left");
-    const [ selectedDay, setSelectedDay ] = useState(null);
+    const [hideButton, setHideButton] = useState("left");
+    const [selectedDay, setSelectedDay] = useState(null);
 
     const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
     const monthsOfYear = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
@@ -46,6 +46,23 @@ const ScheduleModal = ({ show, onHide }) => {
 
         scrollContainer.scrollBy({ left: direction === 'left' ? -scrollAmount : scrollAmount, behavior: 'smooth' });
     };
+
+    const [selectedTime, setSelectedTime] = useState(null);
+
+    const timeSlots = [
+        "1:00 PM – 1:30 PM",
+        "1:15 PM – 1:45 PM",
+        "1:30 PM – 2:00 PM",
+        "1:45 PM – 2:15 PM",
+        "2:00 PM – 2:30 PM",
+        "2:15 PM – 2:45 PM",
+        "2:30 PM – 3:00 PM",
+        "2:45 PM – 3:15 PM",
+        "5:30 PM – 6:00 PM",
+        "5:45 PM – 6:15 PM",
+        "6:00 PM – 6:30 PM"
+    ];
+
     return (
         <Modal
             size="lg"
@@ -95,6 +112,19 @@ const ScheduleModal = ({ show, onHide }) => {
                         </div>
                     </div>
                     { /* Time Selector */}
+                    <div className="time-list">
+                        {timeSlots.map((slot, index) => (
+                            <div
+                                key={index}
+                                className="time-item d-flex justify-content-between align-items-center p-3 border-bottom"
+                                onClick={() => setSelectedTime(slot)}
+                                style={{ cursor: "pointer" }}
+                            >
+                                <span>{slot}</span>
+                                <div className={`${styles.radioCircle} ${selectedTime === slot ? `${styles.selected}` : ""}`} />
+                            </div>
+                        ))}
+                    </div>
                 </div>
                 <div className={`vertical-scrollable`}>
                 </div>

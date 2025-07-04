@@ -6,6 +6,7 @@ import { useState } from 'react';
 const ScheduleModal = ({ show, onHide }) => {
 
     const [ hideButton, setHideButton ] = useState("left");
+    const [ selectedDay, setSelectedDay ] = useState(null);
 
     const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
     const monthsOfYear = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
@@ -13,7 +14,7 @@ const ScheduleModal = ({ show, onHide }) => {
     const currentDayIndex = today.getDay(); // 0 = Sunday, 1 = Monday, ..., 6 = Saturday
     const daysOfWeekAdjusted = [...daysOfWeek.slice(currentDayIndex), ...daysOfWeek.slice(0, currentDayIndex)];
 
-    const closeDay = 'Tue';
+    const closeDay = 'Tuesday';
     const daysOption = daysOfWeekAdjusted.map((day, index) => {
         const dayDate = new Date(today);
         dayDate.setDate(today.getDate() + index); // Adjust date based on index
@@ -25,7 +26,8 @@ const ScheduleModal = ({ show, onHide }) => {
         return {
             label: label,
             label2: `${dayDate.getDate()} ${monthsOfYear[dayDate.getMonth()]}`,
-            value: day.toLowerCase(),
+            value: `${dayDate.getDate()} ${monthsOfYear[dayDate.getMonth()]}`,
+            day: day,
             isEnabled: day !== closeDay, // Disable the close day
             isActive: false, // Initially not active
         };
@@ -61,7 +63,7 @@ const ScheduleModal = ({ show, onHide }) => {
                     { /* Day Selector */}
                     <div className={`position-relative`}>
                         { /* Arrow Buttons */}
-                        <div className={`d-flex justify-content-between position-absolute w-100`} style={{ top: 16 }}>
+                        <div className={`d-flex justify-content-between position-absolute w-100 ${styles.arrowContainer}`} style={{ top: 16 }}>
                             <button className={`${styles.arrowBtn} ${hideButton === "left" ? styles.hide : ""}`} onClick={() => onClickArrow('left')} aria-label="Scroll Left">
                                 <i className="fas fa-arrow-left"></i>
                             </button>
@@ -75,12 +77,13 @@ const ScheduleModal = ({ show, onHide }) => {
                                     className="text-center"
                                     key={index}
                                     option={day}
-                                    isActive={day.isActive}
-                                    isEnabled={day.isEnabled}
+                                    isActive={selectedDay === day.value}
+                                    isEnabled={closeDay !== day.day}
                                     onClick={() => {
                                         if (day.isEnabled) {
+                                            setSelectedDay(day.value);
                                             // Handle day selection logic here
-                                            console.log(`Selected day: ${day.label}`);
+                                            console.log(`Selected day: ${day.value}`);
                                         }
                                     }}
                                 >

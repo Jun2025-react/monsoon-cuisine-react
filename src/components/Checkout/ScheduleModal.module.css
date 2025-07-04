@@ -14,6 +14,14 @@
     transition: background-color 0.3s ease;
 }
 
+.arrowContainer {
+  pointer-events: none;
+}
+
+.arrowContainer button {
+  pointer-events: auto;
+}
+
 .horizontalScroll {
     overflow-x: auto;
     overflow-y: hidden;

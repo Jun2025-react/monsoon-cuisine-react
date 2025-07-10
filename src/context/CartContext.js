@@ -212,6 +212,16 @@ export const CartProvider = ({ children }) => {
         return totalQuantity;
     };
 
+    const getSubTotal = () => {
+        const result = getCartItemsDetail();
+        if (result.status) {
+            const cartItemsDetail = result.data;
+            const cartItems = cartItemsDetail.items || [];
+            return cartItems.reduce((total, item) => total + (item.sub_total_price || 0), 0).toFixed(2);
+        }
+        return 0;
+    }
+
     return (
         <CartContext.Provider
             value={{
@@ -220,7 +230,8 @@ export const CartProvider = ({ children }) => {
                 getCartItemsDetail,
                 cartCount,
                 increaseItemCount,
-                decreaseItemCount
+                decreaseItemCount,
+                getSubTotal
             }}>
             {children}
         </CartContext.Provider>

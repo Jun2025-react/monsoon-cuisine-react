@@ -1,38 +1,42 @@
 import { Modal } from 'react-bootstrap';
 import styles from './ScheduleModal.module.css';
 import BorderButton from '../Button/BorderButton';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useCheckout } from '../../context/CheckoutContext';
+import { u_getScheduleDaysOption, u_getTimeOption } from '../../services/TimeUtils';
+
+const OPEN_TIME = "12:00";
+const CLOSE_TIME = "21:30";
 
 const ScheduleModal = ({ show, onHide }) => {
+    const openingTime = OPEN_TIME;
+    const closingTime = CLOSE_TIME;
+
+    const daysOption = u_getScheduleDaysOption();
+    const defaultTimeSlot = u_getTimeOption({ openingTime, closingTime, isToday: true });
+
+    const [timeSlots, setTimeSlots] = useState(defaultTimeSlot);
 
     const [hideButton, setHideButton] = useState("left");
-    const [selectedDay, setSelectedDay] = useState(null);
+    const [selectedDay, setSelectedDay] = useState(daysOption[0].value);
+    const [selectedTime, setSelectedTime] = useState(defaultTimeSlot[0]);
 
-    const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-    const monthsOfYear = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-    const today = new Date();
-    const currentDayIndex = today.getDay(); // 0 = Sunday, 1 = Monday, ..., 6 = Saturday
-    const daysOfWeekAdjusted = [...daysOfWeek.slice(currentDayIndex), ...daysOfWeek.slice(0, currentDayIndex)];
+    const { setScheduleDay, setScheduleTime, checkoutDay, checkoutTime } = useCheckout();
 
-    const closeDay = 'Tuesday';
-    const daysOption = daysOfWeekAdjusted.map((day, index) => {
-        const dayDate = new Date(today);
-        dayDate.setDate(today.getDate() + index); // Adjust date based on index
+    useEffect(() => {
+        if( !checkoutDay && !checkoutTime){
+            onInitialized();
+        }
+    }, [show])
 
-        let label = day.slice(0, 3);
-        if (index === 0) label = "Today";
-        else if (index === 1) label = "Tomorrow";
 
-        return {
-            label: label,
-            label2: `${dayDate.getDate()} ${monthsOfYear[dayDate.getMonth()]}`,
-            value: `${dayDate.getDate()} ${monthsOfYear[dayDate.getMonth()]}`,
-            day: day,
-            isEnabled: day !== closeDay, // Disable the close day
-            isActive: false, // Initially not active
-        };
-    });
-
+    const onInitialized = () => {
+        const todayTimeSlots = u_getTimeOption({ openingTime, closingTime, isToday: true });
+        
+        setSelectedDay(daysOption[0].value);
+        setSelectedTime(todayTimeSlots[0]);
+        setTimeSlots(todayTimeSlots);
+    }
 
     const onClickArrow = (direction) => {
         const scrollAmount = 300;
@@ -47,21 +51,37 @@ const ScheduleModal = ({ show, onHide }) => {
         scrollContainer.scrollBy({ left: direction === 'left' ? -scrollAmount : scrollAmount, behavior: 'smooth' });
     };
 
-    const [selectedTime, setSelectedTime] = useState(null);
+    const onClickDayButton = (day) => {
+        if (day.isEnabled) {
+            setSelectedDay(day.value);
+        }
+        const openingTime = OPEN_TIME;
+        const closingTime = CLOSE_TIME;
+        const timeSlot = u_getTimeOption({ openingTime, closingTime, isToday: day.label.toLowerCase() === "today" });
+        setTimeSlots(timeSlot);
+    }
 
-    const timeSlots = [
-        "1:00 PM – 1:30 PM",
-        "1:15 PM – 1:45 PM",
-        "1:30 PM – 2:00 PM",
-        "1:45 PM – 2:15 PM",
-        "2:00 PM – 2:30 PM",
-        "2:15 PM – 2:45 PM",
-        "2:30 PM – 3:00 PM",
-        "2:45 PM – 3:15 PM",
-        "5:30 PM – 6:00 PM",
-        "5:45 PM – 6:15 PM",
-        "6:00 PM – 6:30 PM"
-    ];
+    const onClickTimeButton = (time) => {
+        setSelectedTime(time);
+    }
+
+    const onClickClose = () => {
+        setSelectedDay(daysOption[0].value);
+        setSelectedTime(defaultTimeSlot[0]);
+
+        setScheduleDay(null);
+        setScheduleTime(null);
+
+        onHide();
+    }
+
+    const onClickConfirm = () => {
+        setScheduleTime(selectedTime);
+        setScheduleDay(selectedDay);
+        console.log("checkoutDay :::: ", checkoutDay);
+        console.log("checkoutTime :::: ", checkoutTime);
+        onHide();
+    }
 
     return (
         <Modal
@@ -95,14 +115,8 @@ const ScheduleModal = ({ show, onHide }) => {
                                     key={index}
                                     option={day}
                                     isActive={selectedDay === day.value}
-                                    isEnabled={closeDay !== day.day}
-                                    onClick={() => {
-                                        if (day.isEnabled) {
-                                            setSelectedDay(day.value);
-                                            // Handle day selection logic here
-                                            console.log(`Selected day: ${day.value}`);
-                                        }
-                                    }}
+                                    isEnabled={day.isEnabled}
+                                    onClick={() => onClickDayButton(day)}
                                 >
                                     <p className="mb-0" style={{ verticalAlign: "middle", pointer: day.isEnabled ? "pointer" : "not-allowed", width: 80 }}>{day.label}</p>
                                     <p className="mb-0" style={{ fontSize: 14 }}>{`${day.label2}`}</p>
@@ -112,12 +126,12 @@ const ScheduleModal = ({ show, onHide }) => {
                         </div>
                     </div>
                     { /* Time Selector */}
-                    <div className="time-list">
+                    <div className="time-list" style={{ height: 400, overflowY: "auto" }}>
                         {timeSlots.map((slot, index) => (
                             <div
                                 key={index}
                                 className="time-item d-flex justify-content-between align-items-center p-3 border-bottom"
-                                onClick={() => setSelectedTime(slot)}
+                                onClick={() => onClickTimeButton(slot)}
                                 style={{ cursor: "pointer" }}
                             >
                                 <span>{slot}</span>
@@ -130,10 +144,10 @@ const ScheduleModal = ({ show, onHide }) => {
                 </div>
             </Modal.Body>
             <Modal.Footer>
-                <button className="btn btn-secondary" onClick={() => onHide()}>
+                <button className="btn btn-secondary" onClick={onClickClose}>
                     Close
                 </button>
-                <button className="btn btn-primary" onClick={() => onHide()}>
+                <button className="btn btn-primary" onClick={onClickConfirm}>
                     Confirm
                 </button>
             </Modal.Footer>

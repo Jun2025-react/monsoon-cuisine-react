@@ -3,15 +3,15 @@ import styles from './ShoppingCartModal.module.css'; // Assuming you have a CSS 
 import ShoppingCartItem from './ShoppingCartItem'; // Assuming you have a ShoppingCartItem component
 import { useState, useEffect } from 'react';
 import { useCart } from '../../context/CartContext'; // Assuming you have a CartContext for managing cart state
-
+import ShoppingCartLists from '../ShoppingCart/ShoppingCartLists';
 
 const ShoppingCartModal = ({ show, handleClose }) => {
-    const { getCartItemsDetail } = useCart();
+    const { getCartItemsDetail, getSubTotal } = useCart();
     const [cartItems, setCartItems] = useState([]);
+    const [subTotal, setSubTotal] = useState(0);
 
     const handleFetchCartItems = () => {
         const result = getCartItemsDetail();
-        console.info("Fetching cart items result:", result);
         if (result.status) {
             const cartItemsDetail = result.data;
             setCartItems(cartItemsDetail.items || []);
@@ -19,14 +19,15 @@ const ShoppingCartModal = ({ show, handleClose }) => {
     }
 
     useEffect(() => {
-        // Fetch cart items when the modal is opened
-        console.info("Fetching cart items...");
         if (show) {
-            console.info("Modal is shown, fetching cart items...");
-            console.info("Cart items before fetch:", cartItems);
             handleFetchCartItems();
+            setSubTotal(getSubTotal());
         }
     }, [show]);
+
+    useEffect(() => {
+        setSubTotal(getSubTotal());
+    }, [cartItems])
 
     return (
         <Modal
@@ -41,27 +42,19 @@ const ShoppingCartModal = ({ show, handleClose }) => {
                 <Modal.Body>
                     <h4 className="text-center mb-4">Shopping Cart List</h4>
                     <div className={`${styles.scrollableBody}`}>
-                        {
-                            cartItems.length > 0 ? (
-                                cartItems.map((item, index) => (
-                                    <ShoppingCartItem key={index} item={item} handleFetchCartItems={handleFetchCartItems} />
-                                ))
-                            ) : (
-                                <div className="text-center text-muted">Your cart is empty.</div>
-                            )
-                        }
+                        <ShoppingCartLists handleFetch={handleFetchCartItems} items={cartItems} />
                     </div>
                     <div className={`d-flex ${styles.subTotalPrice}`}>
                         <div className="col-6 text-start">
                             Subtotal
                         </div>
                         <div className="col-6 text-end">
-                            ${cartItems.reduce((total, item) => total + (item.sub_total_price || 0), 0).toFixed(2)}
+                            ${subTotal}
                         </div>
                     </div>
                 </Modal.Body>
                 <div className={`${styles.modalFooter} m-4`}>
-                    <button className="btn btn-dark w-100 py-3" onClick={()=> { window.location.href="/checkout"}}>Checkout</button>
+                    <button className="btn btn-dark w-100 py-3" onClick={() => { window.location.href = "/checkout" }}>Checkout</button>
                 </div>
             </div>
         </Modal >

@@ -17,7 +17,7 @@ const ToggleButton = ({ toggleObj, onToggle }) => {
     }, [activaButton]);
 
     return (
-        <div class={`${styles.toggleContainer}`}>
+        <div className={`${styles.toggleContainer}`}>
             <button
                 onClick={() => handleToggle(true)}
                 className={`${isLeftActive ? styles.activeButton : styles.toggleButton}`}

@@ -1,15 +1,18 @@
 import React, { useState } from 'react';
-import Form from 'react-bootstrap/Form';
-import Button from 'react-bootstrap/Button';
 import FormTextBox from '../Form/FormTextBox';
 import { login } from '../../services/AuthService';
 import { useNavigate } from 'react-router-dom';
+import { Alert, Form, Button } from 'react-bootstrap';
+
 const LoginCard = (props) => {
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [submitted, setSubmitted] = useState(false);
     const [validated, setValidated] = useState(false);
+
+    const [showErrorModal, setShowErrorModal] = useState(false);
+    const [errorMessage, setErrorMessage] = useState('');
 
     const handleMode = props.handleMode;
     const navigate = useNavigate();
@@ -28,7 +31,9 @@ const LoginCard = (props) => {
         if (result.success) {
             navigate("/"); // ✅ Triggers PrivateRoute again
         } else {
-            alert(result.message);
+            // alert(result.message);
+            setErrorMessage(result.message); // set the error
+            setShowErrorModal(true);        // show the modal
         }
     };
 
@@ -69,6 +74,11 @@ const LoginCard = (props) => {
                         Forgotten Password?
                     </a>
                 </div>
+                {showErrorModal &&
+                    <Alert variant="danger" className="mt-3">
+                        {errorMessage}
+                    </Alert>
+                }
 
                 <Button
                     variant="danger"

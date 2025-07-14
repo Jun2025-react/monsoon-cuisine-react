@@ -1,0 +1,30 @@
+.unable {
+    color: var(--bs-secondary-color) !important;
+    background: #e6e6e6 !important;
+    border-color: #aaaaaaa8 !important;
+}
+
+.card {
+    border: 1px solid #ccc;
+    border-radius: 12px;
+    box-shadow: none !important;
+    min-height: 70px;
+    align-items: middle;
+
+    display: flex;
+    flex-direction: column;
+    /* align-items: center; */
+    justify-content: center;
+
+    height: 70px;
+    background-color: white;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.active {
+    color: var(--bs-primary-color) !important;
+    background: var(--bs-primary-color) !important;
+    border-color: #707070 !important;
+    /* border : 1.5px solid; */
+}

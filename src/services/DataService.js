@@ -6,7 +6,7 @@ import CONFIG from "../config";
 
 const USE_MOCK_DATA = CONFIG.USE_MOCK_DATA;
 
-export const getData = (endpoint, body = null) => {
+export const getData = async (endpoint, body = null) => {
 
     console.log(`Fetching data from endpoint: ${endpoint}`, body);
     
@@ -19,7 +19,7 @@ export const getData = (endpoint, body = null) => {
         return MOCK_DATA_MAP[localStorageKey];
     }
     
-    const data = getDataFromAPI(endpoint, body);
+    const data = await getDataFromAPI(endpoint, body);
     return data;
 }
 

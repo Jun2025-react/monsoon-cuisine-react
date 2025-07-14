@@ -42,9 +42,20 @@ export const login = async (data) => {
 
     if (USE_MOCK_DATA) {
         const userPool = getFromLocalStorage("userPool") || [];
-        const user = userPool.find(user => user.email === data.email && user.password === data.password);
+        let message = "Login failed";
+        const user = userPool.find(user => {
+            if (user.email !== data.email) {
+                message = "User not found";
+                return false;
+            }
+            if (user.password !== data.password) {
+                message = "Invalid credentials";
+                return false;
+            }
+            return true;
+        });
         if (user === undefined) {
-            return { success: false, message: "User not found" };
+            return { success: false, message: message };
         }
 
         // Mock login logic
@@ -57,9 +68,9 @@ export const login = async (data) => {
             console.log("Mock login successful:", userInfo);
             userInfo = {
                 ...userInfo,
-                id : 114, 
+                id: 114,
                 role_id: 8,
-                token : "mock-auth-token"
+                token: "mock-auth-token"
             };
             setToLocalStorage("authToken", "mock-auth-token");
             setToLocalStorage("userInfo", { ...userInfo });
@@ -76,7 +87,7 @@ export const login = async (data) => {
 
     if (!response.status === 200 || !response.data) {
         return { success: false, message: response.message || "Login failed" };
-    }else {
+    } else {
         setToLocalStorage("authToken", response.data.token);
         return { success: true, user: response.data || {} };
     }

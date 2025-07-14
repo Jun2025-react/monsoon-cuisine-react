@@ -62,10 +62,11 @@ const RegisterCard = (props) => {
         const response = await register(formData); // ✅ await the promise
 
         if (response.success) {
-            alert("Registration successful");
+            // alert("Registration successful");
             handleMode();
         } else {
-            alert(response.message || "Registration failed");
+            console.log("Registration failed:", response.message);
+            // alert(response.message || "Registration failed");
         }
     };
 

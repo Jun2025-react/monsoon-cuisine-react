@@ -133,4 +133,32 @@ const COUNTRY_FLAGS = [
     }
 ]
 
-export { RESTAURANT_INFO, INFO_SECTION, FOOTER_INFO, HERO_IMAGES_LIST, INFO_SECTION_IMAGE, BASE_URL, COUNTRY_FLAGS }
+const REGIONS_WITH_CITIES = {
+  "Northland": ["Whangārei", "Kerikeri", "Kaitaia"],
+  "Auckland": ["Auckland City", "Manukau", "North Shore", "Pukekohe"],
+  "Waikato": ["Hamilton", "Cambridge", "Taupō", "Tokoroa"],
+  "Bay of Plenty": ["Tauranga", "Rotorua", "Whakatāne", "Opotiki"],
+  "Gisborne": ["Gisborne"],
+  "Hawke's Bay": ["Napier", "Hastings", "Wairoa", "Havelock North"],
+  "Taranaki": ["New Plymouth", "Hāwera", "Waitara", "Stratford"],
+  "Manawatū-Whanganui": ["Palmerston North", "Whanganui", "Feilding", "Levin"],
+  "Wellington": ["Wellington", "Lower Hutt", "Upper Hutt", "Porirua", "Kapiti"],
+  "Tasman": ["Richmond", "Motueka", "Takaka"],
+  "Nelson": ["Nelson"],
+  "Marlborough": ["Blenheim", "Picton"],
+  "West Coast": ["Greymouth", "Westport", "Hokitika"],
+  "Canterbury": ["Christchurch", "Timaru", "Ashburton", "Rangiora"],
+  "Otago": ["Dunedin", "Queenstown", "Oamaru", "Wanaka"],
+  "Southland": ["Invercargill", "Gore", "Te Anau"]
+};
+
+export { 
+    RESTAURANT_INFO, 
+    INFO_SECTION, 
+    FOOTER_INFO, 
+    HERO_IMAGES_LIST, 
+    INFO_SECTION_IMAGE, 
+    BASE_URL, 
+    COUNTRY_FLAGS,
+    REGIONS_WITH_CITIES
+}

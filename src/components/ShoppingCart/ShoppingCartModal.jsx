@@ -1,7 +1,6 @@
 import { Modal } from 'react-bootstrap';
 import styles from './ShoppingCartModal.module.css'; // Assuming you have a CSS module for styles
-import ShoppingCartItem from './ShoppingCartItem'; // Assuming you have a ShoppingCartItem component
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useCart } from '../../context/CartContext'; // Assuming you have a CartContext for managing cart state
 import ShoppingCartLists from '../ShoppingCart/ShoppingCartLists';
 
@@ -10,24 +9,24 @@ const ShoppingCartModal = ({ show, handleClose }) => {
     const [cartItems, setCartItems] = useState([]);
     const [subTotal, setSubTotal] = useState(0);
 
-    const handleFetchCartItems = () => {
-        const result = getCartItemsDetail();
-        if (result.status) {
+    const handleFetchCartItems = useCallback(async () => {
+        const result = await getCartItemsDetail();
+        if (result?.status) {
             const cartItemsDetail = result.data;
             setCartItems(cartItemsDetail.items || []);
         }
-    }
+    }, [getCartItemsDetail]);
 
     useEffect(() => {
         if (show) {
             handleFetchCartItems();
             setSubTotal(getSubTotal());
         }
-    }, [show]);
+    }, [show, handleFetchCartItems, setSubTotal, getSubTotal]);
 
     useEffect(() => {
         setSubTotal(getSubTotal());
-    }, [cartItems])
+    }, [cartItems, getSubTotal])
 
     return (
         <Modal

@@ -48,13 +48,19 @@ export const login = async (data) => {
         }
 
         // Mock login logic
-        const userInfo = user || {};
+        let userInfo = user || {};
         if (
             userInfo &&
             userInfo.email === loginData.email &&
             userInfo.password === loginData.password
         ) {
             console.log("Mock login successful:", userInfo);
+            userInfo = {
+                ...userInfo,
+                id : 114, 
+                role_id: 8,
+                token : "mock-auth-token"
+            };
             setToLocalStorage("authToken", "mock-auth-token");
             setToLocalStorage("userInfo", { ...userInfo });
             return { success: true, user: userInfo };
@@ -75,7 +81,6 @@ export const login = async (data) => {
         return { success: true, user: response.data || {} };
     }
     // Make sure backend returns `{ success, user }` structure
-    return response;
 };
 
 export const logout = async () => {

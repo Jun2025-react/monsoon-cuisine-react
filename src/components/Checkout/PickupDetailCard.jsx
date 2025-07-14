@@ -7,7 +7,7 @@ import { useCheckout } from '../../context/CheckoutContext';
 
 const PickupDetailCard = () => {
 
-    const { setOrderMethod, checkoutDay, checkoutTime, setDeliveryInstruction } = useCheckout();
+    const { setOrderType, checkoutDay, checkoutTime, setDeliveryInstruction } = useCheckout();
 
     const deliveryOptions = [
         { label: 'Standard', value: 'standard', enabled: true },
@@ -36,7 +36,8 @@ const PickupDetailCard = () => {
     };
 
     const onToggle = (value) => {
-        setOrderMethod(value);
+        const orderType = value === toggleObj.left ? 1 : 2;
+        setOrderType(orderType);
     };
     const onValueChanged = (opt) => {
         setInstruction(opt.target.value);

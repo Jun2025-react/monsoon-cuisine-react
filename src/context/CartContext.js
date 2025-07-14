@@ -11,8 +11,8 @@ export const CartProvider = ({ children }) => {
 
     const [cartCount, setCartCount] = useState(0);
 
-    const getCartItemsDetail = () => {
-        return getData("/customer/cart");
+    const getCartItemsDetail = async () => {
+        return await getData("/customer/cart");
     }
 
     useEffect(() => {
@@ -20,16 +20,25 @@ export const CartProvider = ({ children }) => {
     }, [])
 
     const getCartCount = async () => {
-
         if (USE_MOCK_DATA) {
             setMockCartCount();
+            return;
         }
 
-        const data = { customer: 1 };
-        const result = await getData('/customer/cart/count', data);
-        // console.log("result.data.total_quantity: ", result.data.total_quantity);
-        // setCartCount(result.data.total_quantity || 0);
-    }
+        try {
+            const data = { customer: 1 };
+            const result = await getData('/customer/cart/count', data);
+
+            if (result?.status && result.data?.total_quantity != null) {
+                setCartCount(result.data.total_quantity);
+            } else {
+                setCartCount(0);
+            }
+        } catch (error) {
+            console.error("Failed to get cart count:", error);
+            setCartCount(0);
+        }
+    };
 
     const addToCart = async (apiData, mockData = {}) => {
         let data = apiData || {}
@@ -212,8 +221,8 @@ export const CartProvider = ({ children }) => {
         return totalQuantity;
     };
 
-    const getSubTotal = () => {
-        const result = getCartItemsDetail();
+    const getSubTotal = async () => {
+        const result = await getCartItemsDetail();
         if (result.status) {
             const cartItemsDetail = result.data;
             const cartItems = cartItemsDetail.items || [];

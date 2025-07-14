@@ -6,7 +6,7 @@ import { useCart } from '../../context/CartContext';
 const NavigationBar = (props) => {
     const { cartCount } = useCart();
     const [navType, setNavType] = useState(window.innerWidth < 992 ? 'mobile' : 'desktop');
-    const [ viewCartCount, setViewCartCount ] = useState(cartCount || 0);
+    const [viewCartCount, setViewCartCount] = useState(cartCount || 0);
 
     useEffect(() => {
         const handleResize = () => {
@@ -19,7 +19,6 @@ const NavigationBar = (props) => {
 
         window.addEventListener('resize', handleResize);
 
-        // Cleanup the event listener on component unmount
         return () => {
             window.removeEventListener('resize', handleResize);
         };
@@ -30,7 +29,7 @@ const NavigationBar = (props) => {
     }, [viewCartCount, cartCount]);
 
     return (
-        navType === "mobile" ? <MobileNavBar cartCount={viewCartCount}/> : <DesktopNavBar cartCount={viewCartCount}/>
+        navType === "mobile" ? <MobileNavBar cartCount={viewCartCount} /> : <DesktopNavBar cartCount={viewCartCount} />
 
     )
 };

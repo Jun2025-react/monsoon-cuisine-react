@@ -11,8 +11,8 @@ export const CheckoutProvider = ({ children }) => {
     const [ checkoutTime , setCheckoutTime ] = useState();
     const [ instruction, setInstruction ] = useState();
 
-    const setOrderMethod = (method) => {
-        setMethod(method.toLowerCase());
+    const setOrderType = (orderType) => {
+        setMethod(orderType);
     }
     const setScheduleDay = (day)=> {
         setCheckoutDay(day);
@@ -33,7 +33,7 @@ export const CheckoutProvider = ({ children }) => {
                 instruction,
                 setInstruction,
                 setDeliveryInstruction,
-                setOrderMethod,
+                setOrderType,
                 setScheduleDay, 
                 setScheduleTime
             }}

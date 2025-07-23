@@ -52,6 +52,7 @@ const RegisterCard = (props) => {
         setSubmitted(true);
 
         const form = event.currentTarget;
+        console.log("form.checkValidity" , form.checkValidity());
         if (form.checkValidity() === false) {
             event.preventDefault();
             event.stopPropagation();

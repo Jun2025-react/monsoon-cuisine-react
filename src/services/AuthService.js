@@ -15,7 +15,7 @@ export const register = async (data) => {
         company_id: COMPANY_ID,
         mobile: Number(`64${data.mobile}`),
     };
-
+    debugger;
     if (USE_MOCK_DATA) {
         const userPool = getFromLocalStorage("userPool") || [];
         const findUser = userPool.find(user => {

@@ -14,7 +14,7 @@ const ToggleButton = ({ toggleObj, onToggle }) => {
     };
     useEffect(() => {
         setIsLeftActive(activaButton === leftBtn);
-    }, [activaButton]);
+    }, [activaButton, leftBtn]);
 
     return (
         <div className={`${styles.toggleContainer}`}>

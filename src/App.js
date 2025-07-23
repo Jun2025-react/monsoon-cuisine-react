@@ -11,6 +11,7 @@ import Profile from './pages/Profile';
 import PrivateRoute from './components/PrivateRoute';
 import { AuthProvider } from './context/AuthContext';
 import Checkout from './pages/Checkout';
+import Reservation from './pages/Reservation';
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
               <Route path="/about" element={<About />} />
               <Route path="/menu" element={<Menu />} />
               <Route path="/login" element={<Login />} />
+              <Route path="/Reservation" element={<Reservation />} />
               <Route
                 path="/profile"
                 element={

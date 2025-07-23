@@ -34,7 +34,7 @@ const DesktopNavBar = (props) => {
                         <Nav.Link href="/">Home</Nav.Link>
                         <Nav.Link href="/about">About</Nav.Link>
                         <Nav.Link href="/menu">Menu</Nav.Link>
-                        <Nav.Link href="#reservation">Reservation</Nav.Link>
+                        <Nav.Link href="/reservation">Reservation</Nav.Link>
                         <Nav.Link href="#contact">Contact Us</Nav.Link>
                     </Nav>
                     <div className={`d-flex align-items-center ${styles.rightActions}`}>

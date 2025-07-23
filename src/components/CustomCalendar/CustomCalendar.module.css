@@ -1,0 +1,59 @@
+.customCalendar {
+  border: 1px solid #ccc;
+  padding: 1rem;
+  width: 100%;
+  background: white;
+  border-radius: 10px;
+  overflow: hidden;
+  /* ✅ prevents overflow like in your screenshot */
+
+}
+
+.calendarHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.calendarGrid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 5px;
+  width: 100%;
+  overflow: auto;
+}
+
+.dayHeader {
+  font-weight: bold;
+  text-align: center;
+}
+
+.dayCell,
+.emptyCell {
+  width: 100%;
+  aspect-ratio: 2;
+  text-align: center;
+  line-height: 2;
+  cursor: pointer;
+  border-radius: 5px;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.dayCell:hover {
+  background: #e0e0e0;
+}
+
+.dayCell.selected {
+  background-color: #dc3545;
+  color: white;
+  font-weight: bold;
+}
+.dayCell.disabled {
+  background-color: #f8f9fa;
+  color: #6c757d;
+  cursor: not-allowed;
+}

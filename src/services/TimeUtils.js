@@ -35,7 +35,13 @@ export function u_getScheduleDaysOption( closeDay = null, today = new Date() ) {
     });
 }
 
-export function u_getTimeOption({openingTime="12:00", closingTime="21:30", isToday=false}){
+export function u_getTimeOption({
+    openingTime="12:00", 
+    closingTime="21:30", 
+    isToday=false, 
+    interval=5,
+    delay=30
+}) {
     const options = [];
 
     // Parse closing time
@@ -48,13 +54,13 @@ export function u_getTimeOption({openingTime="12:00", closingTime="21:30", isTod
         theDay.setHours(startingHour);
         theDay.setMinutes(startingMinute);
     }
-    const startTime = new Date(theDay.getTime() + 30 * 60000);
+    const startTime = new Date(theDay.getTime() + delay * 60000);
 
-    // Round to next 5-minute mark
+    // Round to next interval mark
     const minutes = startTime.getMinutes();
-    const remainder = minutes % 5;
+    const remainder = minutes % interval;
     if (remainder !== 0) {
-        startTime.setMinutes(minutes + (5 - remainder));
+        startTime.setMinutes(minutes + (interval - remainder));
     }
 
     while (true) {
@@ -72,7 +78,7 @@ export function u_getTimeOption({openingTime="12:00", closingTime="21:30", isTod
         options.push(formatted);
 
         // Add 5 minutes
-        startTime.setMinutes(startTime.getMinutes() + 5);
+        startTime.setMinutes(startTime.getMinutes() + interval);
     }
 
     return options;

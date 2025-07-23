@@ -1,7 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Card } from 'react-bootstrap';
 import ShoppingCartLists from '../ShoppingCart/ShoppingCartLists';
-import { useCart } from '../../context/CartContext'; // Assuming you have a CartContext for managing cart state
 
 const FoldableCard = (
     {

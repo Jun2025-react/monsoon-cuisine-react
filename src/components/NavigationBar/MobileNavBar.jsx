@@ -25,7 +25,7 @@ const MobileNavBar = (props) => {
                         <Nav.Link href="/" className={`px-5 py-3 ${styles.navHover}`}>Home</Nav.Link>
                         <Nav.Link href="/about" className={`px-5 py-3 ${styles.navHover}`}>About</Nav.Link>
                         <Nav.Link href="/menu" className={`px-5 py-3 ${styles.navHover}`}>Menu</Nav.Link>
-                        <Nav.Link href="#reservation" className={`px-5 py-3 ${styles.navHover}`}>Reservation</Nav.Link>
+                        <Nav.Link href="/reservation" className={`px-5 py-3 ${styles.navHover}`}>Reservation</Nav.Link>
                         <Nav.Link href="#contact" className={`px-5 py-3 ${styles.navHover}`}>Contact Us</Nav.Link>
                     </Nav>
                 </Navbar.Collapse>

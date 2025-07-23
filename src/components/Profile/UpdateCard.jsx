@@ -48,7 +48,6 @@ const UpdateCard = (props) => {
         }));
     }
 
-    console.log("Profile user:", user);
     const [regionCode, setRegionCode] = useState(1); // Auckland default
     const regionOptions = [
         { label: (<div className="d-flex align-items-center">Auckland</div>), value: "auckland", code: 1 },
@@ -93,23 +92,6 @@ const UpdateCard = (props) => {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-        // const form = event.currentTarget;
-        // if (form.checkValidity() === false) {
-        //     event.stopPropagation();
-        //     return;
-        // }
-        // // Here you would typically handle the form submission, e.g., send data to the server
-        // console.log("Form submitted with data:", formData);
-        // // Reset form data after submission
-        // setFormData({
-        //     first_name: '',
-        //     last_name: '',
-        //     email: '',
-        //     mobile: '',
-        //     password: '',
-        //     confirm_password: '',
-        //     agreeTerms: false,
-        // });
     }
 
     return (

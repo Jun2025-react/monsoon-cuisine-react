@@ -83,54 +83,54 @@ const flag_uk = "/assets/images/flags/united-kingdom.png";
 const flag_us = "/assets/images/flags/united-state.png";
 
 const COUNTRY_FLAGS = [
-    {
-        src: flag_au,
-        text: "Australia",
-        code: 61,
-        value: 1,
-    },
-    {
-        src: flag_cn,
-        text: "Canada",
-        code: 1,
-        value:2,
-    },
-    {
-        src: flag_ch,
-        text: "China",
-        code: 86,
-        value:3,
-    },
-    {
-        src: flag_fj,
-        text: "Fiji",
-        code: 679,
-        value: 4
-    },
-    {
-        src: flag_in,
-        text: "India",
-        code: 91,
-        value: 5
-    },
+    // {
+    //     src: flag_au,
+    //     text: "Australia",
+    //     code: 61,
+    //     value: 1,
+    // },
+    // {
+    //     src: flag_cn,
+    //     text: "Canada",
+    //     code: 1,
+    //     value:2,
+    // },
+    // {
+    //     src: flag_ch,
+    //     text: "China",
+    //     code: 86,
+    //     value:3,
+    // },
+    // {
+    //     src: flag_fj,
+    //     text: "Fiji",
+    //     code: 679,
+    //     value: 4
+    // },
+    // {
+    //     src: flag_in,
+    //     text: "India",
+    //     code: 91,
+    //     value: 5
+    // },
     {
         src: flag_nz,
         text: "New Zealand",
         code: 64,
         value:6,
     },
-    {
-        src: flag_uk,
-        text: "United Kindom",
-        code: 44,
-        value:7,
-    },
-    {
-        src: flag_us,
-        text: "United State",
-        code: 1,
-        value:8,
-    }
+    // {
+    //     src: flag_uk,
+    //     text: "United Kindom",
+    //     code: 44,
+    //     value:7,
+    // },
+    // {
+    //     src: flag_us,
+    //     text: "United State",
+    //     code: 1,
+    //     value:8,
+    // }
 ]
 
 const REGIONS_WITH_CITIES = {

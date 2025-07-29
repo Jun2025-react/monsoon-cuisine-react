@@ -7,6 +7,13 @@ const NavigationBar = (props) => {
     const { cartCount } = useCart();
     const [navType, setNavType] = useState(window.innerWidth < 992 ? 'mobile' : 'desktop');
     const [viewCartCount, setViewCartCount] = useState(cartCount || 0);
+    const navItems = [
+        { label: 'Home', path: '/' }, 
+        { label: 'About', path: '/about' },
+        { label: 'Menu', path: '/menu' }, 
+        { label: 'Reservation', path: '/reservation' }, 
+        // { label: 'Contact', path: '/contact' }
+    ];
 
     useEffect(() => {
         const handleResize = () => {
@@ -29,7 +36,7 @@ const NavigationBar = (props) => {
     }, [viewCartCount, cartCount]);
 
     return (
-        navType === "mobile" ? <MobileNavBar cartCount={viewCartCount} /> : <DesktopNavBar cartCount={viewCartCount} />
+        navType === "mobile" ? <MobileNavBar cartCount={viewCartCount} navItems={navItems}/> : <DesktopNavBar cartCount={viewCartCount} navItems={navItems} />
 
     )
 };

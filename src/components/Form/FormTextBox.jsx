@@ -17,6 +17,8 @@ const FormTextBox = ({
     const password = { "placeholder": "Pasword", "type": "password" };
     const confirmPassword = { "placeholder": "Confirm Password", "type": "password" };
     const defaultSet = { "placeholder": "", "type": "text" };
+    const address_1 = { "placeholder": "Address 1", "type": "text" };
+    const address_2 = { "placeholder": "Address 2", "type": "text" };
 
     const preset = {
         "first_name": firstName,
@@ -25,6 +27,8 @@ const FormTextBox = ({
         "mobile": mobile,
         "password": password,
         "confirm_password": confirmPassword,
+        "address_1": address_1,
+        "address_2": address_2,
         "default": defaultSet
     };
 

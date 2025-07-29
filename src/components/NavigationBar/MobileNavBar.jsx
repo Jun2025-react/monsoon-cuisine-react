@@ -7,6 +7,7 @@ import ShoppingCartBtn from '../ShoppingCart/ShoppingCartBtn';
 
 const MobileNavBar = (props) => {
     const cartCount = props.cartCount || 0;
+    const navItems = props.navItems || [];
 
     return (
         <Navbar expand="lg" className="">
@@ -22,11 +23,11 @@ const MobileNavBar = (props) => {
                 </div>
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="mb-2 mb-lg-0 text-start ">
-                        <Nav.Link href="/" className={`px-5 py-3 ${styles.navHover}`}>Home</Nav.Link>
-                        <Nav.Link href="/about" className={`px-5 py-3 ${styles.navHover}`}>About</Nav.Link>
-                        <Nav.Link href="/menu" className={`px-5 py-3 ${styles.navHover}`}>Menu</Nav.Link>
-                        <Nav.Link href="/reservation" className={`px-5 py-3 ${styles.navHover}`}>Reservation</Nav.Link>
-                        <Nav.Link href="#contact" className={`px-5 py-3 ${styles.navHover}`}>Contact Us</Nav.Link>
+                        {navItems.map((item, index) => (
+                            <Nav.Link key={index} href={item.path} className={`px-5 py-3 ${styles.navHover}`}>
+                                {item.label}
+                            </Nav.Link>
+                        ))}
                     </Nav>
                 </Navbar.Collapse>
             </Container>

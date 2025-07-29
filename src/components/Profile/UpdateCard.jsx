@@ -6,6 +6,7 @@ import { Form, Row, Col, Button } from 'react-bootstrap';
 import FormCheck from 'react-bootstrap/FormCheck';
 import Select from 'react-select';
 import { COUNTRY_FLAGS } from '../../constants/constants';
+import { updateProfile } from '../../services/ProfileService';
 
 const UpdateCard = (props) => {
 
@@ -14,13 +15,14 @@ const UpdateCard = (props) => {
     const phoneNumber = mobile ? mobile.toString().slice(2) : ''; // Extract the phone number part
     const handleClick = props.buttonClick;
     const [formData, setFormData] = useState({
-        first_name: '',
-        last_name: '',
-        email: '',
-        mobile: '',
-        password: '',
-        confirm_password: '',
+        first_name: user.first_name || '',
+        last_name: user.last_name || '',
+        email: user.email || '',
+        mobile: phoneNumber,
+        address_1: user.address_1 || '',
+        address_2: user.address_2 || '',
     });
+    const handleCancel = props.cancelUpdate;
 
     const handleChange = (e) => {
         const { name, value, type, checked } = e.target;
@@ -90,8 +92,20 @@ const UpdateCard = (props) => {
         }));
     }
 
-    const handleSubmit = async (event) => {
-        event.preventDefault();
+    const handleSubmit = async () => {
+        const updatedData = {
+            ...formData,
+            mobile: `+${countryCode}${formData.mobile}`
+        };
+
+        try {
+            const result = updateProfile(updatedData)
+            window.location.href = "/profile";
+            
+        } catch (error) {
+            console.error("Error updating profile:", error);
+        }
+            
     }
 
     return (
@@ -113,7 +127,7 @@ const UpdateCard = (props) => {
                                 <FormTextBox
                                     required
                                     name="email"
-                                    value={user.email}
+                                    value={formData.email}
                                     onChange={handleChange}
                                     useValidationText={true}
                                 />
@@ -127,7 +141,7 @@ const UpdateCard = (props) => {
                                 <FormTextBox
                                     required
                                     name="first_name"
-                                    value={user.first_name}
+                                    value={formData.first_name}
                                     onChange={handleChange}
                                     useValidationText={true}
                                 />
@@ -141,7 +155,7 @@ const UpdateCard = (props) => {
                                 <FormTextBox
                                     required
                                     name="last_name"
-                                    value={user.last_name}
+                                    value={formData.last_name}
                                     onChange={handleChange}
                                     useValidationText={true}
                                 />
@@ -163,12 +177,12 @@ const UpdateCard = (props) => {
                                 <FormTextBox
                                     required
                                     name="mobile"
-                                    value={user.mobile}
+                                    value={formData.mobile}
                                     onChange={handleChange}
                                 />
                             </Col>
                         </Form.Group>
-                        <Form.Group as={Row} className="mb-3">
+                        {/* <Form.Group as={Row} className="mb-3">
                             <Form.Label column sm={3} style={{ textAlign: 'left' }}>
                                 Region
                             </Form.Label>
@@ -233,8 +247,34 @@ const UpdateCard = (props) => {
                                     onChange={handleChange}
                                 />
                             </Col>
+                        </Form.Group> */}
+                        <Form.Group as={Row} className="mb-3">
+                            <Form.Label column sm={3} style={{ textAlign: 'left' }}>
+                                Addreess 1 
+                            </Form.Label>
+                            <Col sm={9}>
+                                <FormTextBox
+                                    required
+                                    name="address_1"
+                                    value={formData.address_1}
+                                    onChange={handleChange}
+                                />
+                            </Col>
                         </Form.Group>
                         <Form.Group as={Row} className="mb-3">
+                            <Form.Label column sm={3} style={{ textAlign: 'left' }}>
+                                Address 2
+                            </Form.Label>
+                            <Col sm={9}>
+                                <FormTextBox
+                                    required
+                                    name="address_2"
+                                    value={formData.address_2}
+                                    onChange={handleChange}
+                                />
+                            </Col>
+                        </Form.Group> 
+                        {/* <Form.Group as={Row} className="mb-3">
                             <Form.Label column sm={3} style={{ textAlign: 'left' }}>
                                 Postal Code
                             </Form.Label>
@@ -246,9 +286,12 @@ const UpdateCard = (props) => {
                                     onChange={handleChange}
                                 />
                             </Col>
-                        </Form.Group>
-                        <Button variant="secondary" className="w-100" onClick={() => handleSubmit()}>
+                        </Form.Group> */}
+                        <Button variant="dark" className="w-100" onClick={() => handleSubmit()}>
                             Apply
+                        </Button>
+                        <Button variant="outline-dark" className="w-100 mt-2" onClick={handleCancel}>
+                            Cancel
                         </Button>
                     </Form>
                 </Card.Body>

@@ -13,10 +13,13 @@ const DesktopNavBar = (props) => {
     const cartCount = props.cartCount || 0;
     const { user, isAuthenticated } = useAuth();
     const page = isAuthenticated ? "/profile" : "/login";
+    const navItems = props.navItems || []
+    
     useEffect(() => {
-        console.log("DesktopNavBar user:", user);
-        console.log("DesktopNavBar isAuthenticated:", isAuthenticated);
+        // console.log("DesktopNavBar user:", user);
+        // console.log("DesktopNavBar isAuthenticated:", isAuthenticated);
     }, [user, isAuthenticated]);
+
     return (
         <Navbar expand="lg" className="">
             <Container>
@@ -31,11 +34,11 @@ const DesktopNavBar = (props) => {
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="mx-auto mb-2 mb-lg-0">
-                        <Nav.Link href="/">Home</Nav.Link>
-                        <Nav.Link href="/about">About</Nav.Link>
-                        <Nav.Link href="/menu">Menu</Nav.Link>
-                        <Nav.Link href="/reservation">Reservation</Nav.Link>
-                        <Nav.Link href="#contact">Contact Us</Nav.Link>
+                        { navItems.length > 0 && navItems.map((item, index) => (
+                            <Nav.Link key={index} href={item.path}>
+                                {item.label}
+                            </Nav.Link>
+                        ))}
                     </Nav>
                     <div className={`d-flex align-items-center ${styles.rightActions}`}>
                         {/* <a href="#order" className="btn btn-dark" style={{ width: "125px" }}>Order Online</a> */}

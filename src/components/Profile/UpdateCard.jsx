@@ -22,6 +22,7 @@ const UpdateCard = (props) => {
         address_1: user.address_1 || '',
         address_2: user.address_2 || '',
     });
+    const handleCancel = props.cancelUpdate;
 
     const handleChange = (e) => {
         const { name, value, type, checked } = e.target;
@@ -286,8 +287,11 @@ const UpdateCard = (props) => {
                                 />
                             </Col>
                         </Form.Group> */}
-                        <Button variant="secondary" className="w-100" onClick={() => handleSubmit()}>
+                        <Button variant="dark" className="w-100" onClick={() => handleSubmit()}>
                             Apply
+                        </Button>
+                        <Button variant="outline-dark" className="w-100 mt-2" onClick={handleCancel}>
+                            Cancel
                         </Button>
                     </Form>
                 </Card.Body>

@@ -1,6 +1,7 @@
 import { getFromLocalStorage, setToLocalStorage } from '../services/LocalStorageUtils';
 import { postDataFromAPI } from '../services/APIUtils';
 import CONFIG from '../config';
+
 const USE_MOCK_DATA = CONFIG.USE_MOCK_DATA;
 
 export const updateProfile = async (data) => {
@@ -22,6 +23,7 @@ export const updateProfile = async (data) => {
 
     return await postDataFromAPI('/customer/update_profile', data);
 }
+
 export const addCard = async (data) => {
     if (USE_MOCK_DATA) {
         const userPool = getFromLocalStorage("userPool") || [];

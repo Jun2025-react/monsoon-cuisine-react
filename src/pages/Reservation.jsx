@@ -46,6 +46,14 @@ const Reservation = () => {
 
     }, [selectedDate]);
 
+    const handlePhoneChange = (e) => {
+        const { name, value } = e.target;
+        console.log("Phone Change:", name, value);
+        if (!/^\d*$/.test(value)) return; // digits only
+        
+        setContactNumber(value);
+    }
+
     return (
         <div
             className="d-flex justify-content-center align-items-center py-5"
@@ -116,7 +124,7 @@ const Reservation = () => {
                                     <FloatingTextBox
                                         label="Contact Number"
                                         value={contactNumber}
-                                        onChange={(e) => setContactNumber(e.target.value)}
+                                        onChange={handlePhoneChange}
                                         type="text"
                                         readOnly={false}
                                     />

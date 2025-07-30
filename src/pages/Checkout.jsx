@@ -3,6 +3,7 @@ import { Row, Card } from 'react-bootstrap';
 import PickupDetailCard from '../components/Checkout/PickupDetailCard';
 import OrderPaymentCard from '../components/Checkout/OrderPaymentCard';
 import { CheckoutProvider } from '../context/CheckoutContext';
+import ConfirmationCard from '../components/Checkout/ConfirmationCard';
 
 const Checkout = () => {
   // checkoutOptions
@@ -23,17 +24,24 @@ const Checkout = () => {
     time: time
   }
 
-  const [pickupState, setPickupState] = useState(pickupInfo);
+  const [isCompleted, setIsCompleted] = useState(false);
 
   return (
     <CheckoutProvider>
-      <div style={{ padding: '40px', backgroundColor: '#f2f2f2', minHeight: '100vh' }}>
-        <Row className="g-4" style={{ justifyContent: 'center', gap: 20 }}>
-          {/* Left Pane */}
-          <PickupDetailCard />
-          {/* Right Pane */}
-          <OrderPaymentCard />
-        </Row>
+      <div style={{ padding: '40px', backgroundColor: '#f2f2f2', minHeight: '70vh' }}>
+        {
+          !isCompleted ? 
+            <Row className="g-4" style={{ justifyContent: 'center', gap: 20 }}>
+              {/* Left Pane */}
+              <PickupDetailCard />
+              {/* Right Pane */}
+              <OrderPaymentCard />
+            </Row>
+          :
+            <Row className="g-4" style={{ justifyContent: 'center', maxWidth: 800, margin: 'auto', padding: '20px' }}>
+              <ConfirmationCard />
+            </Row>
+        }
       </div>
     </CheckoutProvider>
   );

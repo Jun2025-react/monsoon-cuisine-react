@@ -28,6 +28,9 @@ const AddCardModal = ({ show, handleModalClose }) => {
             if (name === "card3") card4Ref.current?.focus();
         }
     };
+    const handleCardHolderChange = (e) => {
+        setCardInfo((prev) => ({ ...prev, name: e.target.value }));
+    };
 
     const handleCardSubmit = () => {
         const fullCardNumber = `${cardInfo.card1}${cardInfo.card2}${cardInfo.card3}${cardInfo.card4}`;
@@ -142,7 +145,7 @@ const AddCardModal = ({ show, handleModalClose }) => {
                             name="name"
                             placeholder="Card Holder Name"
                             value={cardInfo.name}
-                            onChange={handleCardChange}
+                            onChange={handleCardHolderChange}
                         />
                     </Form.Group>
                 </Form>

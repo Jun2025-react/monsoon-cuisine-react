@@ -1,11 +1,13 @@
 import React, { useState, useRef } from 'react';
 import { Modal, Form, Button } from 'react-bootstrap';
+import { addCard } from '../../services/ProfileService';
 
-const AddCardModal = ({ show, handleModalClose }) => {
+const AddCardModal = ({ user, show, handleClose, refreshCards }) => {
     const [cardInfo, setCardInfo] = useState({
         card1: '', card2: '', card3: '', card4: '',
         month: '', year: '',
-        name: ''
+        name: '',
+        card_number: ''
     });
 
     // Refs for auto-focus
@@ -32,24 +34,27 @@ const AddCardModal = ({ show, handleModalClose }) => {
         setCardInfo((prev) => ({ ...prev, name: e.target.value }));
     };
 
-    const handleCardSubmit = () => {
+    const handleCardSubmit = async () => {
         const fullCardNumber = `${cardInfo.card1}${cardInfo.card2}${cardInfo.card3}${cardInfo.card4}`;
-        console.log("Submitted Card Info:", {
-            cardNumber: fullCardNumber,
-            month: cardInfo.month,
-            year: cardInfo.year,
-            name: cardInfo.name
-        });
-        alert("Card added successfully!");
-        setCardInfo({
-            card1: '', card2: '', card3: '', card4: '',
-            month: '', year: '', name: ''
-        });
-        handleModalClose();
+        if (fullCardNumber.length !== 16) {
+            alert("Please enter a valid 16-digit card number.");
+            return;
+        }
+
+        const user_id = user?.user_id;
+        const payload = {
+            user_id,
+            card_number: fullCardNumber,
+            is_default: 0
+        };
+        
+        const result = addCard(payload)
+        refreshCards();
+        handleClose();
     };
 
     return (
-        <Modal show={show} onHide={handleModalClose} centered>
+        <Modal show={show} onHide={handleClose} centered>
             <Modal.Header closeButton />
             <Modal.Body>
                 <Form autoComplete="off">
@@ -151,7 +156,7 @@ const AddCardModal = ({ show, handleModalClose }) => {
                 </Form>
             </Modal.Body>
             <Modal.Footer>
-                <Button variant="outline-dark" onClick={handleModalClose}>
+                <Button variant="outline-dark" onClick={handleClose}>
                     Cancel
                 </Button>
                 <Button

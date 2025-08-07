@@ -19,6 +19,8 @@ const FormTextBox = ({
     const defaultSet = { "placeholder": "", "type": "text" };
     const address_1 = { "placeholder": "Address 1", "type": "text" };
     const address_2 = { "placeholder": "Address 2", "type": "text" };
+    const countryCode = { "placeholder": "Country Code", "type": "text" };
+    const phoneNumber = { "placeholder": "Phone Number", "type": "tel" };
 
     const preset = {
         "first_name": firstName,
@@ -29,7 +31,9 @@ const FormTextBox = ({
         "confirm_password": confirmPassword,
         "address_1": address_1,
         "address_2": address_2,
-        "default": defaultSet
+        "country_code": countryCode,
+        "phone_number": phoneNumber,
+        "default": defaultSet,
     };
 
     const selectedObj = preset[name] ? preset[name] : preset["default"];

@@ -1,7 +1,13 @@
 import React, { useState } from 'react';
-import { useAuth } from '../context/AuthContext';
+import { Elements } from '@stripe/react-stripe-js';
+import { loadStripe } from '@stripe/stripe-js';
+
 import ViewCard from '../components/Profile/ViewCard';
 import UpdateCard from '../components/Profile/UpdateCard';
+import CONFIG from '../config';
+
+const STRIPE_KEY = CONFIG.STRIPE_KEY;
+const stripePromise = loadStripe(STRIPE_KEY);
 
 const Profile = () => {
   const [isModifying, setIsModifying] = useState(false);
@@ -22,7 +28,9 @@ const Profile = () => {
       }}
     >
       {!isModifying ? (
-        <ViewCard buttonClick={handleMode} />
+        <Elements stripe={stripePromise}>
+          <ViewCard buttonClick={handleMode} />
+        </Elements>
       ) : (
         <UpdateCard buttonClick={handleMode} cancelUpdate={cancelUpdate} />
       )}

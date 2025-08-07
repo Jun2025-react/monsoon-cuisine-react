@@ -3,7 +3,6 @@ import { postDataFromAPI } from '../services/APIUtils';
 import CONFIG from '../config';
 
 const USE_MOCK_DATA = CONFIG.USE_MOCK_DATA;
-const STRIPE_KEY = CONFIG.STRIPE_KEY;
 
 export const updateProfile = async (data) => {
     if (USE_MOCK_DATA) {
@@ -29,7 +28,6 @@ export const addCard = async (data) => {
     
     const payload = {
         ...data,
-        stripe_key: STRIPE_KEY,
         is_default: data.is_default || 0
     };
     
@@ -40,14 +38,13 @@ export const addCard = async (data) => {
         const newCard = {
             id: randomId,
             user_id: data.user_id,
-            token: STRIPE_KEY,
+            token: data.stripeToken,
             is_default: data.is_default || 0,
             is_expired: 0,
             card_number: data.card_number,
             created_at: new Date().toISOString(),
             updated_at: new Date().toISOString(),
         }
-        console.log("new Card :: " , newCard);
         setToLocalStorage("userCards", [...userCards, newCard]);
         
         return { 

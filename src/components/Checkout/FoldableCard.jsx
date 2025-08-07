@@ -31,8 +31,9 @@ const FoldableCard = (
                 <button
                     onClick={onClickToggle}
                     className="btn p-0 m-0"
-                    style={{ fontSize: 16 }}
+                    style={{ fontSize: 16, width: 60 }}
                     aria-label="Toggle Cart Items"
+
                 >
                     <i className={`p-3 fas ${show ? 'fa-chevron-up' : 'fa-chevron-down'}`}></i>
                 </button>

@@ -104,7 +104,7 @@ const OrderPaymentCard = ({ paymentMethod, onPaymentMethodChange }) => {
                     <div className="d-flex justify-content-between fw-bold mt-2"><span>Total</span><span>${subTotal}</span></div>
                 </div>
 
-                <button className="btn btn-dark w-100" onClick={onClickSubmit}>Next</button>
+                <button className="btn btn-dark w-100 p-2" onClick={onClickSubmit}>Next</button>
             </Card.Body>
         </Card>
     );

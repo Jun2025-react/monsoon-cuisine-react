@@ -15,9 +15,8 @@ const FloatingSelect = ({ label, options, value, onChange }) => {
       setOpen(false);
     }
   };
-  console.log("FloatingSelect value:", value);
+
   const isSelected = !!value ;
-  console.log("FloatingSelect isSelected:", isSelected);
   useEffect(() => {
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
